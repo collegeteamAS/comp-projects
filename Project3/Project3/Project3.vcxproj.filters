@@ -24,6 +24,33 @@
     <ClCompile Include="playerlist.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+    <ClCompile Include="livingroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="kitchen.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bathroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hallway.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diningroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bedroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="attic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="startingroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+=======
     <ClCompile Include="item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -31,6 +58,7 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="playeritem.cpp">
+>>>>>>> e246e3db4ef9f4ac299ce172ebdf64a01b3924d9
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
