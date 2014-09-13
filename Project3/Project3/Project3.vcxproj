@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{B90C7D90-1EB4-4A4E-83B8-C4FC5D93364F}</ProjectGuid>
+    <ProjectGuid>{D9316C48-2F36-4C33-903A-5C9081394FCC}</ProjectGuid>
     <RootNamespace>Project3</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -68,29 +68,24 @@
     <ClCompile Include="bathroom.cpp" />
     <ClCompile Include="bedroom.cpp" />
     <ClCompile Include="constants.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="diningroom.cpp" />
     <ClCompile Include="hallway.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="kitchen.cpp" />
     <ClCompile Include="livingroom.cpp" />
+    <ClCompile Include="location.cpp" />
     <ClCompile Include="main.cpp" />
-=======
-    <ClCompile Include="item.cpp" />
->>>>>>> e246e3db4ef9f4ac299ce172ebdf64a01b3924d9
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playeritem.cpp" />
-    <ClCompile Include="playerlist.cpp" />
-<<<<<<< HEAD
-    <ClCompile Include="startingroom.cpp" />
-=======
     <ClCompile Include="roomitem.cpp" />
->>>>>>> e246e3db4ef9f4ac299ce172ebdf64a01b3924d9
+    <ClCompile Include="startingroom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="item.h" />
-    <ClInclude Include="playeritem.h" />
+    <ClInclude Include="location.h" />
     <ClInclude Include="menutext.h" />
     <ClInclude Include="player.h" />
+    <ClInclude Include="playeritem.h" />
     <ClInclude Include="playerlist.h" />
     <ClInclude Include="roomitem.h" />
   </ItemGroup>

@@ -15,70 +15,72 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="attic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bathroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="player.cpp">
+    <ClCompile Include="bedroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="playerlist.cpp">
+    <ClCompile Include="diningroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-<<<<<<< HEAD
+    <ClCompile Include="item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hallway.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="livingroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="kitchen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bathroom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hallway.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="diningroom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bedroom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="attic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="startingroom.cpp">
+    <ClCompile Include="location.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
-=======
-    <ClCompile Include="item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playeritem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="roomitem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="playeritem.cpp">
->>>>>>> e246e3db4ef9f4ac299ce172ebdf64a01b3924d9
+    <ClCompile Include="startingroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="location.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="menutext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="playerlist.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="playeritem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="roomitem.h">
+    <ClInclude Include="playerlist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="item.h">
+    <ClInclude Include="roomitem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

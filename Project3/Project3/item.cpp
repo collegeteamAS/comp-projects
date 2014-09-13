@@ -4,8 +4,8 @@
 	Item class, for all the items
 */
 
-#include "item.h"
 #include <string>
+#include "item.h"
 
 // @author Andre Allan Ponce
 Item::Item() : name("debug"){
