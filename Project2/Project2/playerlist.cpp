@@ -4,7 +4,6 @@
 	PlayerList class (wrapper for Player array)
 */
 
-
 #include <string>
 #include <sstream>
 #include "player.h"
@@ -13,7 +12,7 @@
 using namespace std;
 
 // @author Andre Allan Ponce
-PlayerList::PlayerList() : numberOfPlayers(0), fileName(""), players(NULL){
+PlayerList::PlayerList() : numberOfPlayers(0), fileName(""), players(){
 	// constructors should be empty, yo
 }
 
@@ -23,20 +22,32 @@ PlayerList::PlayerList(int playerCount, string fName) : numberOfPlayers(playerCo
 }
 
 // @author Andre Allan Ponce
-void PlayerList::addPlayer(Player *pl){
+void PlayerList::addPlayerToExistingList(Player *pl){
+	if(fileName != ""){
+		Player* playersNew = new Player[numberOfPlayers+1];
+		for(int i = 0; i < numberOfPlayers;i++){
+			playersNew[i] = players[i];
+		}
+		players.reset(playersNew);
+	}
+	addPlayerToNewList(pl);
+}
+
+// @author Andre Allan Ponce
+void PlayerList::addPlayerToNewList(Player *pl){
 	players[numberOfPlayers++] = *pl;
 }
 
 // @author Andre Allan Ponce
 void PlayerList::createArray(int size){
-	players = new Player[size];
+	players.reset(new Player[size]);
 }
 
 // @author Andre Allan Ponce
 void PlayerList::deleteArray(){
 	if(numberOfPlayers > 0){
 		// cout << "zeroing test";
-		delete [] players; // delete the list iff there is stuff in it
+		players.reset(); // delete the list iff there is stuff in it
 	}
 }
 

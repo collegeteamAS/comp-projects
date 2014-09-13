@@ -149,18 +149,18 @@ void menuTwo(PlayerList* pList){
 	bool isMenuTwo = true;
 	while(isMenuTwo){
 		int choice = menuChoice(MenuText::MENU_TWO);
-		cout << pList->getNumberOfPlayers();
+		// cout << pList->getNumberOfPlayers();
 		switch(choice){
 		case 1 : { // Print all players
 			cout << pList->printPlayers();
 			break;
 		}
 		case 2 : { // Create a new player!
-			pList->addPlayer(&createNewPlayer()); 
+			pList->addPlayerToExistingList(&createNewPlayer()); 
 			break;
 		}
 		case 3 : { // Generate a random player and add.
-			pList->addPlayer(&createRandomPlayer());  
+			pList->addPlayerToExistingList(&createRandomPlayer());  
 			break;
 		}
 		case 4 : { // Modify a player's name/Age!
@@ -262,7 +262,7 @@ bool readInFile(PlayerList* pList){
 			string name = line;
 			getline(inFile, line);
 			int age = convertStringToNum(line);
-			pList->addPlayer(&Player(name, age)); // pointers, yo 
+			pList->addPlayerToNewList(&Player(name, age)); // pointers, yo 
 			// cout << "addingplayers\n"; // debug
 		}
 		pList->setFileName(fileName);
