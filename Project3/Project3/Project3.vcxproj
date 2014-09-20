@@ -65,10 +65,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="attic.cpp" />
+    <ClCompile Include="basement.cpp" />
     <ClCompile Include="bathroom.cpp" />
     <ClCompile Include="bedroom.cpp" />
+    <ClCompile Include="bloodyhallway.cpp" />
     <ClCompile Include="constants.cpp" />
+    <ClCompile Include="darkhallway.cpp" />
     <ClCompile Include="diningroom.cpp" />
+    <ClCompile Include="garage.cpp" />
     <ClCompile Include="hallway.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="kitchen.cpp" />
@@ -77,16 +81,29 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playeritem.cpp" />
+    <ClCompile Include="room.cpp" />
     <ClCompile Include="roomitem.cpp" />
     <ClCompile Include="startingroom.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="attic.h" />
+    <ClInclude Include="basement.h" />
+    <ClInclude Include="bathroom.h" />
+    <ClInclude Include="bedroom.h" />
+    <ClInclude Include="bloodyhallway.h" />
+    <ClInclude Include="darkhallway.h" />
+    <ClInclude Include="diningroom.h" />
+    <ClInclude Include="garage.h" />
+    <ClInclude Include="hallway.h" />
     <ClInclude Include="item.h" />
+    <ClInclude Include="kitchen.h" />
+    <ClInclude Include="livingroom.h" />
     <ClInclude Include="location.h" />
     <ClInclude Include="menutext.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playeritem.h" />
     <ClInclude Include="playerlist.h" />
+    <ClInclude Include="room.h" />
     <ClInclude Include="roomitem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

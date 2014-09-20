@@ -60,6 +60,21 @@
     <ClCompile Include="startingroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="room.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="basement.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bloodyhallway.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="darkhallway.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="garage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="item.h">
@@ -81,6 +96,42 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="roomitem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="attic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="basement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bathroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bedroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bloodyhallway.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="darkhallway.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="diningroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="garage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hallway.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="kitchen.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="livingroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="room.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
