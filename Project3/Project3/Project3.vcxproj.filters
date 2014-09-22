@@ -134,5 +134,13 @@
     <ClInclude Include="room.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="roomdata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="rooms">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

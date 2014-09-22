@@ -1,5 +1,5 @@
-#include "basement.h"
 #include "room.h"
+#include "basement.h"
 
 // @author Andre Allan Ponce
 Basement::Basement() : Room(){

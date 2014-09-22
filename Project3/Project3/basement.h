@@ -2,6 +2,8 @@
 #ifndef _BASEMENT_H_INCLUDED_
 #define _BASEMENT_H_INCLUDED_
 
+//#include "room.h"
+
 class Basement : public Room{
 public:
 	Basement();

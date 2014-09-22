@@ -1,6 +1,7 @@
-#include <string>
-#include <iostream>
-#include "player.h"
+
+
+#ifndef _LOCATION_H_INCLUDED_
+#define _LOCATION_H_INCLUDED_
 
 using namespace std;
 
@@ -18,6 +19,8 @@ public:
 	void setVisited(bool vis);
 	void setSymbol(char sym);
 
-	virtual void draw();
-	virtual int visit(Player &p);
+	virtual std::string draw() = 0;
+	//virtual int visit(Player &p);
 };
+
+#endif

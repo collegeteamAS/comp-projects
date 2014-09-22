@@ -1,7 +1,7 @@
 
 #include <string>
-#include <iostream>
-#include "player.h"
+//#include <iostream>
+//#include "player.h"
 #include "location.h"
 
 
@@ -38,17 +38,20 @@ void Location::setSymbol(char sym)
 {
 	symbol = sym;
 }
-
-void Location::draw()
+/*
+std::string Location::draw()
 {
+	
 	if(visited)
 		cout<< symbol;
 	else
 		cout<< ".";
-}
-
+		
+}*/
+/*
 int Location::visit(Player &p)
 {
 	visited = true;
 	return 1;
 }
+*/
