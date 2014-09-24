@@ -6,6 +6,11 @@
 *.exe
 *.o
 *.so
+*.suo
+*.pdb
+*.ilk
+*.tlog
+*.obj
  
 # Packages #
 ############
