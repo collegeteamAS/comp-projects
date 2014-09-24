@@ -4,7 +4,7 @@
 
 //#include "room.h"
 
-class Basement : public Room{
+class Basement : public Location{
 public:
 	Basement();
 	Basement(int idNum, int xCoord, int yCoord, int h, int w);

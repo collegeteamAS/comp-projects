@@ -11,6 +11,12 @@
 *.ilk
 *.tlog
 *.obj
+*.sln
+*.sdf
+*.v11
+*.vcxproj
+*.filters
+*.user
  
 # Packages #
 ############

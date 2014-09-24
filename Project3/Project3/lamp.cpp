@@ -1,12 +1,10 @@
 #include <string>
 #include <iostream>
 #include "lamp.h"
-#include "constants.cpp"
 
 using namespace std;
 
-Lamp::Lamp()
+Lamp::Lamp(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = 'l';
-	description = ROOMITEM_LAMP;
+	
 }

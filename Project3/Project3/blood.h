@@ -11,7 +11,7 @@ class Blood:public Item
 	private:
 
 	public:
-		Blood();
+		Blood(char sym, int idNum);
 };
 
 #endif

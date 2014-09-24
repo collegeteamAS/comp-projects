@@ -11,7 +11,7 @@ class Bathtub:public Item
 	private:
 
 	public:
-		Bathtub();
+		Bathtub(char sym, int idNum);
 };
 
 #endif

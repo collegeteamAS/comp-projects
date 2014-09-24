@@ -1,12 +1,9 @@
 #include <string>
 #include <iostream>
 #include "toilet.h"
-#include "constants.cpp"
 
 using namespace std;
 
-Toilet::Toilet()
+Toilet::Toilet(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = 'l';
-	description = ROOMITEM_TOILET;
 }

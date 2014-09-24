@@ -11,7 +11,7 @@ class Dust:public Item
 	private:
 
 	public:
-		Dust();
+		Dust(char sym, int idNum);
 };
 
 #endif

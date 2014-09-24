@@ -23,6 +23,7 @@ int main(){
 	// now with roomdata and game
 	Game game = Game();
 	game.readInFile("rooms");
+	game.readInItemFile("items");
 	game.runGame();
 
 	/* proof of concept
