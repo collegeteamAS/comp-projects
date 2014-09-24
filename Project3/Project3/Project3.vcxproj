@@ -89,6 +89,10 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="room.cpp" />
     <ClCompile Include="roomdata.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="Source.cpp" />
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
     <ClCompile Include="startingroom.cpp" />
     <ClCompile Include="table.cpp" />
     <ClCompile Include="toilet.cpp" />

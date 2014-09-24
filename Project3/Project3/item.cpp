@@ -7,9 +7,15 @@
 */
 #include <iostream>
 #include <string>
+#include <random>
 #include "item.h"
+<<<<<<< HEAD
 //#include "location.h"
 
+=======
+#include "location.h"
+#include "player.h"
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
 // Steve Suh
 Item::Item(): symbol(NULL), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1), id(-1)
 {
@@ -38,6 +44,7 @@ char Item::getSymbol()
 	return symbol;
 }
 
+<<<<<<< HEAD
 int Item::getID(){
 	return id;
 }
@@ -54,3 +61,10 @@ void Item::action()
 {
 	
 }
+=======
+//steve suh
+void Item::action()
+{
+	std::cout << description;
+}
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2

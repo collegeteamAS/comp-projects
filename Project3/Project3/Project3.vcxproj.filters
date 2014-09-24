@@ -42,6 +42,19 @@
     <ClCompile Include="constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+    <ClCompile Include="startingroom.cpp">
+=======
+    <ClCompile Include="darkhallway.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="diningroom.cpp">
+>>>>>>> b070d0743d70b69e31bf8293975c36be22c20d59
+      <Filter>Source Files</Filter>
+    </ClCompile>
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
     <ClCompile Include="dish.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -110,9 +123,25 @@
     <ClInclude Include="bed.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+<<<<<<< HEAD
     <ClInclude Include="blood.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="bedroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+<<<<<<< HEAD
+    <ClInclude Include="attic.h">
+=======
+    <ClInclude Include="blood.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bloodyhallway.h">
+>>>>>>> b070d0743d70b69e31bf8293975c36be22c20d59
+      <Filter>Header Files</Filter>
+    </ClInclude>
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
     <ClInclude Include="candle.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -123,15 +123,30 @@ public:
 	};
 
 	Game();
+<<<<<<< HEAD
+	void displayInventory();
+=======
 
 	int getRandomNumber();
 
+>>>>>>> b070d0743d70b69e31bf8293975c36be22c20d59
 	void printGame();
 	void readInFile(std::string fileName);
 	void readInItemFile(std::string fileName);
 	void runGame();
+<<<<<<< HEAD
 	//int detectItemID();
 	Item* retrieveItem(int id);
+=======
+	int detectItemID();
+	Item* retrieveItem();
+
+	int orbProb [8]; // prob = 1/n
+	void updateOrbProbability();
+	bool orbInventory [8];
+	std::string orbInventoryNames [8]; //green, yellow, red, white, black, light, dark, pale
+
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
 };
 
 #endif

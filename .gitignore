@@ -11,12 +11,17 @@
 *.ilk
 *.tlog
 *.obj
+<<<<<<< HEAD
 *.sln
 *.sdf
 *.v11
 *.vcxproj
 *.filters
 *.user
+=======
+*.sdf
+*.v11
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
  
 # Packages #
 ############

@@ -10,6 +10,17 @@
 #include <iostream>
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
+<<<<<<< HEAD
+=======
+<<<<<<< HEAD
+#include <stdlib.h>
+=======
+<<<<<<< HEAD
+>>>>>>> b070d0743d70b69e31bf8293975c36be22c20d59
+#include "room.h"
+#include "item.h" 
+=======
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
 #include <time.h> // for waiting
 #include "item.h" 
 #include "openroom.h"
@@ -36,6 +47,7 @@
 #include "cd.h"
 
 // @author Andre Allan Ponce
+// Steve Suh
 Game::Game() : 
 	world(0),
 	roomData(), 
@@ -46,7 +58,15 @@ Game::Game() :
 	isFinalDoorIn(false),
 	currX(START_ROOM_X),
 	currY(START_ROOM_X){
-	// nothing here yet
+		orbInventoryNames[8] =  "Green Orb ",
+								"Yellow Orb",
+								"Red Orb   ",
+								"White Orb ",
+								"Black Orb ",
+								"Light Orb ",
+								"Dark Orb  ",
+								"Pale Orb  ";
+		orbProb[8] = 3,8,15,30,40,45,50,80;
 }
 
 // @author Andre Allan Ponce
@@ -144,6 +164,7 @@ void Game::createWorld(){
 
 }
 
+<<<<<<< HEAD
 // @author Andre Allan Ponce
 int Game::detectItemID(){
 	int currPlayerX = player->getRoomLocX();
@@ -253,6 +274,40 @@ int Game::findItemID(char sym){
 		break;
 	}
 	}
+=======
+//steve suh
+void Game::updateOrbProbability()
+{
+	int i = 0;
+	if(!orbInventory[0]&&!orbInventory[1]&&!orbInventory[2])
+	{
+	
+	}
+	for(int i=0;i<8;i++)
+	{
+		if(orbInventory[i]&&orbProb[i] != INFINITE)
+		{
+			orbProb[i+1] -= orbProb[i];
+			orbProb[i] = INFINITE;
+		}
+	}
+
+}
+
+void Game::displayInventory()
+{
+	string invenStr = "";
+	for (int i=0;i<8;i++)
+	{
+		invenStr += "[";
+		if(orbInventory[i])
+			invenStr += orbInventoryNames[i];
+		else
+			invenStr += "          ";
+		invenStr += "]\n";
+	}
+	cout << invenStr;
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
 }
 
 
@@ -378,12 +433,33 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 	}
 	case 0x45: // e key
 		{
+<<<<<<< HEAD
 			int id = detectItemID();
 			if(id >= 0){
 				Item* thisItem = retrieveItem(id);
 				thisItem->setDescription(itemData.getItemDesc(id));
 				thisItem->action();
 			}
+=======
+			int check = 0;
+			retrieveItem(detectItemID)->action();
+			updateOrbProbability();
+			while(check == 0)
+			{
+				if(rand()%orbProb[i] == 1)
+				{
+				orbInventory[i] = true;
+				check ++;
+				}
+			}
+
+			break;
+		}
+	case 0x49:
+		{
+			displayInventory();
+			break;
+>>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
 		}
 	default :{
 		// we dont move.
