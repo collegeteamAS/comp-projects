@@ -4,7 +4,7 @@
 	Item class, for all the items
 */
 #ifndef _ITEM_H_INCLUDED_
-#define _ITEM_H_INCLUDED
+#define _ITEM_H_INCLUDED_
 
 
 class Item{
@@ -17,20 +17,26 @@ protected:
 	int xRoom;
 	int yRoom;
 
-public:
 	char symbol;
 	bool keyAcheived;
-	std::string description;
+	int id;
+	std::string descript;
+public:
+	
 
 	Item();
-	Item(char sym);
+	Item(char sym, int idNum);
 
 	virtual void action();
 
 	char getSymbol();
+	int getID();
+	std::string getDescription();
 	int getBoardLocX();
 	int getBoardLocY();
 	int getItemLocX();
 	int getItemLocY();
+
+	void setDescription(std::string desc);
 };
 #endif

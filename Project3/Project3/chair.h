@@ -11,7 +11,7 @@ class Chair:public Item
 	private:
 
 	public:
-		Chair();
+		Chair(char sym, int idNum);
 };
 
 #endif

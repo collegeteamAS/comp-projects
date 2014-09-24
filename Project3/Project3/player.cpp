@@ -40,15 +40,6 @@ Player::Player(char sym) :
 	// constructors should be empty, yo
 }
 
-//Steve Suh
-int Player::detectItemID() // returns id of the item
-{
-	/*
-		*world[currX][currY][
-			return i.getItemID();
-	*/
-}
-
 
 // @author Andre Allan Ponce
 int Player::getBoardLocX(){

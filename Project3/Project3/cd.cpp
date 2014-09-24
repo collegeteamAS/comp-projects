@@ -1,12 +1,10 @@
 #include <string>
 #include <iostream>
-#include "Cd.h"
-#include "constants.cpp"
+#include "cd.h"
 
 using namespace std;
 
-Cd::Cd()
+Cd::Cd(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = 'a';
-	description = ROOMITEM_CD;
+	
 }

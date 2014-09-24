@@ -1,12 +1,10 @@
 #include <string>
 #include <iostream>
 #include "dish.h"
-#include "constants.cpp"
 
 using namespace std;
 
-Dish::Dish()
+Dish::Dish(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = 'd';
-	description = ROOMITEM_DISH;
+	
 }

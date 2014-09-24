@@ -1,12 +1,10 @@
 #include <string>
 #include <iostream>
 #include "blood.h"
-#include "constants.cpp"
 
 using namespace std;
 
-Blood::Blood()
+Blood::Blood(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = '*';
-	description = ROOMITEM_BLOOD;
+	
 }

@@ -6,12 +6,13 @@ h_suh@u.pacific.edu
 #define _VASE_H_INCLUDED_
 
 #include "item.h"
+
 class Vase:public Item
 {
 	private:
 
 	public:
-		Vase();
+		Vase(char sym, int idNum);
 };
 
 #endif

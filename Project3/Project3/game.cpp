@@ -10,15 +10,11 @@
 #include <iostream>
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
-<<<<<<< HEAD
-#include "room.h"
-#include "item.h" 
-=======
 #include <time.h> // for waiting
+#include "item.h" 
 #include "openroom.h"
 #include "closedroom.h"
 #include "closetroom.h"
->>>>>>> working
 #include "player.h"
 #include "menutext.h"
 #include "game.h"
@@ -43,6 +39,7 @@
 Game::Game() : 
 	world(0),
 	roomData(), 
+	itemData(),
 	player(0),
 	monster(0),
 	state(STATE_PRE_GAME),
@@ -77,7 +74,7 @@ void Game::changeRoom(int move){
 		break;
 	}
 	}
-	if(world[currX][currY] == NULL){
+	if(world[currX][currY] == 0){
 		world[currX][currY] = createRandomRoom(currX,currY,nextRoomDoor);
 	}
 }
@@ -140,98 +137,212 @@ void Game::createWorld(){
 	world = new Location**[WORLD_SIZE];
 	for(int i = 0; i < WORLD_SIZE; i++){
 		world[i] = new Location*[WORLD_SIZE];
+		for(int k = 0; k < WORLD_SIZE; k++){
+			world[i][k] = NULL;
+		}
+	}
+
+}
+
+// @author Andre Allan Ponce
+int Game::detectItemID(){
+	int currPlayerX = player->getRoomLocX();
+	int currPlayerY = player->getRoomLocY();
+	bool noItem = true;
+	Location* currRoom = world[currX][currY];
+	for(int i = 1; i < 5; i++){
+		switch(i){
+		case MOVE_LEFT:{
+			int finding = findItemID(currRoom->getSpaceAt(currPlayerX,currPlayerY-1));
+			if(finding >= 0){
+				return finding;
+			}
+			break;
+		}
+		case MOVE_UP:{
+			int finding = findItemID(currRoom->getSpaceAt(currPlayerX-1,currPlayerY));
+			if(finding >= 0){
+				return finding;
+			}
+			break;
+		}
+		case MOVE_RIGHT:{
+			int finding = findItemID(currRoom->getSpaceAt(currPlayerX,currPlayerY+1));
+			if(finding >= 0){
+				return finding;
+			}
+			break;
+		}
+		case MOVE_DOWN:{
+			int finding = findItemID(currRoom->getSpaceAt(currPlayerX+1,currPlayerY));
+			if(finding >= 0){
+				return finding;
+			}
+			break;
+		}
+		}
+	}
+	return -1;
+}
+
+// @author Andre Allan Ponce
+int Game::findItemID(char sym){
+	switch(sym){
+	case JUNK_SYMBOL:{
+		return itemData.ROOMITEM_JUNK;
+		break;
+	}
+	case VASE_SYMBOL:{
+		return itemData.ROOMITEM_VASE;
+		break;
+	}
+	case TABLE_SYMBOL:{
+		return itemData.ROOMITEM_TABLE;
+		break;
+	}
+	case CHAIR_SYMBOL:{
+		return itemData.ROOMITEM_CHAIR;
+		break;
+	}
+	case LAMP_SYMBOL:{
+		return itemData.ROOMITEM_LAMP;
+		break;
+	}
+	case BED_SYMBOL:{
+		return itemData.ROOMITEM_BED;
+		break;
+	}
+	case CANDLE_SYMBOL:{
+		return itemData.ROOMITEM_CANDLE;
+		break;
+	}
+	case DISH_SYMBOL:{
+		return itemData.ROOMITEM_DISH;
+		break;
+	}
+	case DUST_SYMBOL:{
+		return itemData.ROOMITEM_DUST;
+		break;
+	}
+	case FORK_SYMBOL:{
+		return itemData.ROOMITEM_FORK;
+		break;
+	}
+	case TOILET_SYMBOL:{
+		return itemData.ROOMITEM_TOILET;
+		break;
+	}
+	case BATHTUB_SYMBOL:{
+		return itemData.ROOMITEM_BATHTUB;
+		break;
+	}
+	case MIRROR_SYMBOL:{
+		return itemData.ROOMITEM_MIRROR;
+		break;
+	}
+	case BLOOD_SYMBOL:{
+		return itemData.ROOMITEM_BLOOD;
+		break;
+	}
+	case CD_SYMBOL:{
+		return itemData.ROOMITEM_CD;
+		break;
+	}
+	default:{
+		return -1;
+		break;
+	}
 	}
 }
 
 
-bool isEmpty()
-{
-	if(
-}
-
-Item* retrieveItem(int id)
+Item* Game::retrieveItem(int id)
 {
 	Item *i;
 	switch(id)
 	{
 	case 0:
 		{
-			i = new Junk();
+			i = new Junk(JUNK_SYMBOL,id);
 			break;
 		}
 	case 1:
 		{
-			i = new Vase();
+			i = new Vase(VASE_SYMBOL,id);
 			break;
 		}
 	case 2:
 		{
-			i = new Table();
+			i = new Table(TABLE_SYMBOL,id);
 			break;
 		}
 	case 3:
 		{
-			i = new Chair();
+			i = new Chair(CHAIR_SYMBOL,id);
 			break;
 		}
 	case 4:
 		{
-			i = new Lamp();
+			i = new Lamp(LAMP_SYMBOL,id);
 			break;
 		}
 	case 5:
 		{
-			i = new Bed();
+			i = new Bed(BED_SYMBOL,id);
 			break;
 		}
 	case 6:
 		{
-			i = new Candle();
+			i = new Candle(CANDLE_SYMBOL,id);
 			break;
 		}
 	case 7:
 		{
-			i = new Dish();
+			i = new Dish(DISH_SYMBOL,id);
 			break;
 		}
 	case 8:
 		{
-			i = new Dust();
+			i = new Dust(DUST_SYMBOL,id);
 			break;
 		}
 	case 9:
 		{
-			i = new Fork();
+			i = new Fork(FORK_SYMBOL,id);
 			break;
 		}
 	case 10:
 		{
-			i = new Toilet();
+			i = new Toilet(TOILET_SYMBOL,id);
 			break;
 		}
 	case 11:
 		{
-			i = new Bathtub();
+			i = new Bathtub(BATHTUB_SYMBOL,id);
 			break;
 		}
 	case 12:
 		{
-			i = new Mirror();
+			i = new Mirror(MIRROR_SYMBOL,id);
 			break;
 		}
 	case 13:
 		{
-			i = new Blood();
+			i = new Blood(BLOOD_SYMBOL,id);
 			break;
 		}
 	case 14:
 		{
-			i = new Cd();
+			i = new Cd(CD_SYMBOL,id);
 			break;
 		}
+	default:
+		i = new Junk('d',-1);
 	}
 
 	return i;
+
+	//return i;
 }
 // @author Computergeek01
 // url: http://www.cplusplus.com/forum/beginner/75529/
@@ -265,9 +376,14 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 		movePlayer(MOVE_DOWN, currRoom);
 		break;
 	}
-	case 0x45:
+	case 0x45: // e key
 		{
-			player->detectItemID().retrieveItem()->action();
+			int id = detectItemID();
+			if(id >= 0){
+				Item* thisItem = retrieveItem(id);
+				thisItem->setDescription(itemData.getItemDesc(id));
+				thisItem->action();
+			}
 		}
 	default :{
 		// we dont move.
@@ -416,7 +532,8 @@ void Game::readInFile(std::string fileName){
 		inFile >> id;
 		inFile >> rows;
 		inFile >> cols;
-		inFile.ignore();
+		inFile.ignore(10, '\n');
+		cout << id << rows << cols;
 		char** tempRoom = new char*[rows];
 		for(int i = 0; i < rows; i++){
 			std::string line = "";
@@ -433,6 +550,32 @@ void Game::readInFile(std::string fileName){
 			delete [] tempRoom[i];
 		}
 		delete [] tempRoom;
+	}
+	inFile.close();
+}
+
+// @author Andre Allan Ponce
+void Game::readInItemFile(std::string fileName){
+	std::ifstream inFile;
+	inFile.open(fileName.c_str());
+	if(!inFile.good()){
+		throw MenuText::ERROR_FILE_NAME;
+	}
+	int size;
+	inFile >> size;
+	inFile.ignore();
+	itemData.setSize(size);
+	while(!inFile.eof()){
+		int id;
+		inFile >> id;
+		std::string name;
+		char symbol;
+		inFile >> name;
+		inFile >> symbol;
+		inFile.ignore();
+		std::string line = "";
+		getline(inFile,line);
+		itemData.createItemEntry(id, name, line);
 	}
 	inFile.close();
 }
@@ -465,7 +608,7 @@ void Game::runGame(){
 		}
 		case STATE_WAIT:{
 			
-			if(clock() - startTime > 100){
+			if(clock() - startTime > 20){
 				state = old_state;
 			}
 			//*/

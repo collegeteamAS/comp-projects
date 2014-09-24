@@ -11,7 +11,7 @@ class Fork:public Item
 	private:
 
 	public:
-		Fork();
+		Fork(char sym, int idNum);
 };
 
 #endif
