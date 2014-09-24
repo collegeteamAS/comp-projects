@@ -2,10 +2,12 @@
 	Andre Allan Ponce
 	a_ponce1@u.pacific.edu
 	Header for Player class
+	Steve Suh
+	h_suh@u.pacific.edu
 */
 #ifndef _PLAYER_H_INCLUDED_
 #define _PLAYER_H_INCLUDED_
-
+#include <array>
 class Player{
 private:
 	//std::string name;
@@ -21,11 +23,13 @@ private:
 	int yRoom;
 
 public:
+
 	Player();
 	//Player(std::string n, char sym);
 	Player(char sym);
 
-	//int detectItemID();
+	
+	int detectItemID();
 	int getBoardLocX();
 	int getBoardLocY();
 	int getRoomLocX();

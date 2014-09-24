@@ -4,39 +4,32 @@
 	Item class, for all the items
 */
 #ifndef _ITEM_H_INCLUDED_
-#define _ITEM_H_INCLUDED_
+#define _ITEM_H_INCLUDED
 
 
-class Item{
-protected:
-	// location on Location Board
-	int xBoard;
-	int yBoard;
+class Item
+{
+	protected:
+		// location on Location Board
+		int xBoard;
+		int yBoard;
 
-	// location in room
-	int xRoom;
-	int yRoom;
+		// location in room
+		int xRoom;
+		int yRoom;
+	public:
+		char symbol;
+		bool keyAcheived;
+		std::string description;
 
-	char symbol;
-	bool keyAcheived;
-	int id;
-	std::string descript;
-public:
-	
+		Item();
+		Item(char sym);
 
-	Item();
-	Item(char sym, int idNum);
-
-	virtual void action();
-
-	char getSymbol();
-	int getID();
-	std::string getDescription();
-	int getBoardLocX();
-	int getBoardLocY();
-	int getItemLocX();
-	int getItemLocY();
-
-	void setDescription(std::string desc);
+		virtual void action();
+		char getSymbol();
+		int getBoardLocX();
+		int getBoardLocY();
+		int getItemLocX();
+		int getItemLocY();
 };
 #endif

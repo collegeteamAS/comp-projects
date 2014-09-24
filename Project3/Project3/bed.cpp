@@ -1,10 +1,12 @@
 #include <string>
 #include <iostream>
 #include "bed.h"
+#include "constants.cpp"
 
 using namespace std;
 
-Bed::Bed(char sym, int idNum) : Item(sym,idNum)
+Bed::Bed()
 {
-	
+	symbol = 'b';
+	description = ROOMITEM_BED;
 }

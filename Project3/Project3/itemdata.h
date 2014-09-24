@@ -6,19 +6,14 @@ h_suh@u.pacific.edu
 #define _ITEMDATA_H_INCLUDED_
 
 #include <unordered_map>
-#include <string>
-
-//class Item;
 
 class ItemData{
 private:
-	std::unordered_map<int,std::string*> data;
-	//std::string itemNames[
-	// private methods
-	//std::string name;
-	//std::string description;
-	int size;
+	std::unordered_map<int,char**> data;
 
+	// private methods
+	std::string name;
+	std::string description;
 public:
 	enum Constants{
 		// RoomItem IDs
@@ -41,23 +36,13 @@ public:
 		// player item IDs
 		PLAYERITEM_KEY = 0,
 
-		ITEM_NAME = 0,
-		ITEM_DESC = 1,
 	};
-	ItemData();
-	ItemData(int s);
 
-	//Item* retrieveItem(int id);
-	void createItemEntry(int id, std::string n , std::string d);
+	Item retrieveItem(int id);
 
-	std::string getItemDesc(int id);
-	std::string getItemName(int id);
-	char getItemSym(int id);
-	int getSize();
-	
 
-	void setSize(int s);
-	
+	std::string getItemName();
+	void setItemName(std::string n);
 };
 
 #endif

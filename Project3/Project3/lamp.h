@@ -11,7 +11,7 @@ class Lamp:public Item
 	private:
 
 	public:
-		Lamp(char sym, int idNum);
+		Lamp();
 };
 
 #endif

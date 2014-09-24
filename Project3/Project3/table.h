@@ -11,7 +11,7 @@ class Table:public Item
 	private:
 
 	public:
-		Table(char sym, int idNum);
+		Table();
 };
 
 #endif

@@ -1,12 +1,12 @@
 #include <string>
 #include <iostream>
-#include "table.h"
+#include "cd.h"
 #include "constants.cpp"
 
 using namespace std;
 
-Table::Table()
+Cd::Cd()
 {
-	symbol = 't';
-	description = ROOMITEM_TABLE;
+	symbol = 'a';
+	description = ROOMITEM_CD;
 }

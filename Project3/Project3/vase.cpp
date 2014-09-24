@@ -1,10 +1,12 @@
 #include <string>
 #include <iostream>
 #include "vase.h"
+#include "constants.cpp"
 
 using namespace std;
 
-Vase::Vase(char sym, int idNum) : Item(sym,idNum)
+Vase::Vase()
 {
-	//symbol = 'l';
+	symbol = 'l';
+	description = ROOMITEM_VASE;
 }
