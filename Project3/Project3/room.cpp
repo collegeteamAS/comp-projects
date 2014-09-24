@@ -9,6 +9,7 @@
 
 
 // @author Andre Allan Ponce
+/*
 Room::Room() : 
 	Location(-1, -1), 
 	id(-1), 
@@ -41,7 +42,7 @@ void Room::createArray(){
 	delete method for Room, since we have to delete the arrays, yo
 	Putting this in the destructor is causing errors.
 	@author Andre Allan Ponce
-*/
+
 void Room::deleteArray(){
 	if(height > 0){
 		if(width > 0){
@@ -52,7 +53,7 @@ void Room::deleteArray(){
 		delete [] roomLayout;
 	}
 }
-//*/
+
 
 // @author Andre Allan Ponce
 bool Room::doesRoomHaveCloset(){
@@ -86,7 +87,7 @@ void Room::fillArray(std::stringstream& in){
 		in.ignore(std::numeric_limits<std::streamsize>::max(),'\n'); // apparently getline has been overloaded by sstream, so we have to do this to enter next line.
 	}
 }
-//*/
+
 
 // @author Andre Allan Ponce
 void Room::fillArrayRow(std::string line, int row){
@@ -124,7 +125,7 @@ bool Room::isRoomClosed(){
 
 // @author Andre Allan Ponce
 // @returns true if player moved, false if not (because of illegal move)
-bool movePlayer(int xOld, int yOld, char player, int xNew, int yNew){
+bool Room::movePlayer(int xOld, int yOld, char player, int xNew, int yNew){
 	if(getSpaceAt(xNew, yNew) == ' '){
 		resetSpace(xOld, yOld, EMPTY_SPACE);
 		setPlayer(xNew, yNew, player);
@@ -147,9 +148,10 @@ void Room::setPlayer(int xPlay, int yPlay, char player){
 // @author Andre Allan Ponce
 void Room::setRoomCloset(bool value){
 	hasCloset = value;
-}//*/
+}
 
 // @author Andre Allan Ponce
 void Room::setRoomID(int idNum){
 	id = idNum;
 }
+//*/

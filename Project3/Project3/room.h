@@ -8,19 +8,8 @@
 
 class Room : public Location{
 protected:
-	int id;
-	char** roomLayout; // visualization of the room
-	// roomLayout(0,std::vector<char>(0,'0'))
-
-	// rooms with closets have importance
-	bool hasCloset;
-
-	// rooms with only one door are closed
-	bool isClosed;
-
-	// rooms got some size
-	int width;
-	int height;
+	
+	
 
 public:
 	
@@ -42,9 +31,9 @@ public:
 	int getWidth();
 
 	bool isRoomClosed();
-	friend bool movePlayer(int xOld, int yOld, char player, int xNew, int yNew);
-	friend void resetSpace(int xSpace, int ySpace, char space);
-	friend void setPlayer(int xPlay, int yPlay, char player);
+	bool movePlayer(int xOld, int yOld, char player, int xNew, int yNew);
+	void resetSpace(int xSpace, int ySpace, char space);
+	void setPlayer(int xPlay, int yPlay, char player);
 
 	//void setRoomCloset(bool value);
 	void setRoomID(int idNum);

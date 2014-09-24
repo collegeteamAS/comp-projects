@@ -4,13 +4,13 @@
 #include <locale>
 #include <fstream>
 #include <iostream>
-#include <Windows.h> // keyboard input!
-#include <wincon.h> // more keyboard input
+//#include <Windows.h> // keyboard input!
+//#include <wincon.h> // more keyboard input
 #include <time.h>
 //#include <sstream>
 //#include "location.h"
-#include "room.h" // debug
-//#include "game.h"
+//#include "room.h" // debug
+#include "game.h"
 
 // debug test methods:
 void fillArrays(std::string fileName);
@@ -21,13 +21,14 @@ int convertStringToNum(std::string numStr);
 int main(){
 	// antohter debug
 	// now with roomdata and game
-	//Game game = Game();
-	//game.readInFile("rooms");
+	Game game = Game();
+	game.readInFile("rooms");
+	game.runGame();
 
 	/* proof of concept
 	these methods load up a file and display it.
 	actual file loading will use RoomData class.
-	//*/
+	
 	std::string file = "rooms";
 	fillArrays(file);
 	//*/
@@ -96,7 +97,7 @@ int convertStringToNum(std::string numStr){
 	return num;
 }
 
-
+/*
 void fillArrays(std::string fileName){
 	std::ifstream inFile;
 	inFile.open(fileName.c_str());
