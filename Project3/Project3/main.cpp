@@ -8,8 +8,9 @@
 #include <wincon.h> // more keyboard input
 #include <time.h>
 //#include <sstream>
-#include "location.h"
-#include "room.h"
+//#include "location.h"
+#include "room.h" // debug
+//#include "game.h"
 
 // debug test methods:
 void fillArrays(std::string fileName);
@@ -18,10 +19,15 @@ void fillArrays(std::string fileName);
 int convertStringToNum(std::string numStr);
 
 int main(){
+	// antohter debug
+	// now with roomdata and game
+	//Game game = Game();
+	//game.readInFile("rooms");
 
 	/* proof of concept
 	these methods load up a file and display it.
 	actual file loading will use RoomData class.
+	//*/
 	std::string file = "rooms";
 	fillArrays(file);
 	//*/
@@ -31,21 +37,22 @@ int main(){
 
 	// testing the input!:  http://www.cplusplus.com/forum/beginner/75529/
 	// lets see this.
+	/*
 	HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
     DWORD NumInputs = 0;
     DWORD InputsRead = 0;
     bool running = true;
-    INPUT_RECORD irInput;
+    INPUT_RECORD* irInput = new INPUT_RECORD;
     GetNumberOfConsoleInputEvents(hInput, &NumInputs);
     while(running)
     {
 		//currTime = clock();
-        ReadConsoleInput(hInput, &irInput, 1, &InputsRead);
+        ReadConsoleInput(hInput, irInput, 1, &InputsRead);
         //std::cout << irInput.Event.KeyEvent.wVirtualKeyCode << std::endl;
 		// irInput.Event.KeyEvent.wVirtualKeyCode;
 
 		
-        switch(irInput.Event.KeyEvent.wVirtualKeyCode)
+        switch(irInput->Event.KeyEvent.wVirtualKeyCode)
         {
             case VK_ESCAPE:{
                 running = false;
@@ -73,14 +80,12 @@ int main(){
 				break;
 			}
         } 
-		//*/
+		
         
     }
-
-
-
+	//*/
 	return 0;
-} 
+}
 
 /*
 	converts a string to an int
@@ -90,6 +95,7 @@ int convertStringToNum(std::string numStr){
 	int num = atoi(numStr.c_str());
 	return num;
 }
+
 
 void fillArrays(std::string fileName){
 	std::ifstream inFile;
@@ -104,7 +110,7 @@ void fillArrays(std::string fileName){
 		std::cout << "ID: " << id << "\n";
 		std::cout << "height: " << rows << "\n";
 		std::cout << "width: " << cols << "\n";
-		Room *romPtr = &Room(id,0,0,rows,cols);
+		Room *romPtr = &Room(id,0,0,rows,cols,false,false);
 		romPtr->createArray();
 		//std::stringstream in;
 		//std::getline(inFile, line);
@@ -129,4 +135,4 @@ void fillArrays(std::string fileName){
 		std::cout << "room:\n";
 		std::cout << romPtr->draw();
 	}
-}
+}//*/

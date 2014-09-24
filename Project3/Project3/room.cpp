@@ -9,12 +9,26 @@
 
 
 // @author Andre Allan Ponce
-Room::Room() : Location(), id(-1), roomLayout(0),x(-1), y(-1),hasCloset(false),width(-1),height(-1){
+Room::Room() : 
+	Location(-1, -1), 
+	id(-1), 
+	roomLayout(0),
+	hasCloset(false),
+	isClosed(true),
+	width(-1),
+	height(-1){
 
 }
 
 // @author Andre Allan Ponce
-Room::Room(int idNum, int xCoord, int yCoord, int h, int w) : Location(), id(idNum),roomLayout(0),x(xCoord),y(yCoord),hasCloset(false),width(w),height(h){
+Room::Room(int idNum, int xCoord, int yCoord, int h, int w, bool closet, bool closed) : 
+	Location(xCoord, yCoord), 
+	id(idNum),
+	roomLayout(0),
+	hasCloset(closet),
+	isClosed(closed),
+	width(w),
+	height(h){
 	
 }
 
@@ -94,24 +108,46 @@ int Room::getRoomID(){
 }
 
 // @author Andre Allan Ponce
+char Room::getSpaceAt(int xCoord, int yCoord){
+	return roomLayout[x][y];
+}
+
+// @author Andre Allan Ponce
 int Room::getWidth(){
 	return width;
 }
 
 // @author Andre Allan Ponce
-int Room::getX(){
-	return x;
+bool Room::isRoomClosed(){
+	return isClosed;
 }
 
 // @author Andre Allan Ponce
-int Room::getY(){
-	return y;
+// @returns true if player moved, false if not (because of illegal move)
+bool movePlayer(int xOld, int yOld, char player, int xNew, int yNew){
+	if(getSpaceAt(xNew, yNew) == ' '){
+		resetSpace(xOld, yOld, EMPTY_SPACE);
+		setPlayer(xNew, yNew, player);
+		return true;
+	}
+	return false;
 }
 
+// @author Andre Allan Ponce
+void Room::resetSpace(int xSpace, int ySpace, char space){
+	roomLayout[xSpace][ySpace] = space;
+}
+
+// @author Andre Allan Ponce
+void Room::setPlayer(int xPlay, int yPlay, char player){
+	roomLayout[xPlay][yPlay] = player;
+}
+
+/*
 // @author Andre Allan Ponce
 void Room::setRoomCloset(bool value){
 	hasCloset = value;
-}
+}//*/
 
 // @author Andre Allan Ponce
 void Room::setRoomID(int idNum){

@@ -1,32 +1,31 @@
-﻿Build started 9/22/2014 7:37:53 AM.
+﻿Build started 9/23/2014 5:55:54 PM.
      1>Project "C:\Users\Potato\Documents\comp-projects\Project3\Project3\Project3.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt constants.cpp game.cpp main.cpp room.cpp
+         room.cpp
+     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(127): error C2039: 'movePlayer' : is not a member of 'Room'
+                 c:\users\potato\documents\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
+     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(128): error C3861: 'getSpaceAt': identifier not found
+     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(129): error C2065: 'EMPTY_SPACE' : undeclared identifier
+     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(137): error C2039: 'resetSpace' : is not a member of 'Room'
+                 c:\users\potato\documents\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
+     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(138): error C2065: 'roomLayout' : undeclared identifier
+     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(142): error C2039: 'setPlayer' : is not a member of 'Room'
+                 c:\users\potato\documents\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
+     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(143): error C2065: 'roomLayout' : undeclared identifier
          main.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Potato\Documents\comp-projects\Project3\Debug\Project3.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\Potato\Documents\comp-projects\Project3\Debug\Project3.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Potato\Documents\comp-projects\Project3\Debug\Project3.lib" /MACHINE:X86 Debug\attic.obj
-         Debug\basement.obj
-         Debug\bathroom.obj
-         Debug\bedroom.obj
-         Debug\bloodyhallway.obj
-         Debug\constants.obj
-         Debug\darkhallway.obj
-         Debug\diningroom.obj
-         Debug\garage.obj
-         Debug\hallway.obj
-         Debug\item.obj
-         Debug\kitchen.obj
-         Debug\livingroom.obj
-         Debug\location.obj
-         Debug\main.obj
-         Debug\player.obj
-         Debug\playeritem.obj
-         Debug\room.obj
-         Debug\roomitem.obj
-         Debug\startingroom.obj
-         Project3.vcxproj -> C:\Users\Potato\Documents\comp-projects\Project3\Debug\Project3.exe
-     1>Done Building Project "C:\Users\Potato\Documents\comp-projects\Project3\Project3\Project3.vcxproj" (Build target(s)).
+         game.cpp
+     1>c:\users\potato\documents\comp-projects\project3\project3\game.cpp(78): error C2059: syntax error : 'break'
+     1>c:\users\potato\documents\comp-projects\project3\project3\game.cpp(109): error C2039: 'setPlayer' : is not a member of 'Room'
+                 c:\users\potato\documents\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
+     1>c:\users\potato\documents\comp-projects\project3\project3\game.cpp(172): error C2440: 'initializing' : cannot convert from 'Location' to 'Room *'
+                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+     1>c:\users\potato\documents\comp-projects\project3\project3\game.cpp(174): error C2660: 'Game::getKeyInput' : function does not take 1 arguments
+         constants.cpp
+     1>c:\users\potato\documents\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         Generating Code...
+     1>Done Building Project "C:\Users\Potato\Documents\comp-projects\Project3\Project3\Project3.vcxproj" (Build target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:04.35
+Time Elapsed 00:00:08.62
