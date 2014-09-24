@@ -7,9 +7,10 @@
 */
 #include <iostream>
 #include <string>
+#include <random>
 #include "item.h"
 #include "location.h"
-
+#include "player.h"
 // Steve Suh
 Item::Item(): symbol(NULL), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1)
 {
@@ -39,6 +40,7 @@ char Item::getSymbol()
 	return symbol;
 }
 
+//steve suh
 void Item::action()
 {
 	std::cout << description;

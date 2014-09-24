@@ -17,7 +17,6 @@ class Item
 		// location in room
 		int xRoom;
 		int yRoom;
-
 	public:
 		char symbol;
 		bool keyAcheived;
@@ -27,7 +26,6 @@ class Item
 		Item(char sym);
 
 		virtual void action();
-
 		char getSymbol();
 		int getBoardLocX();
 		int getBoardLocY();

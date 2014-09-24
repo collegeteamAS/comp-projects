@@ -100,12 +100,18 @@ public:
 	};
 
 	Game();
-
+	void displayInventory();
 	void printGame();
 	void readInFile(std::string fileName);
 	void runGame();
 	int detectItemID();
 	Item* retrieveItem();
+
+	int orbProb [8]; // prob = 1/n
+	void updateOrbProbability();
+	bool orbInventory [8];
+	std::string orbInventoryNames [8]; //green, yellow, red, white, black, light, dark, pale
+
 };
 
 #endif

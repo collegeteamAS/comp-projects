@@ -10,6 +10,7 @@
 #include <iostream>
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
+#include <stdlib.h>
 #include "room.h"
 #include "item.h" 
 #include "player.h"
@@ -33,6 +34,7 @@
 #include "cd.h"
 
 // @author Andre Allan Ponce
+// Steve Suh
 Game::Game() : 
 	world(0),
 	roomData(), 
@@ -41,7 +43,15 @@ Game::Game() :
 	state(STATE_PRE_GAME),
 	currX(START_ROOM_X),
 	currY(START_ROOM_X){
-	// nothing here yet
+		orbInventoryNames[8] =  "Green Orb ",
+								"Yellow Orb",
+								"Red Orb   ",
+								"White Orb ",
+								"Black Orb ",
+								"Light Orb ",
+								"Dark Orb  ",
+								"Pale Orb  ";
+		orbProb[8] = 3,8,15,30,40,45,50,80;
 }
 
 // @author Andre Allan Ponce
@@ -86,10 +96,38 @@ void Game::createWorld(){
 	}
 }
 
-
-bool isEmpty()
+//steve suh
+void Game::updateOrbProbability()
 {
-	if(
+	int i = 0;
+	if(!orbInventory[0]&&!orbInventory[1]&&!orbInventory[2])
+	{
+	
+	}
+	for(int i=0;i<8;i++)
+	{
+		if(orbInventory[i]&&orbProb[i] != INFINITE)
+		{
+			orbProb[i+1] -= orbProb[i];
+			orbProb[i] = INFINITE;
+		}
+	}
+
+}
+
+void Game::displayInventory()
+{
+	string invenStr = "";
+	for (int i=0;i<8;i++)
+	{
+		invenStr += "[";
+		if(orbInventory[i])
+			invenStr += orbInventoryNames[i];
+		else
+			invenStr += "          ";
+		invenStr += "]\n";
+	}
+	cout << invenStr;
 }
 
 Item* retrieveItem(int id)
@@ -212,7 +250,24 @@ void Game::getKeyInput(INPUT_RECORD* irIn, Room* currRoom){
 	}
 	case 0x45:
 		{
-			player->detectItemID().retrieveItem()->action();
+			int check = 0;
+			retrieveItem(detectItemID)->action();
+			updateOrbProbability();
+			while(check == 0)
+			{
+				if(rand()%orbProb[i] == 1)
+				{
+				orbInventory[i] = true;
+				check ++;
+				}
+			}
+
+			break;
+		}
+	case 0x49:
+		{
+			displayInventory();
+			break;
 		}
 	default :{
 		// we dont move.
