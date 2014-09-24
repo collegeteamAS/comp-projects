@@ -83,22 +83,22 @@ char Player::getSymbol(){
 
 // @author Andre Allan Ponce
 void Player::moveDown(){
-	yRoom++;
-}
-
-// @author Andre Allan Ponce
-void Player::moveLeft(){
-	xRoom--;
-}
-
-// @author Andre Allan Ponce
-void Player::moveRight(){
 	xRoom++;
 }
 
 // @author Andre Allan Ponce
-void Player::moveUp(){
+void Player::moveLeft(){
 	yRoom--;
+}
+
+// @author Andre Allan Ponce
+void Player::moveRight(){
+	yRoom++;
+}
+
+// @author Andre Allan Ponce
+void Player::moveUp(){
+	xRoom--;
 }
 
 /*

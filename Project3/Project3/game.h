@@ -2,11 +2,14 @@
 #ifndef _GAME_H_INCLUDED_
 #define _GAME_H_INCLUDED_
 
+//#include <wincon.h>
+//#include <Windows.h>
 #include "roomdata.h"
 
 class Location;
 class Player;
-class Room;
+//class Room;
+//struct INPUT_RECORD;
 
 class Game {
 private:
@@ -37,16 +40,23 @@ private:
 	*/
 	int state;
 
+	bool isFinalDoorIn;
+
 	// where is the player right now?
 	int currX;
 	int currY;
 
 	// methods
-	Room* createRoom(int id, int x, int y);
+	void changeRoom(int move);
+	Location* createRandomRoom(int x, int y, int roomDoor);
+	Location* createRoom(int id, int x, int y);
 	void createWorld();
-	void getKeyInput(INPUT_RECORD* irIn, Room* currRoom);
+	void getKeyInput(unsigned short key, Location* currRoom);
+	int isLocAtEdge(int x, int y, Location* currRoom);
+	Location* makeRoom(int id, int x, int y);
 	void moveMonster();
-	void movePlayer();
+	void movePlayer(int move, Location* currRoom);
+	void placePlayerInNewRoom(int move, Player* play, char sym);
 	void preGameInit();
 
 public:
@@ -54,6 +64,7 @@ public:
 		PLAYER_SYMBOL = 'O',
 		MONSTER_SYMBOL = 'X',
 		CLOSET_SYMBOL = 'C',
+<<<<<<< HEAD
 		
 		/*JUNK_SYMBOL = 'j',
 		VASE_SYMBOL = 'v',
@@ -71,10 +82,19 @@ public:
 		BLOOD_SYMBOL = '*',
 		CD_SYMBOL = 'a',
 		*/
+=======
+		EXIT_SYMBOL = 'E',
+		WALL_SYMBOL_A = '|',
+		WALL_SYMBOL_B = '-',
+		WALL_SYMBOL_C = '=',
+		CORNER_SYMBOL = '+',
+
+>>>>>>> working
 		// size of world ( num x num)
 		WORLD_SIZE = 30,
 
 		// STATE MACHINE
+		STATE_WAIT = -1,
 		STATE_PRE_GAME = 0,
 		STATE_LEVEL_ONE = 1,
 		STATE_LEVEL_TWO = 2,
@@ -96,10 +116,12 @@ public:
 
 		// START COORDinates (for player)
 		START_PLAYER_X = 3,
-		START_PLAYER_Y = 7
+		START_PLAYER_Y = 5
 	};
 
 	Game();
+
+	int getRandomNumber();
 
 	void printGame();
 	void readInFile(std::string fileName);

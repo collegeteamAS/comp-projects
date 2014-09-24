@@ -15,31 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="attic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bathroom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="constants.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bedroom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="diningroom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="hallway.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="livingroom.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="kitchen.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="location.cpp">
@@ -57,25 +36,19 @@
     <ClCompile Include="startingroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="room.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="basement.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="bloodyhallway.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="darkhallway.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="garage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="roomdata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="openroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="closedroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="closetroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="bathtub.cpp">
@@ -152,46 +125,19 @@
     <ClInclude Include="roomitem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="attic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="basement.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bathroom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bedroom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="bloodyhallway.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="darkhallway.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="diningroom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="garage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="hallway.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="kitchen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="livingroom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="room.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="roomdata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="openroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="closedroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="closetroom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="itemdata.h">
