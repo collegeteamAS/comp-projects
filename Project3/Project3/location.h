@@ -16,6 +16,8 @@ public:
 		EMPTY_SPACE = ' '
 	};
 
+	bool isEmpty(int xCoord, int yCoord);
+
 	Location();
 	Location(int xCoord, int yCoord);
 

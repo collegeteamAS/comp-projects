@@ -1,3 +1,9 @@
+/*
+	Steve Suh
+	h_suh@u.pacific.edu
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+*/
 
 #include <string>
 #include <fstream>
@@ -5,15 +11,33 @@
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
 #include "room.h"
+#include "item.h" 
 #include "player.h"
 #include "menutext.h"
 #include "game.h"
 
+#include "junk.h"
+#include "vase.h"
+#include "table.h"
+#include "chair.h"
+#include "lamp.h"
+#include "bed.h"
+#include "candle.h"
+#include "dish.h"
+#include "dust.h"
+#include "fork.h"
+#include "toilet.h"
+#include "bathtub.h"
+#include "mirror.h"
+#include "blood.h"
+#include "cd.h"
 
 // @author Andre Allan Ponce
 Game::Game() : 
 	world(0),
 	roomData(), 
+	player(0),
+	monster(0),
 	state(STATE_PRE_GAME),
 	currX(START_ROOM_X),
 	currY(START_ROOM_X){
@@ -62,6 +86,96 @@ void Game::createWorld(){
 	}
 }
 
+
+bool isEmpty()
+{
+	if(
+}
+
+Item* retrieveItem(int id)
+{
+	Item *i;
+	switch(id)
+	{
+	case 0:
+		{
+			i = new Junk();
+			break;
+		}
+	case 1:
+		{
+			i = new Vase();
+			break;
+		}
+	case 2:
+		{
+			i = new Table();
+			break;
+		}
+	case 3:
+		{
+			i = new Chair();
+			break;
+		}
+	case 4:
+		{
+			i = new Lamp();
+			break;
+		}
+	case 5:
+		{
+			i = new Bed();
+			break;
+		}
+	case 6:
+		{
+			i = new Candle();
+			break;
+		}
+	case 7:
+		{
+			i = new Dish();
+			break;
+		}
+	case 8:
+		{
+			i = new Dust();
+			break;
+		}
+	case 9:
+		{
+			i = new Fork();
+			break;
+		}
+	case 10:
+		{
+			i = new Toilet();
+			break;
+		}
+	case 11:
+		{
+			i = new Bathtub();
+			break;
+		}
+	case 12:
+		{
+			i = new Mirror();
+			break;
+		}
+	case 13:
+		{
+			i = new Blood();
+			break;
+		}
+	case 14:
+		{
+			i = new Cd();
+			break;
+		}
+	}
+
+	return i;
+}
 // @author Computergeek01
 // url: http://www.cplusplus.com/forum/beginner/75529/
 void Game::getKeyInput(INPUT_RECORD* irIn, Room* currRoom){
@@ -96,6 +210,10 @@ void Game::getKeyInput(INPUT_RECORD* irIn, Room* currRoom){
 		//currY++;
 		break;
 	}
+	case 0x45:
+		{
+			player->detectItemID().retrieveItem()->action();
+		}
 	default :{
 		// we dont move.
 		break;

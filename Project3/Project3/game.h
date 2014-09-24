@@ -54,7 +54,23 @@ public:
 		PLAYER_SYMBOL = 'O',
 		MONSTER_SYMBOL = 'X',
 		CLOSET_SYMBOL = 'C',
-
+		
+		/*JUNK_SYMBOL = 'j',
+		VASE_SYMBOL = 'v',
+		TABLE_SYMBOL = 't',
+		CHAIR_SYMBOL = 'c',
+		LAMP_SYMBOL = 'l',
+		BED_SYMBOL = 'b',
+		CANDLE_SYMBOL = 'I',
+		DISH_SYMBOL = 'd',
+		DUST_SYMBOL = 'w',
+		FORK_SYMBOL = 'f',
+		TOILET_SYMBOL = 'e',
+		BATHTUB_SYMBOL = 'u',
+		MIRROR_SYMBOL = '-',
+		BLOOD_SYMBOL = '*',
+		CD_SYMBOL = 'a',
+		*/
 		// size of world ( num x num)
 		WORLD_SIZE = 30,
 
@@ -88,6 +104,8 @@ public:
 	void printGame();
 	void readInFile(std::string fileName);
 	void runGame();
+	int detectItemID();
+	Item* retrieveItem();
 };
 
 #endif

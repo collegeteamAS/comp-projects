@@ -2,27 +2,44 @@
 	Andre Allan Ponce
 	a_ponce1@u.pacific.edu
 	Item class, for all the items
+	Steve Suh
+	h_suh@u.pacific.edu
 */
-
+#include <iostream>
 #include <string>
 #include "item.h"
+#include "location.h"
 
-// @author Andre Allan Ponce
-Item::Item() : name("debug"){
-	// constructors should be empty, yo
+// Steve Suh
+Item::Item(): symbol(NULL), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1)
+{
+	keyAcheived = false;
+	description = "";
 }
 
-// @author Andre Allan Ponce
-Item::Item(std::string n) : name(n){
-	// constructors should be empty, yo
+// Steve Suh
+Item::Item(char sym) : symbol(sym), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1)
+{
+	keyAcheived = false;
+	description = "";
 }
 
-// @author Andre Allan Ponce
-std::string Item::getItemName(){
-	return name;
+int Item::getItemLocX()
+{
+	return xRoom;
 }
 
-// @author Andre Allan Ponce
-void Item::setItemName(std::string n){
-	name = n;
+int Item::getItemLocY()
+{
+	return yRoom;
+}
+
+char Item::getSymbol()
+{
+	return symbol;
+}
+
+void Item::action()
+{
+	std::cout << description;
 }
