@@ -1,23 +1,33 @@
-#include <string>
-#include <iostream>
-#include "player.h"
 
-using namespace std;
+
+#ifndef _LOCATION_H_INCLUDED_
+#define _LOCATION_H_INCLUDED_
 
 class Location{
 protected:
 	bool visited;
-	char symbol;
+
+	// where this location is
+	int x; 
+	int y;
 
 public:
+	enum Contsants{
+		EMPTY_SPACE = ' '
+	};
+
 	Location();
-	Location(char s);
+	Location(int xCoord, int yCoord);
+
 	bool getVisited();
-	char getSymbol();
+	
+	int getX();
+	int getY();
 
 	void setVisited(bool vis);
-	void setSymbol(char sym);
 
-	virtual void draw();
-	virtual int visit(Player &p);
+	virtual std::string draw() = 0;
+	//virtual int visit(Player &p);
 };
+
+#endif

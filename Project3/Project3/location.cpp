@@ -1,22 +1,23 @@
 
 #include <string>
-#include <iostream>
-#include "player.h"
+//#include <iostream>
+//#include "player.h"
 #include "location.h"
 
 
 using namespace std;
 
-Location::Location()
+Location::Location() : 
+	visited(false), 
+	x(-1), 
+	y(-1)
 {
-	visited = false;
-	symbol='n';
+	
 }
 
-Location::Location(char s)
-{
-	visited = false;
-	symbol = s;
+Location::Location(int xCoord, int yCoord) : 
+	visited(false){
+
 }
 
 bool Location::getVisited()
@@ -24,9 +25,14 @@ bool Location::getVisited()
 	return visited;
 }
 
-char Location::getSymbol()
-{
-	return symbol;
+// @author Andre Allan Ponce
+int Location::getX(){
+	return x;
+}
+
+// @author Andre Allan Ponce
+int Location::getY(){
+	return y;
 }
 
 void Location::setVisited(bool vis)
@@ -34,21 +40,20 @@ void Location::setVisited(bool vis)
 	visited = vis;
 }
 
-void Location::setSymbol(char sym)
+/*
+std::string Location::draw()
 {
-	symbol = sym;
-}
-
-void Location::draw()
-{
+	
 	if(visited)
 		cout<< symbol;
 	else
 		cout<< ".";
-}
-
+		
+}*/
+/*
 int Location::visit(Player &p)
 {
 	visited = true;
 	return 1;
 }
+*/

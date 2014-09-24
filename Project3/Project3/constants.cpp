@@ -5,14 +5,16 @@
 */
 
 #include <string>
+#include "room.h"
 #include "player.h"
 #include "menutext.h"
+#include "game.h"
 
 /*
-	Player inventory amount
+	Player constants
 	@author Andre Allan Ponce
 */
-const int Player::INVENTORY_MAX = 40;
+const int Player::INVENTORY_MAX = 40; // amount in inventory
 
 /* 
 	Error for menu choice 
@@ -46,8 +48,8 @@ const string MenuText::PROMPT_PLAYER_NAME = "\nEnter a player's name: ";
 /* 
 	Error Messages
 	@author Andre Allan Ponce
-
-const string MenuText::ERROR_FILE_NAME = "\nCannot read file\n";
-const string MenuText::ERROR_FILE_CONTENTS = "\nFile corrupted\n";
-const string MenuText::ERROR_UNKNOWN = "\nUnknown error occured\n";
 */
+const string MenuText::ERROR_FILE_NAME = "\nCannot read game data\n";
+const string MenuText::ERROR_FILE_CONTENTS = "\nGame data corrupted\n";
+const string MenuText::ERROR_UNKNOWN = "\nUnknown error occured\n";
+//*/

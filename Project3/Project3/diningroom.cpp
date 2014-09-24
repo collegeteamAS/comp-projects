@@ -8,6 +8,7 @@ DiningRoom::DiningRoom() : Room(){
 }
 
 // @author Andre Allan Ponce
-DiningRoom::DiningRoom(int idNum, int xCoord, int yCoord, int h, int w) : Room(idNum,xCoord,yCoord,h,w){
+DiningRoom::DiningRoom(int idNum, int xCoord, int yCoord, int h, int w) : 
+	Room(idNum,xCoord,yCoord,h,w,false,true){ // no closets in dining rooms, but multiple doors!
 
 }
