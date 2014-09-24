@@ -1,12 +1,10 @@
 #include <string>
 #include <iostream>
-#include "Mirror.h"
-#include "constants.cpp"
+#include "mirror.h"
 
 using namespace std;
 
-Mirror::Mirror()
+Mirror::Mirror(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = '-';
-	description = ROOMITEM_MIRROR;
+	
 }

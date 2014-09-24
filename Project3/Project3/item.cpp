@@ -7,22 +7,20 @@
 */
 #include <iostream>
 #include <string>
-#include <random>
 #include "item.h"
-#include "location.h"
-#include "player.h"
+//#include "location.h"
+
 // Steve Suh
-Item::Item(): symbol(NULL), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1)
+Item::Item(): symbol(NULL), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1), id(-1)
 {
 	keyAcheived = false;
-	description = "";
 }
 
 // Steve Suh
-Item::Item(char sym) : symbol(sym), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1)
+Item::Item(char sym, int idNum) : symbol(sym), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1), id(idNum)
 {
 	keyAcheived = false;
-	description = "";
+	
 }
 
 int Item::getItemLocX()
@@ -40,8 +38,19 @@ char Item::getSymbol()
 	return symbol;
 }
 
-//steve suh
+int Item::getID(){
+	return id;
+}
+
+std::string Item::getDescription(){
+	return descript;
+}
+
+void Item::setDescription(std::string desc){
+	descript = desc;
+}
+
 void Item::action()
 {
-	std::cout << description;
+	
 }

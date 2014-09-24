@@ -11,7 +11,7 @@ class Dish:public Item
 	private:
 
 	public:
-		Dish();
+		Dish(char sym, int idNum);
 };
 
 #endif

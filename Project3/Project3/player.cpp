@@ -21,7 +21,6 @@ Player::Player(std::string n, char sym) : name(n), symbol(sym), xBoard(-1), yBoa
 //*/
 
 // @author Andre Allan Ponce
-//Steve Suh
 Player::Player() : 
 	symbol('d'), // d stands for debug
 	xBoard(-1), 
@@ -37,17 +36,8 @@ Player::Player(char sym) :
 	xBoard(-1), 
 	yBoard(-1), 
 	xRoom(-1), 
-	yRoom(-1){ ;
+	yRoom(-1){
 	// constructors should be empty, yo
-}
-
-//Steve Suh
-int Player::detectItemID() // returns id of the item
-{
-	/*
-		*world[currX][currY][
-			return i.getItemID();
-	*/
 }
 
 

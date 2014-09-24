@@ -1,12 +1,10 @@
 #include <string>
 #include <iostream>
 #include "dust.h"
-#include "constants.cpp"
 
 using namespace std;
 
-Dust::Dust()
+Dust::Dust(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = 'w';
-	description = ROOMITEM_DUST;
+
 }

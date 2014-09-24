@@ -6,13 +6,12 @@ h_suh@u.pacific.edu
 #define _CHAIR_H_INCLUDED_
 
 #include "item.h"
-
 class Chair:public Item
 {
 	private:
 
 	public:
-		Chair();
+		Chair(char sym, int idNum);
 };
 
 #endif
