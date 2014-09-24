@@ -10,19 +10,13 @@
 #include <iostream>
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
-<<<<<<< HEAD
 #include <stdlib.h>
-=======
-<<<<<<< HEAD
->>>>>>> b070d0743d70b69e31bf8293975c36be22c20d59
 #include "room.h"
 #include "item.h" 
-=======
 #include <time.h> // for waiting
 #include "openroom.h"
 #include "closedroom.h"
 #include "closetroom.h"
->>>>>>> working
 #include "player.h"
 #include "menutext.h"
 #include "game.h"
@@ -160,10 +154,6 @@ void Game::createWorld(){
 void Game::updateOrbProbability()
 {
 	int i = 0;
-	if(!orbInventory[0]&&!orbInventory[1]&&!orbInventory[2])
-	{
-	
-	}
 	for(int i=0;i<8;i++)
 	{
 		if(orbInventory[i]&&orbProb[i] != INFINITE)
@@ -197,77 +187,77 @@ Item* retrieveItem(int id)
 	{
 	case 0:
 		{
-			i = new Junk();
+			i = &Junk();
 			break;
 		}
 	case 1:
 		{
-			i = new Vase();
+			i = &Vase();
 			break;
 		}
 	case 2:
 		{
-			i = new Table();
+			i = &Table();
 			break;
 		}
 	case 3:
 		{
-			i = new Chair();
+			i = &Chair();
 			break;
 		}
 	case 4:
 		{
-			i = new Lamp();
+			i = &Lamp();
 			break;
 		}
 	case 5:
 		{
-			i = new Bed();
+			i = &Bed();
 			break;
 		}
 	case 6:
 		{
-			i = new Candle();
+			i = &Candle();
 			break;
 		}
 	case 7:
 		{
-			i = new Dish();
+			i = &Dish();
 			break;
 		}
 	case 8:
 		{
-			i = new Dust();
+			i = &Dust();
 			break;
 		}
 	case 9:
 		{
-			i = new Fork();
+			i = &Fork();
 			break;
 		}
 	case 10:
 		{
-			i = new Toilet();
+			i = &Toilet();
 			break;
 		}
 	case 11:
 		{
-			i = new Bathtub();
+			i = &Bathtub();
 			break;
 		}
 	case 12:
 		{
-			i = new Mirror();
+			i = &Mirror();
 			break;
 		}
 	case 13:
 		{
-			i = new Blood();
+			i = &Blood();
 			break;
 		}
 	case 14:
 		{
-			i = new Cd();
+			i = &Cd();
 			break;
 		}
 	}
@@ -306,23 +296,25 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 		movePlayer(MOVE_DOWN, currRoom);
 		break;
 	}
-	case 0x45:
+	case 0x45://pressing e(examine)
 		{
 			int check = 0;
-			retrieveItem(detectItemID)->action();
+			int i=0;
+			retrieveItem(detectItemID())->action();
 			updateOrbProbability();
-			while(check == 0)
+			while(check == 0 && i<8)
 			{
 				if(rand()%orbProb[i] == 1)
 				{
-				orbInventory[i] = true;
-				check ++;
+					orbInventory[i] = true;
+					cout<< "\nThere is a " + orbInventoryNames[i];
+					check ++;
 				}
+				i++;
 			}
-
 			break;
 		}
-	case 0x49:
+	case 0x49://pressing i(inventory)
 		{
 			displayInventory();
 			break;

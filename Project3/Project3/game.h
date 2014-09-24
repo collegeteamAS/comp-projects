@@ -64,7 +64,6 @@ public:
 		PLAYER_SYMBOL = 'O',
 		MONSTER_SYMBOL = 'X',
 		CLOSET_SYMBOL = 'C',
-<<<<<<< HEAD
 		
 		/*JUNK_SYMBOL = 'j',
 		VASE_SYMBOL = 'v',
@@ -82,14 +81,12 @@ public:
 		BLOOD_SYMBOL = '*',
 		CD_SYMBOL = 'a',
 		*/
-=======
 		EXIT_SYMBOL = 'E',
 		WALL_SYMBOL_A = '|',
 		WALL_SYMBOL_B = '-',
 		WALL_SYMBOL_C = '=',
 		CORNER_SYMBOL = '+',
 
->>>>>>> working
 		// size of world ( num x num)
 		WORLD_SIZE = 30,
 
@@ -120,13 +117,10 @@ public:
 	};
 
 	Game();
-<<<<<<< HEAD
 	void displayInventory();
-=======
 
 	int getRandomNumber();
 
->>>>>>> b070d0743d70b69e31bf8293975c36be22c20d59
 	void printGame();
 	void readInFile(std::string fileName);
 	void runGame();

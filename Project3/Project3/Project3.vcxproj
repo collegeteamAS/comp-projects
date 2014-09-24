@@ -99,7 +99,6 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="room.cpp" />
     <ClCompile Include="roomdata.cpp" />
-    <ClCompile Include="Source.cpp" />
     <ClCompile Include="startingroom.cpp" />
     <ClCompile Include="table.cpp" />
     <ClCompile Include="toilet.cpp" />

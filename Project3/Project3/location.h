@@ -1,5 +1,3 @@
-
-
 #ifndef _LOCATION_H_INCLUDED_
 #define _LOCATION_H_INCLUDED_
 
@@ -32,16 +30,12 @@ public:
 		EMPTY_SPACE = ' '
 	};
 
-<<<<<<< HEAD
 	bool isEmpty(int xCoord, int yCoord);
 
 	Location();
 	Location(int xCoord, int yCoord);
 
 	bool getVisited();
-=======
->>>>>>> working
-	
 	Location();
 	Location(int idNum, int xCoord, int yCoord, int h, int w, bool closet, bool closed);
 	//~Room(); this is giving some issues right now

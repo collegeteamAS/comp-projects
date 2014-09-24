@@ -1,6 +1,6 @@
 #include <string>
 #include <iostream>
-#include "Cd.h"
+#include "cd.h"
 #include "constants.cpp"
 
 using namespace std;
