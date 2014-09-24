@@ -12,7 +12,7 @@ class Chair:public Item
 	private:
 
 	public:
-		Chair(char sym, int idNum);
+		Chair();
 };
 
 #endif

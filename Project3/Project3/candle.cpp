@@ -1,10 +1,12 @@
 #include <string>
 #include <iostream>
 #include "candle.h"
+#include "constants.cpp"
 
 using namespace std;
 
-Candle::Candle(char sym, int idNum) : Item(sym,idNum)
+Candle::Candle()
 {
-	
+	symbol = 'I';
+	description = ROOMITEM_CANDLE;
 }

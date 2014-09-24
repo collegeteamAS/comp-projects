@@ -31,6 +31,16 @@ public:
 	enum Contsants{
 		EMPTY_SPACE = ' '
 	};
+
+<<<<<<< HEAD
+	bool isEmpty(int xCoord, int yCoord);
+
+	Location();
+	Location(int xCoord, int yCoord);
+
+	bool getVisited();
+=======
+>>>>>>> working
 	
 	Location();
 	Location(int idNum, int xCoord, int yCoord, int h, int w, bool closet, bool closed);

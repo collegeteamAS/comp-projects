@@ -29,11 +29,16 @@ public:
 	Player(char sym);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 	//int detectItemID();
 =======
 	
 	int detectItemID();
 >>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
+=======
+	
+	int detectItemID();
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 	int getBoardLocX();
 	int getBoardLocY();
 	int getRoomLocX();

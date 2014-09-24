@@ -5,11 +5,9 @@
 //#include <wincon.h>
 //#include <Windows.h>
 #include "roomdata.h"
-#include "itemdata.h"
 
 class Location;
 class Player;
-class Item;
 //class Room;
 //struct INPUT_RECORD;
 
@@ -17,7 +15,6 @@ class Game {
 private:
 	Location*** world;
 	RoomData roomData;
-	ItemData itemData;
 
 	Player* player; // the player
 	Player* monster; // the monster
@@ -54,8 +51,6 @@ private:
 	Location* createRandomRoom(int x, int y, int roomDoor);
 	Location* createRoom(int id, int x, int y);
 	void createWorld();
-	int detectItemID();
-	int findItemID(char sym);
 	void getKeyInput(unsigned short key, Location* currRoom);
 	int isLocAtEdge(int x, int y, Location* currRoom);
 	Location* makeRoom(int id, int x, int y);
@@ -69,30 +64,32 @@ public:
 		PLAYER_SYMBOL = 'O',
 		MONSTER_SYMBOL = 'X',
 		CLOSET_SYMBOL = 'C',
+<<<<<<< HEAD
 		
-		
-		JUNK_SYMBOL = 'j',
+		/*JUNK_SYMBOL = 'j',
 		VASE_SYMBOL = 'v',
-		TABLE_SYMBOL = 'T',
+		TABLE_SYMBOL = 't',
 		CHAIR_SYMBOL = 'c',
 		LAMP_SYMBOL = 'l',
-		BED_SYMBOL = 'B',
+		BED_SYMBOL = 'b',
 		CANDLE_SYMBOL = 'I',
 		DISH_SYMBOL = 'd',
 		DUST_SYMBOL = 'w',
 		FORK_SYMBOL = 'f',
 		TOILET_SYMBOL = 'e',
 		BATHTUB_SYMBOL = 'u',
-		MIRROR_SYMBOL = 'H',
+		MIRROR_SYMBOL = '-',
 		BLOOD_SYMBOL = '*',
 		CD_SYMBOL = 'a',
-		//*/
+		*/
+=======
 		EXIT_SYMBOL = 'E',
 		WALL_SYMBOL_A = '|',
 		WALL_SYMBOL_B = '-',
 		WALL_SYMBOL_C = '=',
 		CORNER_SYMBOL = '+',
 
+>>>>>>> working
 		// size of world ( num x num)
 		WORLD_SIZE = 30,
 
@@ -132,12 +129,14 @@ public:
 >>>>>>> b070d0743d70b69e31bf8293975c36be22c20d59
 	void printGame();
 	void readInFile(std::string fileName);
-	void readInItemFile(std::string fileName);
 	void runGame();
+<<<<<<< HEAD
 <<<<<<< HEAD
 	//int detectItemID();
 	Item* retrieveItem(int id);
 =======
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 	int detectItemID();
 	Item* retrieveItem();
 
@@ -146,7 +145,10 @@ public:
 	bool orbInventory [8];
 	std::string orbInventoryNames [8]; //green, yellow, red, white, black, light, dark, pale
 
+<<<<<<< HEAD
 >>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 };
 
 #endif

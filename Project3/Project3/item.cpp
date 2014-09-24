@@ -10,23 +10,29 @@
 #include <random>
 #include "item.h"
 <<<<<<< HEAD
+<<<<<<< HEAD
 //#include "location.h"
 
 =======
 #include "location.h"
 #include "player.h"
 >>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
+=======
+#include "location.h"
+#include "player.h"
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 // Steve Suh
-Item::Item(): symbol(NULL), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1), id(-1)
+Item::Item(): symbol(NULL), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1)
 {
 	keyAcheived = false;
+	description = "";
 }
 
 // Steve Suh
-Item::Item(char sym, int idNum) : symbol(sym), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1), id(idNum)
+Item::Item(char sym) : symbol(sym), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1)
 {
 	keyAcheived = false;
-	
+	description = "";
 }
 
 int Item::getItemLocX()
@@ -45,6 +51,7 @@ char Item::getSymbol()
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 int Item::getID(){
 	return id;
 }
@@ -62,9 +69,14 @@ void Item::action()
 	
 }
 =======
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 //steve suh
 void Item::action()
 {
 	std::cout << description;
 }
+<<<<<<< HEAD
 >>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56

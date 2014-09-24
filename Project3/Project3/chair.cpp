@@ -1,10 +1,12 @@
 #include <string>
 #include <iostream>
 #include "chair.h"
+#include "constants.cpp"
 
 using namespace std;
 
-Chair::Chair(char sym, int idNum) : Item(sym,idNum)
+Chair::Chair()
 {
-	
+	symbol = 'c';
+	description = ROOMITEM_CHAIR;
 }

@@ -11,7 +11,7 @@ class Junk: public Item
 	private:
 
 	public:
-		Junk(char sym, int idNum);
+		Junk();
 };
 
 #endif

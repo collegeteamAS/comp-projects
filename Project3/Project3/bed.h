@@ -11,7 +11,7 @@ class Bed:public Item
 	private:
 
 	public:
-		Bed(char sym, int idNum);
+		Bed();
 };
 
 #endif

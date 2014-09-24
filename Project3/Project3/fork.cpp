@@ -1,10 +1,12 @@
 #include <string>
 #include <iostream>
 #include "fork.h"
+#include "constants.cpp"
 
 using namespace std;
 
-Fork::Fork(char sym, int idNum) : Item(sym,idNum)
+Fork::Fork()
 {
-	
+	symbol = 'f';
+	description = ROOMITEM_FORK;
 }

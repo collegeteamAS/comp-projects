@@ -11,7 +11,10 @@
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 <<<<<<< HEAD
 #include <stdlib.h>
 =======
@@ -20,12 +23,15 @@
 #include "room.h"
 #include "item.h" 
 =======
+<<<<<<< HEAD
 >>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 #include <time.h> // for waiting
-#include "item.h" 
 #include "openroom.h"
 #include "closedroom.h"
 #include "closetroom.h"
+>>>>>>> working
 #include "player.h"
 #include "menutext.h"
 #include "game.h"
@@ -51,7 +57,6 @@
 Game::Game() : 
 	world(0),
 	roomData(), 
-	itemData(),
 	player(0),
 	monster(0),
 	state(STATE_PRE_GAME),
@@ -94,7 +99,7 @@ void Game::changeRoom(int move){
 		break;
 	}
 	}
-	if(world[currX][currY] == 0){
+	if(world[currX][currY] == NULL){
 		world[currX][currY] = createRandomRoom(currX,currY,nextRoomDoor);
 	}
 }
@@ -157,13 +162,10 @@ void Game::createWorld(){
 	world = new Location**[WORLD_SIZE];
 	for(int i = 0; i < WORLD_SIZE; i++){
 		world[i] = new Location*[WORLD_SIZE];
-		for(int k = 0; k < WORLD_SIZE; k++){
-			world[i][k] = NULL;
-		}
 	}
-
 }
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 // @author Andre Allan Ponce
 int Game::detectItemID(){
@@ -275,6 +277,8 @@ int Game::findItemID(char sym){
 	}
 	}
 =======
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 //steve suh
 void Game::updateOrbProbability()
 {
@@ -307,97 +311,95 @@ void Game::displayInventory()
 		invenStr += "]\n";
 	}
 	cout << invenStr;
+<<<<<<< HEAD
 >>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 }
 
-
-Item* Game::retrieveItem(int id)
+Item* retrieveItem(int id)
 {
 	Item *i;
 	switch(id)
 	{
 	case 0:
 		{
-			i = new Junk(JUNK_SYMBOL,id);
+			i = new Junk();
 			break;
 		}
 	case 1:
 		{
-			i = new Vase(VASE_SYMBOL,id);
+			i = new Vase();
 			break;
 		}
 	case 2:
 		{
-			i = new Table(TABLE_SYMBOL,id);
+			i = new Table();
 			break;
 		}
 	case 3:
 		{
-			i = new Chair(CHAIR_SYMBOL,id);
+			i = new Chair();
 			break;
 		}
 	case 4:
 		{
-			i = new Lamp(LAMP_SYMBOL,id);
+			i = new Lamp();
 			break;
 		}
 	case 5:
 		{
-			i = new Bed(BED_SYMBOL,id);
+			i = new Bed();
 			break;
 		}
 	case 6:
 		{
-			i = new Candle(CANDLE_SYMBOL,id);
+			i = new Candle();
 			break;
 		}
 	case 7:
 		{
-			i = new Dish(DISH_SYMBOL,id);
+			i = new Dish();
 			break;
 		}
 	case 8:
 		{
-			i = new Dust(DUST_SYMBOL,id);
+			i = new Dust();
 			break;
 		}
 	case 9:
 		{
-			i = new Fork(FORK_SYMBOL,id);
+			i = new Fork();
 			break;
 		}
 	case 10:
 		{
-			i = new Toilet(TOILET_SYMBOL,id);
+			i = new Toilet();
 			break;
 		}
 	case 11:
 		{
-			i = new Bathtub(BATHTUB_SYMBOL,id);
+			i = new Bathtub();
 			break;
 		}
 	case 12:
 		{
-			i = new Mirror(MIRROR_SYMBOL,id);
+			i = new Mirror();
 			break;
 		}
 	case 13:
 		{
-			i = new Blood(BLOOD_SYMBOL,id);
+			i = new Blood();
 			break;
 		}
 	case 14:
 		{
-			i = new Cd(CD_SYMBOL,id);
+			i = new Cd();
 			break;
 		}
-	default:
-		i = new Junk('d',-1);
 	}
 
 	return i;
-
-	//return i;
 }
 // @author Computergeek01
 // url: http://www.cplusplus.com/forum/beginner/75529/
@@ -431,8 +433,9 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 		movePlayer(MOVE_DOWN, currRoom);
 		break;
 	}
-	case 0x45: // e key
+	case 0x45:
 		{
+<<<<<<< HEAD
 <<<<<<< HEAD
 			int id = detectItemID();
 			if(id >= 0){
@@ -441,6 +444,8 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 				thisItem->action();
 			}
 =======
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 			int check = 0;
 			retrieveItem(detectItemID)->action();
 			updateOrbProbability();
@@ -459,7 +464,10 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 		{
 			displayInventory();
 			break;
+<<<<<<< HEAD
 >>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 		}
 	default :{
 		// we dont move.
@@ -608,8 +616,7 @@ void Game::readInFile(std::string fileName){
 		inFile >> id;
 		inFile >> rows;
 		inFile >> cols;
-		inFile.ignore(10, '\n');
-		cout << id << rows << cols;
+		inFile.ignore();
 		char** tempRoom = new char*[rows];
 		for(int i = 0; i < rows; i++){
 			std::string line = "";
@@ -626,32 +633,6 @@ void Game::readInFile(std::string fileName){
 			delete [] tempRoom[i];
 		}
 		delete [] tempRoom;
-	}
-	inFile.close();
-}
-
-// @author Andre Allan Ponce
-void Game::readInItemFile(std::string fileName){
-	std::ifstream inFile;
-	inFile.open(fileName.c_str());
-	if(!inFile.good()){
-		throw MenuText::ERROR_FILE_NAME;
-	}
-	int size;
-	inFile >> size;
-	inFile.ignore();
-	itemData.setSize(size);
-	while(!inFile.eof()){
-		int id;
-		inFile >> id;
-		std::string name;
-		char symbol;
-		inFile >> name;
-		inFile >> symbol;
-		inFile.ignore();
-		std::string line = "";
-		getline(inFile,line);
-		itemData.createItemEntry(id, name, line);
 	}
 	inFile.close();
 }
@@ -684,7 +665,7 @@ void Game::runGame(){
 		}
 		case STATE_WAIT:{
 			
-			if(clock() - startTime > 20){
+			if(clock() - startTime > 100){
 				state = old_state;
 			}
 			//*/

@@ -11,7 +11,7 @@ class Cd:public Item
 	private:
 
 	public:
-		Cd(char sym, int idNum);
+		Cd();
 };
 
 #endif

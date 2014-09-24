@@ -11,7 +11,7 @@ class Mirror:public Item
 	private:
 
 	public:
-		Mirror(char sym, int idNum);
+		Mirror();
 };
 
 #endif

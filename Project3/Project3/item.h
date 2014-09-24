@@ -4,7 +4,7 @@
 	Item class, for all the items
 */
 #ifndef _ITEM_H_INCLUDED_
-#define _ITEM_H_INCLUDED_
+#define _ITEM_H_INCLUDED
 
 
 class Item
@@ -22,6 +22,7 @@ class Item
 		bool keyAcheived;
 		std::string description;
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 	char symbol;
 	bool keyAcheived;
@@ -45,6 +46,8 @@ public:
 
 	void setDescription(std::string desc);
 =======
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 		Item();
 		Item(char sym);
 
@@ -54,6 +57,9 @@ public:
 		int getBoardLocY();
 		int getItemLocX();
 		int getItemLocY();
+<<<<<<< HEAD
 >>>>>>> 82e96c42889245432fdc5395350a0c76a2f27fc2
+=======
+>>>>>>> d4dfddad49204a11b01280c1c51e60bb6bfb2c56
 };
 #endif

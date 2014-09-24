@@ -1,12 +1,13 @@
 #include <string>
 #include <iostream>
 #include "key.h"
+#include "constants.cpp"
 
 using namespace std;
 
 Key::Key()
 {
 	symbol = NULL;
-	descript = "...wait, there is something shining. \nit's an old metal key.";
+	description = "...wait, there is something shining. \nit's an old metal key.";
 	keyAcheived = true;
 }
