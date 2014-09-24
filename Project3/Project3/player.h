@@ -25,7 +25,7 @@ public:
 	//Player(std::string n, char sym);
 	Player(char sym);
 
-	//int detectItemID();
+
 	int getBoardLocX();
 	int getBoardLocY();
 	int getRoomLocX();

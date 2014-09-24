@@ -10,6 +10,11 @@
 #include <iostream>
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
+
+
+#include "room.h"
+#include "item.h" 
+
 #include <time.h> // for waiting
 #include "item.h" 
 #include "openroom.h"
@@ -144,6 +149,7 @@ void Game::createWorld(){
 
 }
 
+
 // @author Andre Allan Ponce
 int Game::detectItemID(){
 	int currPlayerX = player->getRoomLocX();
@@ -253,6 +259,111 @@ int Game::findItemID(char sym){
 		break;
 	}
 	}
+
+//steve suh
+void Game::updateOrbProbability()
+{
+	int i = 0;
+	if(!orbInventory[0]&&!orbInventory[1]&&!orbInventory[2])
+	{
+	
+	}
+	for(int i=0;i<8;i++)
+	{
+		if(orbInventory[i]&&orbProb[i] != INFINITE)
+		{
+			orbProb[i+1] -= orbProb[i];
+			orbProb[i] = INFINITE;
+
+		}
+	}
+	return -1;
+}
+
+
+// @author Andre Allan Ponce
+int Game::findItemID(char sym){
+	switch(sym){
+	case JUNK_SYMBOL:{
+		return itemData.ROOMITEM_JUNK;
+		break;
+	}
+	case VASE_SYMBOL:{
+		return itemData.ROOMITEM_VASE;
+		break;
+	}
+	case TABLE_SYMBOL:{
+		return itemData.ROOMITEM_TABLE;
+		break;
+	}
+	case CHAIR_SYMBOL:{
+		return itemData.ROOMITEM_CHAIR;
+		break;
+	}
+	case LAMP_SYMBOL:{
+		return itemData.ROOMITEM_LAMP;
+		break;
+	}
+	case BED_SYMBOL:{
+		return itemData.ROOMITEM_BED;
+		break;
+	}
+	case CANDLE_SYMBOL:{
+		return itemData.ROOMITEM_CANDLE;
+		break;
+	}
+	case DISH_SYMBOL:{
+		return itemData.ROOMITEM_DISH;
+		break;
+	}
+	case DUST_SYMBOL:{
+		return itemData.ROOMITEM_DUST;
+		break;
+	}
+	case FORK_SYMBOL:{
+		return itemData.ROOMITEM_FORK;
+		break;
+	}
+	case TOILET_SYMBOL:{
+		return itemData.ROOMITEM_TOILET;
+		break;
+	}
+	case BATHTUB_SYMBOL:{
+		return itemData.ROOMITEM_BATHTUB;
+		break;
+	}
+	case MIRROR_SYMBOL:{
+		return itemData.ROOMITEM_MIRROR;
+		break;
+	}
+	case BLOOD_SYMBOL:{
+		return itemData.ROOMITEM_BLOOD;
+		break;
+	}
+	case CD_SYMBOL:{
+		return itemData.ROOMITEM_CD;
+		break;
+	}
+	default:{
+		return -1;
+		break;
+	}
+	}
+
+void Game::displayInventory()
+{
+	string invenStr = "";
+	for (int i=0;i<8;i++)
+	{
+		invenStr += "[";
+		if(orbInventory[i])
+			invenStr += orbInventoryNames[i];
+		else
+			invenStr += "          ";
+		invenStr += "]\n";
+	}
+	cout << invenStr;
+
 }
 
 
@@ -378,12 +489,34 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 	}
 	case 0x45: // e key
 		{
-			int id = detectItemID();
+
 			if(id >= 0){
 				Item* thisItem = retrieveItem(id);
 				thisItem->setDescription(itemData.getItemDesc(id));
 				thisItem->action();
+				int check = 0;
+			updateOrbProbability();
+			while(check == 0)
+			{
+				if(rand()%orbProb[i] == 1)
+				{
+				orbInventory[i] = true;
+				check ++;
+				}
 			}
+			}
+			
+
+			break;
+		}
+
+
+			
+	case 0x49:
+		{
+			displayInventory();
+			break;
+
 		}
 	default :{
 		// we dont move.

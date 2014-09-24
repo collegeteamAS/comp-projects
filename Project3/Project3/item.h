@@ -4,6 +4,7 @@
 	Item class, for all the items
 */
 #ifndef _ITEM_H_INCLUDED_
+
 #define _ITEM_H_INCLUDED_
 
 
@@ -16,6 +17,7 @@ protected:
 	// location in room
 	int xRoom;
 	int yRoom;
+
 
 	char symbol;
 	bool keyAcheived;
@@ -38,5 +40,6 @@ public:
 	int getItemLocY();
 
 	void setDescription(std::string desc);
+
 };
 #endif

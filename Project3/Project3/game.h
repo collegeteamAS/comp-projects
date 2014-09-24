@@ -130,8 +130,16 @@ public:
 	void readInFile(std::string fileName);
 	void readInItemFile(std::string fileName);
 	void runGame();
-	//int detectItemID();
+
+int detectItemID();
 	Item* retrieveItem(int id);
+
+
+	int orbProb [8]; // prob = 1/n
+	void updateOrbProbability();
+	bool orbInventory [8];
+	std::string orbInventoryNames [8]; //green, yellow, red, white, black, light, dark, pale
+
 };
 
 #endif
