@@ -1,3 +1,7 @@
+/*
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+*/
 
 #ifndef _ROOMDATA_H_INCLUDED_
 #define _ROOMDATA_H_INCLUDED_

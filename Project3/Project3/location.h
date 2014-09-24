@@ -1,4 +1,8 @@
-
+/*
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	(20% done by steve)
+*/
 
 #ifndef _LOCATION_H_INCLUDED_
 #define _LOCATION_H_INCLUDED_
@@ -40,7 +44,7 @@ public:
 	void deleteArray();
 	bool doesRoomHaveCloset();
 	virtual std::string draw();
-	void fillArray(char** room);
+	void fillArray(char** room); // dont forget to fill the array
 
 	int getHeight();
 	int getRoomID();
@@ -48,7 +52,7 @@ public:
 	int getWidth();
 
 	bool isRoomClosed();
-	bool movePlayer(int xOld, int yOld, char player, int xNew, int yNew);
+	bool movePlayer(int xOld, int yOld, char player, int xNew, int yNew); // this moves player to new spot (if valid) and updates the array
 	void resetSpace(int xSpace, int ySpace, char space);
 	void setPlayer(int xPlay, int yPlay, char player);
 

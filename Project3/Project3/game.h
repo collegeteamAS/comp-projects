@@ -1,23 +1,25 @@
+/*
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	Steve Suh
+	h_suh@u.pacific.edu
+*/
 
 #ifndef _GAME_H_INCLUDED_
 #define _GAME_H_INCLUDED_
 
-//#include <wincon.h>
-//#include <Windows.h>
 #include "roomdata.h"
 #include "itemdata.h"
 
 class Location;
 class Player;
 class Item;
-//class Room;
-//struct INPUT_RECORD;
 
 class Game {
 private:
-	Location*** world;
-	RoomData roomData;
-	ItemData itemData;
+	Location*** world; // the world
+	RoomData roomData; 
+	ItemData itemData;  
 
 	Player* player; // the player
 	Player* monster; // the monster
@@ -27,7 +29,7 @@ private:
 		1 - game start, first mode:
 			player active
 			monster inactive
-		2 -	second mode:
+		2 -	second mode: ---------------------------- we only got up to here, though, not enough time, sorry --------------- (monsters are invisible)
 			player active
 			monster active, random movement
 		3 - third mode:
@@ -43,7 +45,9 @@ private:
 	*/
 	int state;
 
-	bool isFinalDoorIn;
+	bool isFinalDoorIn; // there was supposed to be an end, eventually
+
+	std::string activeText; // debug
 
 	// where is the player right now?
 	int currX;
@@ -51,7 +55,7 @@ private:
 
 	// methods
 	void changeRoom(int move);
-	Location* createRandomRoom(int x, int y, int roomDoor);
+	Location* createRandomRoom(int x, int y, int roomDoor); // rooms are randomy generated
 	Location* createRoom(int id, int x, int y);
 	void createWorld();
 	int detectItemID();
@@ -131,13 +135,13 @@ public:
 	void readInItemFile(std::string fileName);
 	void runGame();
 
-int detectItemID();
 	Item* retrieveItem(int id);
 
 
 	int orbProb [8]; // prob = 1/n
-	void updateOrbProbability();
-	bool orbInventory [8];
+	void updateOrbProbability(); //updating the probability of getting rarer orbs little bit easier(0.1%>5% for instance) if you have more common orbs
+	bool orbInventory [8]; //array of storing bool of whether you got that orb
+	void displayInventory(); // displaying the orbs you have
 	std::string orbInventoryNames [8]; //green, yellow, red, white, black, light, dark, pale
 
 };

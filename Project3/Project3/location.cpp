@@ -1,8 +1,12 @@
 
+/*
+Andre Allan Ponce
+a_ponce1@u.pacific.edu
+Steve Suh
+h_suh@u.pacific.edu
+*/
 
-// #include <vector>
-// #include <sstream>
-// #include <iostream> // debug
+
 #include <string>
 #include "location.h"
 
@@ -137,11 +141,6 @@ void Location::setPlayer(int xPlay, int yPlay, char player){
 	roomLayout[xPlay][yPlay] = player;
 }
 
-/*
-// @author Andre Allan Ponce
-void Location::setLocationCloset(bool value){
-	hasCloset = value;
-}//*/
 
 // @author Andre Allan Ponce
 void Location::setRoomID(int idNum){

@@ -1,3 +1,9 @@
+
+/*
+Steve Suh
+h_suh@u.pacific.edu
+*/
+
 #include <string>
 #include <iostream>
 #include "fork.h"
