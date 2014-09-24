@@ -1,31 +1,140 @@
-﻿Build started 9/23/2014 5:55:54 PM.
-     1>Project "C:\Users\Potato\Documents\comp-projects\Project3\Project3\Project3.vcxproj" on node 2 (Build target(s)).
+﻿Build started 2014-09-23 오후 11:44:20.
+     1>Project "C:\Users\SENS\Documents\GitHub\comp-projects\Project3\Project3\Project3.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt constants.cpp game.cpp main.cpp room.cpp
-         room.cpp
-     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(127): error C2039: 'movePlayer' : is not a member of 'Room'
-                 c:\users\potato\documents\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
-     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(128): error C3861: 'getSpaceAt': identifier not found
-     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(129): error C2065: 'EMPTY_SPACE' : undeclared identifier
-     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(137): error C2039: 'resetSpace' : is not a member of 'Room'
-                 c:\users\potato\documents\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
-     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(138): error C2065: 'roomLayout' : undeclared identifier
-     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(142): error C2039: 'setPlayer' : is not a member of 'Room'
-                 c:\users\potato\documents\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
-     1>c:\users\potato\documents\comp-projects\project3\project3\room.cpp(143): error C2065: 'roomLayout' : undeclared identifier
-         main.cpp
-         game.cpp
-     1>c:\users\potato\documents\comp-projects\project3\project3\game.cpp(78): error C2059: syntax error : 'break'
-     1>c:\users\potato\documents\comp-projects\project3\project3\game.cpp(109): error C2039: 'setPlayer' : is not a member of 'Room'
-                 c:\users\potato\documents\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
-     1>c:\users\potato\documents\comp-projects\project3\project3\game.cpp(172): error C2440: 'initializing' : cannot convert from 'Location' to 'Room *'
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt attic.cpp basement.cpp bathroom.cpp bathtub.cpp bed.cpp bedroom.cpp blood.cpp bloodyhallway.cpp candle.cpp cd.cpp chair.cpp constants.cpp darkhallway.cpp diningroom.cpp dish.cpp dust.cpp fork.cpp game.cpp garage.cpp hallway.cpp item.cpp junk.cpp key.cpp kitchen.cpp lamp.cpp livingroom.cpp location.cpp main.cpp mirror.cpp player.cpp room.cpp roomdata.cpp roomitem.cpp Source.cpp startingroom.cpp table.cpp toilet.cpp vase.cpp
+         vase.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         toilet.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         table.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         startingroom.cpp
+         Source.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         roomitem.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\roomitem.cpp(17): error C2664: 'Item::Item(char)' : cannot convert parameter 1 from 'std::string' to 'char'
                  No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
-     1>c:\users\potato\documents\comp-projects\project3\project3\game.cpp(174): error C2660: 'Game::getKeyInput' : function does not take 1 arguments
-         constants.cpp
-     1>c:\users\potato\documents\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         roomdata.cpp
+         room.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\room.cpp(128): error C3861: 'getSpaceAt': identifier not found
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\room.cpp(129): error C2065: 'EMPTY_SPACE' : undeclared identifier
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\room.cpp(137): error C2039: 'resetSpace' : is not a member of 'Room'
+                 c:\users\sens\documents\github\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\room.cpp(138): error C2065: 'roomLayout' : undeclared identifier
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\room.cpp(142): error C2039: 'setPlayer' : is not a member of 'Room'
+                 c:\users\sens\documents\github\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\room.cpp(143): error C2065: 'roomLayout' : undeclared identifier
+         player.cpp
+         mirror.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         main.cpp
+         location.cpp
+         livingroom.cpp
+         lamp.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         kitchen.cpp
+         key.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         junk.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         item.cpp
+         hallway.cpp
+         garage.cpp
          Generating Code...
-     1>Done Building Project "C:\Users\Potato\Documents\comp-projects\Project3\Project3\Project3.vcxproj" (Build target(s)) -- FAILED.
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\player.cpp(50): error C4716: 'Player::detectItemID' : must return a value
+         Compiling...
+         game.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\item.h(10): error C2011: 'Item' : 'class' type redefinition
+                 c:\users\sens\documents\github\comp-projects\project3\project3\item.h(10) : see declaration of 'Item'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\junk.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\vase.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\table.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\chair.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\lamp.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\bed.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\candle.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\dish.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\dust.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\fork.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\toilet.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\bathtub.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\mirror.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\blood.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\cd.h(10): error C2504: 'Item' : base class undefined
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(93): error C2143: syntax error : missing ')' before '}'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(93): error C2059: syntax error : ')'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(102): error C2440: '=' : cannot convert from 'Junk *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(107): error C2440: '=' : cannot convert from 'Vase *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(112): error C2440: '=' : cannot convert from 'Table *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(117): error C2440: '=' : cannot convert from 'Chair *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(122): error C2440: '=' : cannot convert from 'Lamp *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(127): error C2440: '=' : cannot convert from 'Bed *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(132): error C2440: '=' : cannot convert from 'Candle *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(137): error C2440: '=' : cannot convert from 'Dish *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(142): error C2440: '=' : cannot convert from 'Dust *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(147): error C2440: '=' : cannot convert from 'Fork *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(152): error C2440: '=' : cannot convert from 'Toilet *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(157): error C2440: '=' : cannot convert from 'Bathtub *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(162): error C2440: '=' : cannot convert from 'Mirror *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(167): error C2440: '=' : cannot convert from 'Blood *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(172): error C2440: '=' : cannot convert from 'Cd *' to 'Item *'
+                 Types pointed to are unrelated; conversion requires reinterpret_cast, C-style cast or function-style cast
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(192): error C2059: syntax error : 'break'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(215): error C2228: left of '.retrieveItem' must have class/struct/union
+                 type is 'int'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(215): error C2227: left of '->action' must point to class/struct/union/generic type
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(227): error C2039: 'setPlayer' : is not a member of 'Room'
+                 c:\users\sens\documents\github\comp-projects\project3\project3\room.h(9) : see declaration of 'Room'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(290): error C2440: 'initializing' : cannot convert from 'Location' to 'Room *'
+                 No user-defined-conversion operator available that can perform this conversion, or the operator cannot be called
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.cpp(292): error C2660: 'Game::getKeyInput' : function does not take 1 arguments
+         fork.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         dust.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         dish.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         diningroom.cpp
+         darkhallway.cpp
+         constants.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(108): error C2143: syntax error : missing ';' before '*'
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(108): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(108): warning C4183: 'retrieveItem': missing return type; assumed to be a member function returning 'int'
+         chair.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         cd.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         candle.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         bloodyhallway.cpp
+         blood.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         bedroom.cpp
+         bed.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         bathtub.cpp
+     1>c:\users\sens\documents\github\comp-projects\project3\project3\game.h(47): error C2061: syntax error : identifier 'INPUT_RECORD'
+         bathroom.cpp
+         basement.cpp
+         attic.cpp
+         Generating Code...
+     1>Done Building Project "C:\Users\SENS\Documents\GitHub\comp-projects\Project3\Project3\Project3.vcxproj" (Build target(s)) -- FAILED.
 
 Build FAILED.
 
-Time Elapsed 00:00:08.62
+Time Elapsed 00:00:33.91

@@ -51,9 +51,6 @@
     <ClCompile Include="player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="roomitem.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="startingroom.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -147,9 +144,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="playerlist.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="roomitem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="attic.h">
