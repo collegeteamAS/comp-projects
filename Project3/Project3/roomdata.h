@@ -21,15 +21,21 @@ public:
 	enum Constants{
 		// Room IDS
 		ROOM = 0,
+
+		// closed rooms
 		ROOM_ATTIC = 1,
-		ROOM_BASEMENT = 2,
+		ROOM_GARAGE = 9,
 		ROOM_BATHROOM = 3,
+
+		// closet rooms
+		ROOM_BASEMENT = 2,
 		ROOM_BEDROOM = 4,
+
+		// open rooms
 		ROOM_HALLWAY = 5,
 		ROOM_HALLWAY_BLOODY = 6,
 		ROOM_HALLWAY_DARK = 7,
 		ROOM_DININGROOM = 8,
-		ROOM_GARAGE = 9,
 		ROOM_KITCHEN = 10,
 		ROOM_LIVINGROOM = 11,
 

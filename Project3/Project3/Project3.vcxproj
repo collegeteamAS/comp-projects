@@ -64,49 +64,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="attic.cpp" />
-    <ClCompile Include="basement.cpp" />
-    <ClCompile Include="bathroom.cpp" />
-    <ClCompile Include="bedroom.cpp" />
-    <ClCompile Include="bloodyhallway.cpp" />
+    <ClCompile Include="closedroom.cpp" />
+    <ClCompile Include="closetroom.cpp" />
     <ClCompile Include="constants.cpp" />
-    <ClCompile Include="darkhallway.cpp" />
-    <ClCompile Include="diningroom.cpp" />
     <ClCompile Include="game.cpp" />
-    <ClCompile Include="garage.cpp" />
-    <ClCompile Include="hallway.cpp" />
     <ClCompile Include="item.cpp" />
-    <ClCompile Include="kitchen.cpp" />
-    <ClCompile Include="livingroom.cpp" />
     <ClCompile Include="location.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="openroom.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playeritem.cpp" />
-    <ClCompile Include="room.cpp" />
     <ClCompile Include="roomdata.cpp" />
     <ClCompile Include="roomitem.cpp" />
     <ClCompile Include="startingroom.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="attic.h" />
-    <ClInclude Include="basement.h" />
-    <ClInclude Include="bathroom.h" />
-    <ClInclude Include="bedroom.h" />
-    <ClInclude Include="bloodyhallway.h" />
-    <ClInclude Include="darkhallway.h" />
-    <ClInclude Include="diningroom.h" />
+    <ClInclude Include="closedroom.h" />
+    <ClInclude Include="closetroom.h" />
     <ClInclude Include="game.h" />
-    <ClInclude Include="garage.h" />
-    <ClInclude Include="hallway.h" />
     <ClInclude Include="item.h" />
-    <ClInclude Include="kitchen.h" />
-    <ClInclude Include="livingroom.h" />
     <ClInclude Include="location.h" />
     <ClInclude Include="menutext.h" />
+    <ClInclude Include="openroom.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playeritem.h" />
     <ClInclude Include="playerlist.h" />
-    <ClInclude Include="room.h" />
     <ClInclude Include="roomdata.h" />
     <ClInclude Include="roomitem.h" />
   </ItemGroup>

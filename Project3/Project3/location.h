@@ -3,9 +3,25 @@
 #ifndef _LOCATION_H_INCLUDED_
 #define _LOCATION_H_INCLUDED_
 
+#include <string>
+
 class Location{
 protected:
 	bool visited;
+
+	int id;
+	char** roomLayout; // visualization of the room
+	// roomLayout(0,std::vector<char>(0,'0'))
+
+	// rooms with closets have importance
+	bool hasCloset;
+
+	// rooms with only one door are closed
+	bool isClosed;
+
+	// rooms got some size
+	int width;
+	int height;
 
 	// where this location is
 	int x; 
@@ -16,18 +32,29 @@ public:
 		EMPTY_SPACE = ' '
 	};
 
-	Location();
-	Location(int xCoord, int yCoord);
-
-	bool getVisited();
 	
-	int getX();
-	int getY();
+	Location();
+	Location(int idNum, int xCoord, int yCoord, int h, int w, bool closet, bool closed);
+	//~Room(); this is giving some issues right now
 
-	void setVisited(bool vis);
+	void createArray(); // height and width should be set, already
+	void deleteArray();
+	bool doesRoomHaveCloset();
+	virtual std::string draw();
+	void fillArray(char** room);
 
-	virtual std::string draw() = 0;
-	//virtual int visit(Player &p);
+	int getHeight();
+	int getRoomID();
+	char getSpaceAt(int xCoord, int yCoord);
+	int getWidth();
+
+	bool isRoomClosed();
+	bool movePlayer(int xOld, int yOld, char player, int xNew, int yNew);
+	void resetSpace(int xSpace, int ySpace, char space);
+	void setPlayer(int xPlay, int yPlay, char player);
+
+	//void setRoomCloset(bool value);
+	void setRoomID(int idNum);
 };
 
 #endif

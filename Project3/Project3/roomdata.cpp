@@ -1,5 +1,5 @@
 
-
+#include <iostream> // debug
 #include "room.h"
 #include "roomdata.h"
 
@@ -44,10 +44,15 @@ void RoomData::fillRoom(int id, int rows, int cols, char** room){
 	char** thisRoom = new char*[rows];
 	for(int i = 0; i < rows; i++){
 		thisRoom[i] = new char[cols];
-		strcpy_s(thisRoom[i],cols,room[i]);
+		for(int k = 0; k < cols; k++){
+			thisRoom[i][k] = room[i][k];
+			//std::cout << thisRoom[i][k] << " = " << room[i][k] << "\n";
+		}
 	}
 	data.emplace(id, thisRoom);
-	int sizes[2] = {rows, cols};
+	int* sizes = new int[2];
+	sizes[DIMENSION_ROW] = rows;
+	sizes[DIMENSION_COL] = cols;
 	roomSizes.emplace(id,sizes);
 	findDoors(id, rows, cols, room);
 	size++;
@@ -82,7 +87,11 @@ int RoomData::findDoorOnRow(int id, int row, char** room){
 // @author Andre Allan Ponce
 // {left, up, right, down} 
 void RoomData::findDoors(int id, int rows, int cols, char** room){
-	int doors[4] = { findDoorOnCol(id, 0, room), findDoorOnRow(id, 0, room), findDoorOnCol(id, cols-1, room), findDoorOnRow(id, rows-1, room) };
+	int* doors = new int[4];
+	doors[DOOR_LEFT] = findDoorOnCol(id, 0, room);
+	doors[DOOR_UP] = findDoorOnRow(id, 0, room);
+	doors[DOOR_RIGHT] = findDoorOnCol(id, cols-1, room);
+	doors[DOOR_DOWN] = findDoorOnRow(id, rows-1, room);
 	doorSpots.emplace(id, doors);
 }
 
