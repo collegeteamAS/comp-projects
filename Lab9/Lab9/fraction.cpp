@@ -1,8 +1,8 @@
 /*
 	Andre Allan Ponce
 	a_ponce1@u.pacific.edu
-
-
+	Steve Suh
+	h_suh@u.pacific.ed
 	Notes:
 	1.0 - 2014-09-26
 		project done
@@ -74,6 +74,7 @@ std::ostream& operator<<(std::ostream& out, Fraction& f){
 	return out;
 }
 
+// @author Steve Suh
 bool Fraction::operator>(Fraction& f2)
 {
 	if(numerator*f2.denominator>f2.numerator*denominator)
@@ -108,6 +109,7 @@ Fraction Fraction::operator--(){
 	return Fraction(temp,denominator);
 }
 
+// @author Steve Suh
 Fraction Fraction::operator+(Fraction& f2)
 {
 	Fraction a(numerator*f2.denominator+f2.numerator*denominator,denominator*f2.denominator);
@@ -115,6 +117,7 @@ Fraction Fraction::operator+(Fraction& f2)
 	return a;
 }
 
+// @author Steve Suh
 Fraction Fraction::operator-(Fraction& f2)
 {
 	Fraction a(numerator*f2.denominator-f2.numerator*denominator,denominator*f2.denominator);
