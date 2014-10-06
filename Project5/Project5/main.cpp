@@ -20,46 +20,52 @@ std::string sortUsingQuick(std::vector<int>* arr, int size);
 std::string sortUsingSelection(std::vector<int>* arr, int size);
 
 int main(){
+	srand(time(0);
 	int state = 0;
-	int VECTOR_SIZE = 10000;
-	while(state < 5){
-		std::vector<int>* arrayToSort = new std::vector<int>();
-		createRandomizedVector(arrayToSort,VECTOR_SIZE);
-		//std::cout << "array made";
-		std::string result = "";
-		switch(state){
-		case 0:{
-			//result = sortUsingSelection(arrayToSort,VECTOR_SIZE);
-			state++;
-			break;
+	int vectorSize = 20000;
+	int VECTOR_SIZE_INCREASE_FACTOR = 2;
+	while(vectorSize <= 640000){
+		while(state < 5){
+			std::vector<int>* arrayToSort = new std::vector<int>();
+			createRandomizedVector(arrayToSort,vectorSize);
+			//std::cout << "array made";
+			std::string result = "";
+			switch(state){
+			case 0:{
+				result = sortUsingSelection(arrayToSort,vectorSize);
+				state++;
+				break;
+			}
+			case 1:{
+				result = sortUsingInsertion(arrayToSort,vectorSize);
+				state++;
+				break;
+			}
+			case 2:{
+				result = sortUsingBubble(arrayToSort,vectorSize);
+				debugPrintElements(arrayToSort, 100);
+				state++;
+				break;
+			}
+			case 3:{
+				result = sortUsingMerge(arrayToSort,vectorSize);
+				state++;
+				break;
+			}
+			case 4:{
+				result = sortUsingQuick(arrayToSort,vectorSize);
+				state++;
+				break;
+			}
+			default :
+				// we should not be going here
+				break;
+			}
+			delete arrayToSort;
+			std::cout << result << "\n"; // change this to save to file later
 		}
-		case 1:{
-			//result = sortUsingInsertion(arrayToSort,VECTOR_SIZE);
-			state++;
-			break;
-		}
-		case 2:{
-			result = sortUsingBubble(arrayToSort,VECTOR_SIZE);
-			debugPrintElements(arrayToSort, 100);
-			state++;
-			break;
-		}
-		case 3:{
-			result = sortUsingMerge(arrayToSort,VECTOR_SIZE);
-			state++;
-			break;
-		}
-		case 4:{
-			//result = sortUsingQuick(arrayToSort,VECTOR_SIZE);
-			state++;
-			break;
-		}
-		default :
-			// we should not be going here
-			break;
-		}
-		delete arrayToSort;
-		std::cout << result << "\n"; // change this to save to file later
+		vectorSize *= VECTOR_SIZE_INCREASE_FACTOR;
+		state = 0;
 	}
 	return 0;
 }
@@ -79,8 +85,8 @@ void createRandomizedVector(std::vector<int>* arr, int size){
 // @author Andre Allan Ponce
 // creates random number from 1 to range
 int createRandomNumber(int range){
-	std::random_device rd;
-	return (rd() % range + 1);
+	//std::random_device rd;
+	return (rand() % range + 1);
 	//std::cout << test << "\n";
 }
 
@@ -105,6 +111,17 @@ std::string sortUsingBubble(std::vector<int>* arr, int size){
 }
 
 // @author Andre Allan Ponce
+// sorts using Insertion sort (from Sorts class)
+std::string sortUsingInsertion(std::vector<int>* arr, int size){
+	clock_t startTime = clock();
+	//Sorts::insertionSort(arr);
+	clock_t timeTaken = clock() - startTime;
+	std::ostringstream oss;
+	oss << "Insertion Sort: " << size << " elements took " << timeTaken << " milliseconds.";
+	return oss.str();
+}
+
+// @author Andre Allan Ponce
 // sorts using mergeSort (from Sorts class)
 std::string sortUsingMerge(std::vector<int>* arr, int size){
 	clock_t startTime = clock();
@@ -112,5 +129,27 @@ std::string sortUsingMerge(std::vector<int>* arr, int size){
 	clock_t timeTaken = clock() - startTime;
 	std::ostringstream oss;
 	oss << "Merge Sort: " << size << " elements took " << timeTaken << " milliseconds.";
+	return oss.str();
+}
+
+// @author Andre Allan Ponce
+// sorts using Quick sort (from Sorts class)
+std::string sortUsingInsertion(std::vector<int>* arr, int size){
+	clock_t startTime = clock();
+	//Sorts::quickSort(arr);
+	clock_t timeTaken = clock() - startTime;
+	std::ostringstream oss;
+	oss << "Quick Sort: " << size << " elements took " << timeTaken << " milliseconds.";
+	return oss.str();
+}
+
+// @author Andre Allan Ponce
+// sorts using Selection sort (from Sorts class)
+std::string sortUsingInsertion(std::vector<int>* arr, int size){
+	clock_t startTime = clock();
+	//Sorts::selectionSort(arr);
+	clock_t timeTaken = clock() - startTime;
+	std::ostringstream oss;
+	oss << "Selection Sort: " << size << " elements took " << timeTaken << " milliseconds.";
 	return oss.str();
 }
