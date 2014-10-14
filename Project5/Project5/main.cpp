@@ -11,6 +11,7 @@
 void createRandomizedVector(std::vector<int>* arr, int size);
 int createRandomNumber(int range);
 void debugPrintElements(std::vector<int>* arr, int range);
+void saveToFile(std::string* data, std::string fileName);
 
 // sorting (calls methods from Sorts class)
 std::string sortUsingBubble(std::vector<int>* arr, int size);
@@ -20,11 +21,15 @@ std::string sortUsingQuick(std::vector<int>* arr, int size);
 std::string sortUsingSelection(std::vector<int>* arr, int size);
 
 int main(){
-	srand(time(0);
+	srand(time(0));
 	int state = 0;
 	int vectorSize = 20000;
 	int VECTOR_SIZE_INCREASE_FACTOR = 2;
-	while(vectorSize <= 640000){
+	int MAX_VECTOR_SIZE = vectorSize*32;
+	std::string FILENAME = "SortResults";
+	std::string* data = new std::string[5];
+	while(vectorSize <= MAX_VECTOR_SIZE){
+		std::cout << "\n\n"<< vectorSize << ": \n";
 		while(state < 5){
 			std::vector<int>* arrayToSort = new std::vector<int>();
 			createRandomizedVector(arrayToSort,vectorSize);
@@ -43,7 +48,7 @@ int main(){
 			}
 			case 2:{
 				result = sortUsingBubble(arrayToSort,vectorSize);
-				debugPrintElements(arrayToSort, 100);
+				//debugPrintElements(arrayToSort, 100);
 				state++;
 				break;
 			}
@@ -62,11 +67,14 @@ int main(){
 				break;
 			}
 			delete arrayToSort;
-			std::cout << result << "\n"; // change this to save to file later
+			std::cout << result << "\n"; // change this to save to file later // for debug
+			data[state-1] += result + "\n";
 		}
 		vectorSize *= VECTOR_SIZE_INCREASE_FACTOR;
 		state = 0;
 	}
+	saveToFile(data,FILENAME);
+	delete [] data;
 	return 0;
 }
 
@@ -98,6 +106,51 @@ void debugPrintElements(std::vector<int>* arr, int range){
 	}
 }
 
+/*
+	@author Andre Allan Ponce
+	saves data to file in this format:
+	<sort name>:
+	<vectorSize> elements in <time taken>
+	...
+
+	<sort name>:
+	...
+*/
+void saveToFile(std::string* data, std::string fileName){
+	std::ofstream out (fileName.c_str(), std::ofstream::out);
+	for(int i = 0; i < 5; i++){
+		switch(i){
+		case 0:{
+			out << "Selection Sort\n" << "------------------------\n";
+			break;
+		}
+		case 1:{
+			out << "Insertion Sort\n" << "------------------------\n";
+			break;
+		}
+		case 2:{
+			out << "Bubble Sort\n" << "------------------------\n";
+			break;
+		}
+		case 3:{
+			out << "Merge Sort\n" << "------------------------\n";
+			break;
+		}
+		case 4:{
+			out << "Quick Sort\n" << "------------------------\n";
+			break;
+		}
+		default :{
+			// we should never be going here
+			break;
+		}
+		}
+		//std::cout << data[i] << "\n";
+		out << data[i] << "\n";
+	}
+	out.close();
+	std::cout << "File Saved as " << fileName << "\n";
+}
 
 // @author Andre Allan Ponce
 // sorts using bubble sort (from Sorts class)
@@ -114,7 +167,7 @@ std::string sortUsingBubble(std::vector<int>* arr, int size){
 // sorts using Insertion sort (from Sorts class)
 std::string sortUsingInsertion(std::vector<int>* arr, int size){
 	clock_t startTime = clock();
-	//Sorts::insertionSort(arr);
+	Sorts::insertionSort(arr);
 	clock_t timeTaken = clock() - startTime;
 	std::ostringstream oss;
 	oss << "Insertion Sort: " << size << " elements took " << timeTaken << " milliseconds.";
@@ -134,7 +187,7 @@ std::string sortUsingMerge(std::vector<int>* arr, int size){
 
 // @author Andre Allan Ponce
 // sorts using Quick sort (from Sorts class)
-std::string sortUsingInsertion(std::vector<int>* arr, int size){
+std::string sortUsingQuick(std::vector<int>* arr, int size){
 	clock_t startTime = clock();
 	//Sorts::quickSort(arr);
 	clock_t timeTaken = clock() - startTime;
@@ -145,7 +198,7 @@ std::string sortUsingInsertion(std::vector<int>* arr, int size){
 
 // @author Andre Allan Ponce
 // sorts using Selection sort (from Sorts class)
-std::string sortUsingInsertion(std::vector<int>* arr, int size){
+std::string sortUsingSelection(std::vector<int>* arr, int size){
 	clock_t startTime = clock();
 	//Sorts::selectionSort(arr);
 	clock_t timeTaken = clock() - startTime;

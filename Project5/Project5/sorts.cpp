@@ -2,7 +2,7 @@
 
 #include <vector>
 #include <algorithm>
-#include <iostream> // debug
+// #include <iostream> // debug
 #include "sorts.h"
 
 // int Sorts::iterations = 0; // debug
@@ -13,19 +13,14 @@
 	@param arr - the vector to be sorted
 */
 void Sorts::bubbleSort(std::vector<int>* arr){
-	for(int i = 0; i < arr->size(); i++){
-		//bool swapping = true;
-		//std::cout << "ehck";
-		//int n = arr->size()-1;
-		//std::cout << arr->at(n) << "\n";
-		//std::cout << arr->at(n-1) << "\n";
-		for(int n = arr->size()-1; n > i; n--){
+	for(unsigned int i = 0; i < arr->size(); i++){
+
+		// Ive always done bubble sorts by reverse iterating 
+		for(unsigned int n = arr->size()-1; n > i; n--){
 			if(arr->at(n) < arr->at(n-1)){
 				int temp = arr->at(n);
 				(*arr)[n] = arr->at(n-1);
 				(*arr)[n-1] = temp;
-				//std::cout << temp << "\n";
-				n--;
 			}
 		}
 	}
@@ -51,8 +46,8 @@ void Sorts::fillVector(std::vector<int>* input, std::vector<int>* output, int st
 	@author Andre Allan Ponce
 	@param arr - the vector to sort
 */
-void Sorts::insertionSort(std::vector<int> arr*){
-	for(int i = 1; i < arr->size(); i++){
+void Sorts::insertionSort(std::vector<int>* arr){
+	for(unsigned int i = 1; i < arr->size(); i++){
 		int n = i;
 		while(n > 0 && arr->at(n) < arr->at(n-1)){
 			int temp = arr->at(n);
@@ -103,15 +98,15 @@ void Sorts::merge(std::vector<int>* left, std::vector<int>* right, std::vector<i
 */
 void Sorts::mergeSort(std::vector<int>* arr){
 	if(arr->size() > 1){
-		int pivot = arr->size()/2; // finds halfway index
+		int q = arr->size()/2; // finds halfway index
 
 		// create vector of left side 
 		std::vector<int>* left = &std::vector<int>();
-		fillVector(arr,left,0,pivot);
+		fillVector(arr,left,0,q);
 
 		// create vector of right side
 		std::vector<int>* right = &std::vector<int>();
-		fillVector(arr,right,pivot,arr->size());
+		fillVector(arr,right,q,arr->size());
 
 		// recursively call this method with left and right vectors
 		mergeSort(left);
