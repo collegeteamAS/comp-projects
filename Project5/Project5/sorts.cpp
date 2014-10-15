@@ -162,7 +162,7 @@ void Sorts::quickSortRec(std::vector<int>* arr, int a, int z)
 
 	if(z>piv)
 	{
-		quickSortRec(arr,a,piv);
+		quickSortRec(arr,piv,z);
 	}
 
 
@@ -176,13 +176,13 @@ int Sorts::partition(std::vector<int>* arr, int left, int right)
 	while (left<=right)
 	{
 		//checking if any values left of pivot is greater than pivot
-		while((*arr)[left] > (*arr)[piv])
+		while(arr-> at(left) < arr-> at(piv))
 		{
 			left++;
 		}
 
 		//checking any values less than pivot on right side
-		while((*arr)[right] < (*arr)[piv])
+		while(arr-> at(right) > arr-> at(piv))
 		{
 			right--;
 		}
@@ -190,8 +190,8 @@ int Sorts::partition(std::vector<int>* arr, int left, int right)
 		//swap two values
 		if(left<=right)
 		{
-			int temp = (*arr)[left];
-			(*arr)[left] = (*arr)[right];
+			int temp = arr->at(left);
+			(*arr)[left] =  arr-> at(right);
 			(*arr)[right] = temp;
 			right--;
 			left++;
