@@ -113,14 +113,11 @@ int Location::getWidth(){
 bool Location::isRoomClosed(){
 	return isClosed;
 }
-<<<<<<< HEAD
-*/
-=======
 
 // @author Andre Allan Ponce
 // @returns true if player moved, false if not (because of illegal move)
 bool Location::movePlayer(int xOld, int yOld, char player, int xNew, int yNew){
-	if(getSpaceAt(xNew, yNew) == EMPTY_SPACE || getSpace(xNew,yNew) == ){
+	if(getSpaceAt(xNew, yNew) == EMPTY_SPACE || getSpaceAt(xNew,yNew) == ){
 		resetSpace(xOld, yOld, EMPTY_SPACE);
 		setPlayer(xNew, yNew, player);
 		return true;
@@ -148,4 +145,3 @@ void Location::setLocationCloset(bool value){
 void Location::setRoomID(int idNum){
 	id = idNum;
 }
->>>>>>> working

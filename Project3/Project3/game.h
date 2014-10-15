@@ -5,7 +5,7 @@
 //#include <wincon.h>
 //#include <Windows.h>
 #include "roomdata.h"
-
+#include "item.h"
 class Location;
 class Player;
 //class Room;

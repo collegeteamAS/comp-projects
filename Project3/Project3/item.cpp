@@ -14,14 +14,12 @@
 // Steve Suh
 Item::Item(): symbol(NULL), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1)
 {
-	keyAcheived = false;
 	description = "";
 }
 
 // Steve Suh
 Item::Item(char sym) : symbol(sym), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1)
 {
-	keyAcheived = false;
 	description = "";
 }
 

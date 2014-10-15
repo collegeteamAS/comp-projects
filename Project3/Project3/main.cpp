@@ -6,7 +6,7 @@
 #include <iostream>
 //#include <Windows.h> // keyboard input!
 //#include <wincon.h> // more keyboard input
-#include <time.h>
+//#include <time.h>
 //#include <sstream>
 //#include "location.h"
 //#include "room.h" // debug

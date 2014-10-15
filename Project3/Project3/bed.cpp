@@ -1,5 +1,4 @@
 #include <string>
-#include <iostream>
 #include "bed.h"
 #include "constants.cpp"
 

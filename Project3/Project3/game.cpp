@@ -10,9 +10,9 @@
 #include <iostream>
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
-#include <stdlib.h>
+//#include <stdlib.h>
 #include "room.h"
-#include "item.h" 
+//#include "item.h" 
 #include <time.h> // for waiting
 #include "openroom.h"
 #include "closedroom.h"
@@ -36,7 +36,6 @@
 #include "mirror.h"
 #include "blood.h"
 #include "cd.h"
-
 // @author Andre Allan Ponce
 // Steve Suh
 Game::Game() : 
@@ -187,77 +186,77 @@ Item* retrieveItem(int id)
 	{
 	case 0:
 		{
-			i = &Junk();
+			i = new Junk();
 			break;
 		}
 	case 1:
 		{
-			i = &Vase();
+			i = new Vase();
 			break;
 		}
 	case 2:
 		{
-			i = &Table();
+			i = new Table();
 			break;
 		}
 	case 3:
 		{
-			i = &Chair();
+			i = new Chair();
 			break;
 		}
 	case 4:
 		{
-			i = &Lamp();
+			i = new Lamp();
 			break;
 		}
 	case 5:
 		{
-			i = &Bed();
+			i = new Bed();
 			break;
 		}
 	case 6:
 		{
-			i = &Candle();
+			i = new Candle();
 			break;
 		}
 	case 7:
 		{
-			i = &Dish();
+			i = new Dish();
 			break;
 		}
 	case 8:
 		{
-			i = &Dust();
+			i = new Dust();
 			break;
 		}
 	case 9:
 		{
-			i = &Fork();
+			i = new Fork();
 			break;
 		}
 	case 10:
 		{
-			i = &Toilet();
+			i = new Toilet();
 			break;
 		}
 	case 11:
 		{
-			i = &Bathtub();
+			i = new Bathtub();
 			break;
 		}
 	case 12:
 		{
-			i = &Mirror();
+			i = new Mirror();
 			break;
 		}
 	case 13:
 		{
-			i = &Blood();
+			i = new Blood();
 			break;
 		}
 	case 14:
 		{
-			i = &Cd();
+			i = new Cd();
 			break;
 		}
 	}

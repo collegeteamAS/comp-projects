@@ -7,6 +7,6 @@ using namespace std;
 
 Mirror::Mirror()
 {
-	symbol = '-';
+	symbol = 'h';
 	description = ROOMITEM_MIRROR;
 }

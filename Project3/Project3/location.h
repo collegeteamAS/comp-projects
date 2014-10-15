@@ -32,7 +32,6 @@ public:
 
 	bool isEmpty(int xCoord, int yCoord);
 
-	Location();
 	Location(int xCoord, int yCoord);
 
 	bool getVisited();

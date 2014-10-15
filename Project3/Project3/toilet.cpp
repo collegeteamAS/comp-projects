@@ -7,6 +7,6 @@ using namespace std;
 
 Toilet::Toilet()
 {
-	symbol = 'l';
+	symbol = 'e';
 	description = ROOMITEM_TOILET;
 }

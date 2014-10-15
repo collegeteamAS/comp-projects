@@ -88,7 +88,6 @@
     <ClCompile Include="hallway.cpp" />
     <ClCompile Include="item.cpp" />
     <ClCompile Include="junk.cpp" />
-    <ClCompile Include="key.cpp" />
     <ClCompile Include="kitchen.cpp" />
     <ClCompile Include="lamp.cpp" />
     <ClCompile Include="livingroom.cpp" />
@@ -129,7 +128,6 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="itemdata.h" />
     <ClInclude Include="junk.h" />
-    <ClInclude Include="key.h" />
     <ClInclude Include="kitchen.h" />
     <ClInclude Include="lamp.h" />
     <ClInclude Include="livingroom.h" />

@@ -7,6 +7,6 @@ using namespace std;
 
 Vase::Vase()
 {
-	symbol = 'l';
+	symbol = 'v';
 	description = ROOMITEM_VASE;
 }

@@ -19,7 +19,6 @@ class Item
 		int yRoom;
 	public:
 		char symbol;
-		bool keyAcheived;
 		std::string description;
 
 		Item();
