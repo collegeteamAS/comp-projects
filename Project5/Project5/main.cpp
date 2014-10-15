@@ -12,6 +12,7 @@ void createRandomizedVector(std::vector<int>* arr, int size);
 int createRandomNumber(int range);
 void debugPrintElements(std::vector<int>* arr, int range);
 void saveToFile(std::string* data, std::string fileName);
+void sorter(std::string* data, int size, int max);
 
 // sorting (calls methods from Sorts class)
 std::string sortUsingBubble(std::vector<int>* arr, int size);
@@ -22,57 +23,36 @@ std::string sortUsingSelection(std::vector<int>* arr, int size);
 
 int main(){
 	srand(time(0));
-	int state = 0;
-	int vectorSize = 20000;
-	int VECTOR_SIZE_INCREASE_FACTOR = 2;
-	int MAX_VECTOR_SIZE = vectorSize*32;
-	std::string FILENAME = "SortResults";
+	bool action;
+	int vectorSize;
+	std::ostringstream oss;
 	std::string* data = new std::string[5];
-	while(vectorSize <= MAX_VECTOR_SIZE){
-		std::cout << "\n\n"<< vectorSize << ": \n";
-		while(state < 5){
-			std::vector<int>* arrayToSort = new std::vector<int>();
-			createRandomizedVector(arrayToSort,vectorSize);
-			//std::cout << "array made";
-			std::string result = "";
-			switch(state){
-			case 0:{
-				result = sortUsingSelection(arrayToSort,vectorSize);
-				state++;
-				break;
-			}
-			case 1:{
-				result = sortUsingInsertion(arrayToSort,vectorSize);
-				state++;
-				break;
-			}
-			case 2:{
-				result = sortUsingBubble(arrayToSort,vectorSize);
-				//debugPrintElements(arrayToSort, 100);
-				state++;
-				break;
-			}
-			case 3:{
-				result = sortUsingMerge(arrayToSort,vectorSize);
-				state++;
-				break;
-			}
-			case 4:{
-				result = sortUsingQuick(arrayToSort,vectorSize);
-				state++;
-				break;
-			}
-			default :
-				// we should not be going here
-				break;
-			}
-			delete arrayToSort;
-			std::cout << result << "\n"; // change this to save to file later // for debug
-			data[state-1] += result + "\n";
+	int MAX_VECTOR_SIZE;
+	do{
+		std::cout << "Auto mode or manual mode? (A/m): ";
+		char mode;
+		std::cin >> mode;
+		if(mode == 'A' || mode == 'a'){
+			std::cout << "Enter starting data size: ";
+			std::cin >> vectorSize;
+			oss << "SortResults_Auto_" << vectorSize;
+			MAX_VECTOR_SIZE = vectorSize*32;
+			action = true;
 		}
-		vectorSize *= VECTOR_SIZE_INCREASE_FACTOR;
-		state = 0;
-	}
+		else if(mode == 'M' || mode == 'm'){
+			std::cout << "Enter data size to sort: ";
+			std::cin >> vectorSize;
+			oss << "SortResults_" << vectorSize;
+			MAX_VECTOR_SIZE = vectorSize;
+			action = true;
+		}
+		else{
+			std::cout << "bad input, try again\n";
+			action = false;
+		}
+	}while(!action);
+	std::string FILENAME = oss.str();
+	sorter(data, vectorSize, MAX_VECTOR_SIZE);
 	saveToFile(data,FILENAME);
 	delete [] data;
 	return 0;
@@ -150,6 +130,59 @@ void saveToFile(std::string* data, std::string fileName){
 	}
 	out.close();
 	std::cout << "File Saved as " << fileName << "\n";
+}
+
+// @author Andre Allan Ponce
+// does the sorting, using states
+// can be done for a certain number of elements or does from vectorSize to MAX_VECTOR_SIZE in factors of 2 
+void sorter(std::string* data, int size, int max){
+	int VECTOR_SIZE_INCREASE_FACTOR = 2;
+	int state = 0;
+	while(size <= max){
+		std::cout << "\n\n"<< size << ": \n";
+		while(state < 5){
+			std::vector<int>* arrayToSort = new std::vector<int>();
+			createRandomizedVector(arrayToSort,size);
+			//std::cout << "array made";
+			std::string result = "";
+			switch(state){
+			case 0:{
+				result = sortUsingSelection(arrayToSort,size);
+				state++;
+				break;
+			}
+			case 1:{
+				result = sortUsingInsertion(arrayToSort,size);
+				state++;
+				break;
+			}
+			case 2:{
+				result = sortUsingBubble(arrayToSort,size);
+				//debugPrintElements(arrayToSort, 100);
+				state++;
+				break;
+			}
+			case 3:{
+				result = sortUsingMerge(arrayToSort,size);
+				state++;
+				break;
+			}
+			case 4:{
+				result = sortUsingQuick(arrayToSort,size);
+				state++;
+				break;
+			}
+			default :
+				// we should not be going here
+				break;
+			}
+			delete arrayToSort;
+			std::cout << result << "\n"; // change this to save to file later // for debug
+			data[state-1] += result + "\n";
+		}
+		size *= VECTOR_SIZE_INCREASE_FACTOR;
+		state = 0;
+	}
 }
 
 // @author Andre Allan Ponce
