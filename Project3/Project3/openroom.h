@@ -1,3 +1,7 @@
+/*
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+*/
 
 #ifndef _OPENROOM_H_INCLUDED_
 #define _OPENROOM_H_INCLUDED

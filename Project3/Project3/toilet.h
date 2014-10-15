@@ -11,7 +11,7 @@ class Toilet:public Item
 	private:
 
 	public:
-		Toilet();
+		Toilet(char sym, int idNum);
 };
 
 #endif

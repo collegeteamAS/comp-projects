@@ -11,7 +11,7 @@ class Candle:public Item
 	private:
 
 	public:
-		Candle();
+		Candle(char sym, int idNum);
 };
 
 #endif

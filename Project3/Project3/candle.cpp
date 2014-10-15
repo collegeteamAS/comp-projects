@@ -1,12 +1,14 @@
+/*
+Steve Suh
+h_suh@u.pacific.edu
+*/
 #include <string>
 #include <iostream>
 #include "candle.h"
-#include "constants.cpp"
 
 using namespace std;
 
-Candle::Candle()
+Candle::Candle(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = 'I';
-	description = ROOMITEM_CANDLE;
+	
 }

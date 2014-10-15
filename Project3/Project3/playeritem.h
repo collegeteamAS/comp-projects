@@ -6,6 +6,9 @@
 #ifndef _PLAYERITEM_H_INCLUDED_
 #define _PLAYERITEM_H_INCLUDED_
 
+#include <string>
+#include "item.h"
+
 class PlayerItem : public Item{
 protected:
 	int id;

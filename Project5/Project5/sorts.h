@@ -9,11 +9,11 @@ private:
 	static void fillVector(std::vector<int>* input, std::vector<int>* output, int start, int end);
 	static void merge(std::vector<int>* left, std::vector<int>* right, std::vector<int>* arr);
 	// static int iterations; // debug
-	
 public:
 	static void bubbleSort(std::vector<int>* arr);
 	static void insertionSort(std::vector<int>* arr);
 	static void mergeSort(std::vector<int>* arr);
+
 
 	//steve suh ------
 	static void selectionSort(std::vector<int>* arr);

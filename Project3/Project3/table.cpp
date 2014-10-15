@@ -1,12 +1,15 @@
+
+/*
+Steve Suh
+h_suh@u.pacific.edu
+*/
 #include <string>
 #include <iostream>
 #include "table.h"
-#include "constants.cpp"
 
 using namespace std;
 
-Table::Table()
+Table::Table(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = 't';
-	description = ROOMITEM_TABLE;
+	
 }

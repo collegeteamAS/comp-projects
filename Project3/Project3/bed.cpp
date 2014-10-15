@@ -1,11 +1,13 @@
+/*
+Steve Suh
+h_suh@u.pacific.edu
+*/
 #include <string>
 #include "bed.h"
-#include "constants.cpp"
 
 using namespace std;
 
-Bed::Bed()
+Bed::Bed(char sym, int idNum) : Item(sym,idNum)
 {
-	symbol = 'b';
-	description = ROOMITEM_BED;
+	
 }

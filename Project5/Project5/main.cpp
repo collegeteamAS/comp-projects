@@ -148,7 +148,6 @@ void sorter(std::string* data, int size, int max){
 			switch(state){
 			case 0:{
 				result = sortUsingSelection(arrayToSort,size);
-				
 				state++;
 				break;
 			}
@@ -159,7 +158,6 @@ void sorter(std::string* data, int size, int max){
 			}
 			case 2:{
 				result = sortUsingBubble(arrayToSort,size);
-				
 				state++;
 				break;
 			}
@@ -170,7 +168,6 @@ void sorter(std::string* data, int size, int max){
 			}
 			case 4:{
 				result = sortUsingQuick(arrayToSort,size);
-				debugPrintElements(arrayToSort, 100);
 				state++;
 				break;
 			}

@@ -1,12 +1,16 @@
+
+/*
+Steve Suh
+h_suh@u.pacific.edu
+*/
+
 #include <string>
 #include <iostream>
 #include "bathtub.h"
-#include "constants.cpp"
 
 using namespace std;
 
-Bathtub::Bathtub()
+Bathtub::Bathtub(char sym, int idNum) : Item(sym, idNum)
 {
-	symbol = 'u';
-	description = ROOMITEM_BATHTUB;
+
 }

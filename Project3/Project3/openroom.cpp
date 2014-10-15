@@ -1,4 +1,9 @@
 
+/*
+Andre Allan Ponce
+a_ponce1@u.pacific.edu
+*/
+
 #include "openroom.h"
 
 OpenRoom::OpenRoom() : Location(){

@@ -10,23 +10,9 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="menutext.h" />
-    <ClInclude Include="player.h" />
-    <ClInclude Include="playerlist.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="constants.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="player.cpp" />
-    <ClCompile Include="playerlist.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="sampleplayers" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{1B794218-F3BD-42A2-A52A-74CCE1815569}</ProjectGuid>
-    <RootNamespace>Project2</RootNamespace>
+    <ProjectGuid>{07490C1C-1681-43F7-8FF2-7A386900F54C}</ProjectGuid>
+    <RootNamespace>Lab9</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -75,6 +61,13 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="fraction.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="fraction.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
