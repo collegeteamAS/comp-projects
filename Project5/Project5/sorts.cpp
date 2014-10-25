@@ -116,3 +116,88 @@ void Sorts::mergeSort(std::vector<int>* arr){
 		merge(left,right,arr);
 	}
 }
+
+
+//Steve Suh
+void Sorts::selectionSort(std::vector<int>* arr)
+{
+	int curr, min; //curr is current value checking, min is the index of minimum value in arr
+	int n = arr->size()-1; // number of elements
+	min = 0; //assuming the first value is the minimum
+	int temp;
+
+	for(int j=0; j<n; j++)
+	{
+		for(int i = j; i < n; i++)
+		{
+			if((*arr)[i+1] < (*arr)[min])
+				min=i+1;
+		}
+
+			temp = (*arr)[j];
+			(*arr)[j] = (*arr)[min];
+			(*arr)[min] = temp; //swaping the min value to the resulting location
+	}
+	
+}
+
+
+//Steve Suh
+void Sorts::quickSort(std::vector<int>* arr)
+{
+	quickSortRec(arr, 0,arr->size()-1);
+}
+
+//recursion function
+void Sorts::quickSortRec(std::vector<int>* arr, int a, int z)
+{
+	int piv = partition(arr,a,z);
+
+	//do recursion on the left of pivot
+
+	if(a<piv-1)
+	{
+		quickSortRec(arr,a,piv-1);
+	}
+
+	if(z>piv)
+	{
+		quickSortRec(arr,piv,z);
+	}
+
+
+}
+
+
+//arranges pivot index
+int Sorts::partition(std::vector<int>* arr, int left, int right)
+{
+	int piv = left;
+	while (left<=right)
+	{
+		//checking if any values left of pivot is greater than pivot
+		while(arr-> at(left) < arr-> at(piv))
+		{
+			left++;
+		}
+
+		//checking any values less than pivot on right side
+		while(arr-> at(right) > arr-> at(piv))
+		{
+			right--;
+		}
+	
+		//swap two values
+		if(left<=right)
+		{
+			int temp = arr->at(left);
+			(*arr)[left] =  arr-> at(right);
+			(*arr)[right] = temp;
+			right--;
+			left++;
+		}
+	}
+
+	return left;
+
+}

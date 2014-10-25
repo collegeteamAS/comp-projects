@@ -12,7 +12,16 @@ h_suh@u.pacific.edu
 #include <locale>
 #include <fstream>
 #include <iostream>
+<<<<<<< HEAD
+//#include <Windows.h> // keyboard input!
+//#include <wincon.h> // more keyboard input
+//#include <time.h>
+//#include <sstream>
+//#include "location.h"
+//#include "room.h" // debug
+=======
 #include <time.h>
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 #include "game.h"
 
 

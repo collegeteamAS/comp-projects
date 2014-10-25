@@ -80,7 +80,11 @@
     <ClCompile Include="item.cpp" />
     <ClCompile Include="itemdata.cpp" />
     <ClCompile Include="junk.cpp" />
+<<<<<<< HEAD
+    <ClCompile Include="kitchen.cpp" />
+=======
     <ClCompile Include="key.cpp" />
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
     <ClCompile Include="lamp.cpp" />
     <ClCompile Include="location.cpp" />
     <ClCompile Include="main.cpp" />
@@ -88,6 +92,10 @@
     <ClCompile Include="openroom.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="roomdata.cpp" />
+<<<<<<< HEAD
+    <ClCompile Include="startingroom.cpp" />
+=======
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
     <ClCompile Include="table.cpp" />
     <ClCompile Include="toilet.cpp" />
     <ClCompile Include="vase.cpp" />
@@ -108,7 +116,11 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="itemdata.h" />
     <ClInclude Include="junk.h" />
+<<<<<<< HEAD
+    <ClInclude Include="kitchen.h" />
+=======
     <ClInclude Include="key.h" />
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
     <ClInclude Include="lamp.h" />
     <ClInclude Include="location.h" />
     <ClInclude Include="menutext.h" />

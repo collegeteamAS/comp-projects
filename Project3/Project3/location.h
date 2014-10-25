@@ -1,9 +1,12 @@
+<<<<<<< HEAD
+=======
 /*
 	Andre Allan Ponce
 	a_ponce1@u.pacific.edu
 	(20% done by steve)
 */
 
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 #ifndef _LOCATION_H_INCLUDED_
 #define _LOCATION_H_INCLUDED_
 
@@ -35,7 +38,16 @@ public:
 	enum Contsants{
 		EMPTY_SPACE = ' '
 	};
+<<<<<<< HEAD
+
+	bool isEmpty(int xCoord, int yCoord);
+
+	Location(int xCoord, int yCoord);
+
+	bool getVisited();
+=======
 	
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 	Location();
 	Location(int idNum, int xCoord, int yCoord, int h, int w, bool closet, bool closed);
 	//~Room(); this is giving some issues right now

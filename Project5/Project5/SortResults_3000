@@ -1,0 +1,20 @@
+Selection Sort
+------------------------
+Selection Sort: 3000 elements took 601 milliseconds.
+
+Insertion Sort
+------------------------
+Insertion Sort: 3000 elements took 931 milliseconds.
+
+Bubble Sort
+------------------------
+Bubble Sort: 3000 elements took 1231 milliseconds.
+
+Merge Sort
+------------------------
+Merge Sort: 3000 elements took 108 milliseconds.
+
+Quick Sort
+------------------------
+Quick Sort: 3000 elements took 10 milliseconds.
+

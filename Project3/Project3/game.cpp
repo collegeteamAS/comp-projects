@@ -14,8 +14,14 @@
 #include <iostream>
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
+<<<<<<< HEAD
+//#include <stdlib.h>
+#include "room.h"
+//#include "item.h" 
+=======
 #include "item.h" 
 
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 #include <time.h> // for waiting
 
 #include "openroom.h"
@@ -40,7 +46,6 @@
 #include "mirror.h"
 #include "blood.h"
 #include "cd.h"
-
 // @author Andre Allan Ponce
 Game::Game() : 
 	world(0),
@@ -443,6 +448,21 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 		movePlayer(MOVE_DOWN, currRoom);
 		break;
 	}
+<<<<<<< HEAD
+	case 0x45://pressing e(examine)
+		{
+			int check = 0;
+			int i=0;
+			retrieveItem(detectItemID())->action();
+			updateOrbProbability();
+			while(check == 0 && i<8)
+			{
+				if(rand()%orbProb[i] == 1)
+				{
+					orbInventory[i] = true;
+					cout<< "\nThere is a " + orbInventoryNames[i];
+					check ++;
+=======
 	case 0x41: // a key // this was steve
 		{
 			activeText = "ea \n";
@@ -465,14 +485,20 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 						check++;
 					}
 				i++;
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 				}
+				i++;
 			}
 			break;
 		}
+<<<<<<< HEAD
+	case 0x49://pressing i(inventory)
+=======
 
 
 			
 	case 0x49: // this was steve as well
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 		{
 			displayInventory();
 			break;

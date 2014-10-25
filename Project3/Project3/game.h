@@ -9,8 +9,12 @@
 #define _GAME_H_INCLUDED_
 
 #include "roomdata.h"
+<<<<<<< HEAD
+#include "item.h"
+=======
 #include "itemdata.h"
 
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 class Location;
 class Player;
 class Item;
@@ -90,7 +94,11 @@ public:
 		MIRROR_SYMBOL = 'H',
 		BLOOD_SYMBOL = '*',
 		CD_SYMBOL = 'a',
+<<<<<<< HEAD
+		*/
+=======
 		//*/
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 		EXIT_SYMBOL = 'E',
 		WALL_SYMBOL_A = '|',
 		WALL_SYMBOL_B = '-',
@@ -127,6 +135,10 @@ public:
 	};
 
 	Game();
+<<<<<<< HEAD
+	void displayInventory();
+=======
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 
 	int getRandomNumber();
 

@@ -158,7 +158,6 @@ void sorter(std::string* data, int size, int max){
 			}
 			case 2:{
 				result = sortUsingBubble(arrayToSort,size);
-				//debugPrintElements(arrayToSort, 100);
 				state++;
 				break;
 			}
@@ -222,7 +221,7 @@ std::string sortUsingMerge(std::vector<int>* arr, int size){
 // sorts using Quick sort (from Sorts class)
 std::string sortUsingQuick(std::vector<int>* arr, int size){
 	clock_t startTime = clock();
-	//Sorts::quickSort(arr);
+	Sorts::quickSort(arr);
 	clock_t timeTaken = clock() - startTime;
 	std::ostringstream oss;
 	oss << "Quick Sort: " << size << " elements took " << timeTaken << " milliseconds.";
@@ -233,7 +232,7 @@ std::string sortUsingQuick(std::vector<int>* arr, int size){
 // sorts using Selection sort (from Sorts class)
 std::string sortUsingSelection(std::vector<int>* arr, int size){
 	clock_t startTime = clock();
-	//Sorts::selectionSort(arr);
+	Sorts::selectionSort(arr);
 	clock_t timeTaken = clock() - startTime;
 	std::ostringstream oss;
 	oss << "Selection Sort: " << size << " elements took " << timeTaken << " milliseconds.";
