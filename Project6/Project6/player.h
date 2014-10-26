@@ -16,6 +16,9 @@ private:
 	int xBoard;
 	int yBoard;
 
+	// current floor
+	int curr_floor;
+
 	// location in room
 	// not need for now
 	//int xRoom;
@@ -29,6 +32,7 @@ public:
 
 	int getBoardLocX();
 	int getBoardLocY();
+	int get_current_floor();
 	//int getRoomLocX();
 	//int getRoomLocY();
 	//std::string getName();
@@ -44,6 +48,7 @@ public:
 
 	void setBoardLocX(int x);
 	void setBoardLocY(int y);
+	void set_current_floor(int floor);
 	//void setRoomLocX(int x);
 	//void setRoomLocY(int y);
 	//void setName(std::string n);

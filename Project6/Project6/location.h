@@ -23,10 +23,6 @@ protected:
 	// rooms with only one door are closed
 	//bool isClosed;
 
-	// rooms got some size
-	//int width;
-	//int height;
-
 	// where this location is
 	int x; 
 	int y;
@@ -38,18 +34,15 @@ protected:
 	bool has_west_door;
 
 public:
-	enum Contsants{
-		EMPTY_SPACE = ' '
-	};
 	
 	Location();
 	Location(int idNum, int xCoord, int yCoord);
 	//~Room(); this is giving some issues right now
 
-	//void createArray(); // height and width should be set, already
+	virtual void createArray() = 0; // height and width should be set, already
 	//void deleteArray();
 	//bool doesRoomHaveCloset();
-	virtual std::string draw();
+	virtual char*** draw() = 0;
 	void fillArray(char** room); // dont forget to fill the array
 
 	bool get_east_door();

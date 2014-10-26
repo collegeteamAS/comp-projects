@@ -580,11 +580,11 @@ void Game::preGameInit(){
 	//std::cout << "hree2\n";
 	//world[currX][START_ROOM_Y] = makeRoom(RoomData::ROOM_HALLWAY,currX,START_ROOM_Y);
 	world[START_FLOOR-1]->set_room_doors(START_ROOM_X,START_ROOM_Y,true);
-	currX = START_ROOM_X;
-	currY = START_ROOM_Y;
+	//currX = START_ROOM_X;
+	//currY = START_ROOM_Y;
 	player = new Player(PLAYER_SYMBOL);
-	player->setBoardLocX(currX);
-	player->setBoardLocY(currY);
+	player->setBoardLocX(START_ROOM_X);
+	player->setBoardLocY(START_ROOM_Y);
 	state = STATE_EXPLORE;
 }
 
@@ -601,9 +601,13 @@ void Game::preGameInit(){
 
 //*/
 void Game::printGame(){
-	system("CLS");
+	system("CLS"); 
 	cout << world[currX][currY]->draw() << "\n\n";
 	cout << activeText << "\n";
+}
+
+void Game::printGamePartial(){
+	// this should use a Coord_list linked list to print certain characters to screen
 }
 
 // @author Andre Allan Ponce
@@ -703,7 +707,7 @@ void Game::runGame(){
 		case STATE_PRE_GAME:{
 			createWorld();
 			preGameInit();
-			state = STATE_LEVEL_ONE;
+			//state = STATE_LEVEL_ONE;
 			break;
 		}
 		case STATE_GAME_FINISH:{

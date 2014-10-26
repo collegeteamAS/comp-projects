@@ -30,8 +30,12 @@ Location::Location(int idNum, int xCoord, int yCoord) :
 }
 
 // @author Andre Allan Ponce
-/*void Location::createArray(){
-	roomLayout = new char*[height];
+/*
+void Location::createArray(){
+	roomLayout = new char*[LOC_SIZE];
+	for(int i = 0; i < LOC_SIZE; i++){
+		roomLayout[i] = new char[LOC_SIZE];
+	}
 }
 
 /*	

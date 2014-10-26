@@ -35,6 +35,10 @@ int Player::getBoardLocY(){
 	return yBoard;
 }
 
+int Player::get_current_floor(){
+	return curr_floor;
+}
+
 /*
 // @author Andre Allan Ponce
 int Player::getRoomLocX(){
@@ -83,6 +87,10 @@ void Player::setBoardLocX(int x){
 // @author Andre Allan Ponce
 void Player::setBoardLocY(int y){
 	yBoard = y;
+}
+
+void Player::set_current_floor(int floor){
+	curr_floor = floor;
 }
 
 /*

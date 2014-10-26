@@ -10,7 +10,15 @@ private:
 	int floor_id;
 
 public:
+	enum Contsants{
+		//EMPTY_SPACE = ' '
+		TILE_SIZE = 5 // size of a tile (for the map)
+	};
+
 	Tile(int idNum, int xCoord, int yCoord, int floor);
+
+	virtual void createArray();
+	virtual char*** draw();
 
 	int get_floor_id();
 

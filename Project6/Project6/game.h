@@ -47,8 +47,11 @@ private:
 	std::string activeText; // debug
 
 	// where is the player right now?
-	int currX;
-	int currY;
+	//int currX;
+	//int currY;
+
+	// what floor is the player on right now?
+	//int curr_floor;
 
 	// methods
 	void changeRoom(int move);
