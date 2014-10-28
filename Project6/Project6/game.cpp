@@ -20,14 +20,18 @@
 
 
 #include "game.h"
+#include "locationdata.h"
 #include "floor.h"
 #include "tile.h"
 #include "player.h"
+#include "menutext.h"
 
 
 // @author Andre Allan Ponce
-Game::Game() : world(0),
+Game::Game() : 
+	world(0),
 	player(0),
+	locations(0),
 	state(STATE_PRE_GAME),
 	activeText("debug"){
 	// nothing here yet
@@ -376,34 +380,45 @@ Item* Game::retrieveItem(int id)
 // @author Andre Allan Ponce
 // @author Computergeek01
 // url: http://www.cplusplus.com/forum/beginner/75529/
-void Game::getKeyInput(WORD key, Location* currRoom){
+void Game::getKeyInput(WORD key){
+	int xNew = player->getBoardLocX();
+	int yNew = player->getBoardLocY();
+	bool move = false;
 	switch(key)
     {
 	case VK_ESCAPE:{
 		break;
 	}
     case VK_LEFT:
-	case VK_NUMPAD4:{
-		activeText = "left!\n";
-		movePlayer(MOVE_LEFT, currRoom);
+	case VK_NUMPAD4:{ // decrement y
+		activeText = "left!\n"; // debug
+		//movePlayer(MOVE_LEFT);
+		yNew--;
+		move = true;
 		break;
 	}
 	case VK_UP:
-	case VK_NUMPAD8:{
-		activeText = "up!\n";
-		movePlayer(MOVE_UP, currRoom);
+	case VK_NUMPAD8:{ // decrement x
+		activeText = "up!\n"; // debug
+		//movePlayer(MOVE_UP);
+		xNew--;
+		move = true;
 		break;
 	}
 	case VK_RIGHT:
-	case VK_NUMPAD6:{
-		activeText =  "right!\n";
-		movePlayer(MOVE_RIGHT, currRoom);
+	case VK_NUMPAD6:{ // increment y
+		activeText =  "right!\n"; // debug
+		//movePlayer(MOVE_RIGHT);
+		yNew++;
+		move = true;
 		break;
 	}
 	case VK_DOWN:
-	case VK_NUMPAD2:{
-		activeText =  "down!\n";
-		movePlayer(MOVE_DOWN, currRoom);
+	case VK_NUMPAD2:{ // increment x
+		activeText =  "down!\n"; // debug
+		//movePlayer(MOVE_DOWN);
+		xNew++;
+		move = true;
 		break;
 	}
 	case 0x41: // a key // this was steve
@@ -447,7 +462,10 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 		// we dont move.
 		break;
 	}
-    } 
+    }
+	if(move){
+		movePlayer(xNew,yNew);
+	}
 }
 
 /*// @author Andre Allan Ponce
@@ -492,33 +510,15 @@ Location* Game::makeRoom(int id, int x, int y, int flor){
 	return loc;
 }
 
-/*
+
 // @author Andre Allan Ponce
 // we only go to this if we actually move
-void Game::movePlayer(int move, Location* currRoom){
-	int xOld = player->getRoomLocX();
-	int yOld = player->getRoomLocY();
-	cout << "X:" << currX << "," << currY << "\n";
-	cout << "xr:" << xOld << "," << yOld << "\n";
+void Game::movePlayer(int xMove, int yMove){
+	//cout << "X:" << currX << "," << currY << "\n"; // debug
+	cout << "xr:" << xMove << "," << yMove << "\n"; // debug
 	//int xNew, yNew;
-	switch(move){
-	case MOVE_LEFT:{
-		player->moveLeft();
-		break;
-	}
-	case MOVE_UP:{
-		player->moveUp();
-		break;
-	}
-	case MOVE_RIGHT:{
-		player->moveRight();
-		break;
-	}
-	case MOVE_DOWN:{
-		player->moveDown();
-		break;
-	}
-	}
+	if(xMove >= 0 && yMove >= 0 && xMove <= Floor::FLOOR_HEIGHT && yMove <= Floor::FLOOR_WIDTH
+	/*
 	if(currRoom->movePlayer(xOld,yOld,PLAYER_SYMBOL,player->getRoomLocX(),player->getRoomLocY())){
 		int xNewPlay = player->getRoomLocX();
 		int yNewPlay = player->getRoomLocY();
@@ -534,8 +534,10 @@ void Game::movePlayer(int move, Location* currRoom){
 		player->setRoomLocX(xOld);
 		player->setRoomLocY(yOld);
 	}
+	//*/
 }
 
+/*
 // @author Andre Allan Ponce
 void Game::placePlayerInNewRoom(int move, Player* play, char sym){
 	Location* newRoom = world[currX][currY];
@@ -602,7 +604,7 @@ void Game::preGameInit(){
 //*/
 void Game::printGame(){
 	system("CLS"); 
-	cout << world[currX][currY]->draw() << "\n\n";
+	cout << world[player->get_current_floor()-1]->getNewMap(player->getBoardLocX(),player->getBoardLocY(),player->getSymbol()) << "\n\n";
 	cout << activeText << "\n";
 }
 
@@ -613,28 +615,29 @@ void Game::printGamePartial(){
 // @author Andre Allan Ponce
 // reads in room file format:
 /*
-	# # # <-- id numberOfRows numberOfColumns
-	+--...
-	|
-	|  (ROOM DESIGN)
-	|
-	|
+	# <-- id 
+	+--- ---+
+	|       |
+	         
+	|       |
+	+--- ---+
+	(Tile DESIGN)
 
 */
-/*
+
 void Game::readInFile(std::string fileName){
 	std::ifstream inFile;
 	inFile.open(fileName.c_str());
 	if(!inFile.good()){
 		throw MenuText::ERROR_FILE_NAME;
 	}
+	int rows = Tile::TILE_HEIGHT;
+	int cols = Tile::TILE_WIDTH;
 	while(!inFile.eof()){
-		int id, rows, cols;
+		int id;
 		inFile >> id;
-		inFile >> rows;
-		inFile >> cols;
 		inFile.ignore(10, '\n');
-		cout << id << rows << cols;
+		cout << id;
 		char** tempRoom = new char*[rows];
 		for(int i = 0; i < rows; i++){
 			std::string line = "";
@@ -645,8 +648,7 @@ void Game::readInFile(std::string fileName){
 				tempRoom[i][k] = line[k];
 			}
 		}
-		roomData.fillRoom(id,rows,cols,tempRoom);
-		//roomData
+		locations.fillRoom(id,rows,cols,&tempRoom);
 		for(int i = 0; i < rows; i++){
 			delete [] tempRoom[i];
 		}
@@ -729,7 +731,7 @@ void Game::runGame(){
 			while ((irInput.EventType != KEY_EVENT) || irInput.Event.KeyEvent.bKeyDown);
 			//ReadConsoleInput(hInput, &irInput, 1, &InputsRead); 
 			startTime = clock();
-			Location* thisRoom = world[currX][currY];
+			//Location* thisRoom = world[player][currY];
 			getKeyInput(irInput.Event.KeyEvent.wVirtualKeyCode, thisRoom);
 			switch(state){
 			case STATE_LEVEL_ONE:{

@@ -8,6 +8,7 @@
 #ifndef _GAME_H_INCLUDED_
 #define _GAME_H_INCLUDED_
 
+#include "locationdata.h"
 
 class Floor;
 class Player;
@@ -16,7 +17,8 @@ class Item;
 class Game {
 private:
 	Floor** world; // the world
- 
+
+	LocationData locations;
 
 	Player* player; // the player
 	//Player* monster; // the monster
@@ -60,11 +62,11 @@ private:
 	void createWorld();
 	int detectItemID();
 	int findItemID(char sym);
-	void getKeyInput(unsigned short key, Location* currRoom);
+	void getKeyInput(unsigned short key);
 	int isLocAtEdge(int x, int y, Location* currRoom);
 	
 	void moveMonster();
-	void movePlayer(int move, Location* currRoom);
+	void movePlayer(int xMove, int yMove);
 	void placePlayerInNewRoom(int move, Player* play, char sym);
 	void preGameInit();
 
@@ -114,11 +116,13 @@ public:
 
 		// MOVE IDS
 		// we might not need this anymore
+		/*
 		MOVE_NONE = 0,
 		MOVE_LEFT = 1,
 		MOVE_UP = 2,
 		MOVE_RIGHT = 3,
 		MOVE_DOWN = 4,
+		//*/
 
 		// STARTING FlOOR and ROOM
 		START_FLOOR = 2, // this should be the ground floor

@@ -70,8 +70,10 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="location.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menutext.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="tile.cpp" />
+    <ClCompile Include="locationdata.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coordlist.h" />
@@ -79,8 +81,10 @@
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
     <ClInclude Include="location.h" />
+    <ClInclude Include="menutext.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="tile.h" />
+    <ClInclude Include="locationdata.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

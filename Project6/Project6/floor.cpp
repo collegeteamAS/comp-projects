@@ -1,15 +1,16 @@
 #include "floor.h"
 #include "location.h"
+#include "tile.h"
 
 Floor::Floor(int idNum) : id(idNum){
 	createFloor();
 }
 
 void Floor::createFloor(){
-	floor = new Location**[FLOOR_WIDTH];
-	for(int i = 0; i < FLOOR_WIDTH; i++){
-		floor[i] = new Location*[FLOOR_HEIGHT];
-		for(int k = 0; k < FLOOR_HEIGHT; k++){
+	floor = new Location**[FLOOR_HEIGHT];
+	for(int i = 0; i < FLOOR_HEIGHT; i++){
+		floor[i] = new Location*[FLOOR_WIDTH];
+		for(int k = 0; k < FLOOR_WIDTH; k++){
 			floor[i][k] = 0;
 		}
 	}
@@ -50,17 +51,17 @@ std::string Floor::getNewMap(int x, int y, char sym){
 void Floor::drawMap(int x, int y, char sym){
 	int xRoom = 0;
 	int yRoom = 0;
-	for(int i = x-5; i <= x+5; i++){
-		for(int k = y-5; k < y+5;k++){
+	for(int i = x-MAP_TILES_VISIBLE; i <= x+MAP_TILES_VISIBLE; i++){
+		for(int k = y-MAP_TILES_VISIBLE; k < y+MAP_TILES_VISIBLE;k++){
 			if(i == x && k == y){
 				drawRoom(xRoom,yRoom,i,k,sym);
 			}
 			else{
 				drawRoom(xRoom, yRoom, i, k, ROOM_BLANK);
 			}
-			yRoom += 4;
+			yRoom += Tile::TILE_WIDTH-1;
 		}
-		xRoom +=4;
+		xRoom += Tile::TILE_HEIGHT-1;
 		yRoom = 0;
 	}
 }
@@ -71,9 +72,9 @@ void Floor::drawRoom(int startX, int startY, int x, int y, char sym){
 	}
 	else{
 		char*** room = floor[x][y]->draw();
-		for(int i = startX; i < startX+5; i++){
-			for(int k = startY; k < startY+5; k++){
-				if(startX-i == 2 && startY-k == 2){
+		for(int i = startX; i < startX+Tile::TILE_HEIGHT; i++){
+			for(int k = startY; k < startY+Tile::TILE_WIDTH; k++){
+				if(startX-i == Tile::TILE_HEIGHT/2 && startY-k == Tile::TILE_WIDTH/2){
 					map[i][k] = sym;
 				}
 				else{
@@ -85,8 +86,8 @@ void Floor::drawRoom(int startX, int startY, int x, int y, char sym){
 }
 
 void Floor::drawRoomBlank(int startX, int startY){
-	for(int i = startX; i < startX+5; i++){
-		for(int k = startY; k < startY+5; k++){
+	for(int i = startX; i < startX+Tile::TILE_HEIGHT; i++){
+		for(int k = startY; k < startY+Tile::TILE_WIDTH; k++){
 			map[i][k] = ROOM_BLANK;
 		}
 	}

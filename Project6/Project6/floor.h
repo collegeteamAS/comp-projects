@@ -19,9 +19,16 @@ private:
 	// 3 - upper
 	int id;
 
-	// each floor has a height and width
-	static const int FLOOR_HEIGHT = 30;
-	static const int FLOOR_WIDTH = 30;
+	// room generation chars:
+	// we probably wont need all of these
+	static const char ROOM_CORNER = '+';
+	static const char ROOM_TOP = '-';
+	static const char ROOM_SIDE = '|';
+	static const char ROOM_EDGE = '=';
+	static const char ROOM_BLANK = ' ';
+
+	// how many rows and cols of tiles are shown on the map
+	static const int MAP_TILES_VISIBLE = 5;
 
 	void drawMap(int x, int y, char sym); 
 	void drawRoom(int startX, int startY, int x, int y, char sym);
@@ -29,14 +36,10 @@ private:
 
 public:
 	enum Constants{
-		// the stuff here is really just for drawing the map
-		// room generation may be completely pushed to a tile map
-		// later to read in file
-		ROOM_CORNER = '+',
-		ROOM_TOP = '-',
-		ROOM_SIDE = '|',
-		ROOM_EDGE = '=',
-		ROOM_BLANK = ' '
+		// height and width
+		FLOOR_HEIGHT = 30,
+		FLOOR_WIDTH = 30
+		
 	};
 
 	Floor(int idNum);

@@ -39,10 +39,10 @@ public:
 	char getSymbol();
 
 	/* we dont really need this, since moving up and down is a board change
-	void moveDown();
-	void moveLeft();
-	void moveRight();
-	void moveUp();
+	void moveDown();	// increment x
+	void moveLeft();	// decrement y
+	void moveRight();	// increment y
+	void moveUp();		// decrement x
 	//*/
 	// std::string print(); // return string, so we dont have include iostream everywhere
 

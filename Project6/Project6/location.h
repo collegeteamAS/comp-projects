@@ -43,7 +43,7 @@ public:
 	//void deleteArray();
 	//bool doesRoomHaveCloset();
 	virtual char*** draw() = 0;
-	void fillArray(char** room); // dont forget to fill the array
+	virtual void fillArray(char*** room) = 0; // dont forget to fill the array
 
 	bool get_east_door();
 	bool get_north_door();
