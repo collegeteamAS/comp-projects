@@ -1,5 +1,12 @@
+<<<<<<< HEAD
+=======
+/*
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	(20% done by steve)
+*/
 
-
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 #ifndef _LOCATION_H_INCLUDED_
 #define _LOCATION_H_INCLUDED_
 
@@ -31,7 +38,16 @@ public:
 	enum Contsants{
 		EMPTY_SPACE = ' '
 	};
+<<<<<<< HEAD
+
+	bool isEmpty(int xCoord, int yCoord);
+
+	Location(int xCoord, int yCoord);
+
+	bool getVisited();
+=======
 	
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 	Location();
 	Location(int idNum, int xCoord, int yCoord, int h, int w, bool closet, bool closed);
 	//~Room(); this is giving some issues right now
@@ -40,7 +56,7 @@ public:
 	void deleteArray();
 	bool doesRoomHaveCloset();
 	virtual std::string draw();
-	void fillArray(char** room);
+	void fillArray(char** room); // dont forget to fill the array
 
 	int getHeight();
 	int getRoomID();
@@ -48,7 +64,7 @@ public:
 	int getWidth();
 
 	bool isRoomClosed();
-	bool movePlayer(int xOld, int yOld, char player, int xNew, int yNew);
+	bool movePlayer(int xOld, int yOld, char player, int xNew, int yNew); // this moves player to new spot (if valid) and updates the array
 	void resetSpace(int xSpace, int ySpace, char space);
 	void setPlayer(int xPlay, int yPlay, char player);
 

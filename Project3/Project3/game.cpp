@@ -3,6 +3,10 @@
 	h_suh@u.pacific.edu
 	Andre Allan Ponce
 	a_ponce1@u.pacific.edu
+
+	WE ran out of time.
+	sorry
+
 */
 
 #include <string>
@@ -10,13 +14,16 @@
 #include <iostream>
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
-
-
+<<<<<<< HEAD
+//#include <stdlib.h>
 #include "room.h"
+//#include "item.h" 
+=======
 #include "item.h" 
 
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 #include <time.h> // for waiting
-#include "item.h" 
+
 #include "openroom.h"
 #include "closedroom.h"
 #include "closetroom.h"
@@ -39,7 +46,6 @@
 #include "mirror.h"
 #include "blood.h"
 #include "cd.h"
-
 // @author Andre Allan Ponce
 Game::Game() : 
 	world(0),
@@ -48,13 +54,31 @@ Game::Game() :
 	player(0),
 	monster(0),
 	state(STATE_PRE_GAME),
+	activeText(""),
 	isFinalDoorIn(false),
 	currX(START_ROOM_X),
 	currY(START_ROOM_X){
+		orbInventoryNames[0] = "Green Orb ";
+		orbInventoryNames[1] = "Yellow Orb ";
+		orbInventoryNames[2] = "Red Orb ";
+		orbInventoryNames[3] = "White Orb ";
+		orbInventoryNames[4] = "Black Orb ";
+		orbInventoryNames[5] = "Light Orb ";
+		orbInventoryNames[6] = "Dark Orb ";
+		orbInventoryNames[7] = "Pale Orb ";
+		orbProb[0] = 3;
+		orbProb[1] = 8;
+		orbProb[2] = 15;
+		orbProb[3] = 30;
+		orbProb[4] = 40;
+		orbProb[5] = 45;
+		orbProb[6] = 50;
+		orbProb[7] = 80;
 	// nothing here yet
 }
 
 // @author Andre Allan Ponce
+// moves from one ROOOM ( or Location) to the next
 void Game::changeRoom(int move){
 	int nextRoomDoor;
 	switch(move){
@@ -80,11 +104,12 @@ void Game::changeRoom(int move){
 	}
 	}
 	if(world[currX][currY] == 0){
-		world[currX][currY] = createRandomRoom(currX,currY,nextRoomDoor);
+		world[currX][currY] = createRandomRoom(currX,currY,nextRoomDoor); // RANDOMLY generated rooms
 	}
 }
 
 // @author Andre Allan Ponce
+// more randomly generating rooms
 Location* Game::createRandomRoom(int x, int y, int roomDoor){
 	int id;
 	bool hasNoDoor = true;
@@ -143,7 +168,7 @@ void Game::createWorld(){
 	for(int i = 0; i < WORLD_SIZE; i++){
 		world[i] = new Location*[WORLD_SIZE];
 		for(int k = 0; k < WORLD_SIZE; k++){
-			world[i][k] = NULL;
+			world[i][k] = NULL; 
 		}
 	}
 
@@ -151,12 +176,14 @@ void Game::createWorld(){
 
 
 // @author Andre Allan Ponce
+// checks the four cardinal spaces directly around player for an item (which was supposed to be symbols)
 int Game::detectItemID(){
 	int currPlayerX = player->getRoomLocX();
 	int currPlayerY = player->getRoomLocY();
 	bool noItem = true;
 	Location* currRoom = world[currX][currY];
 	for(int i = 1; i < 5; i++){
+		cout << "in here" << i << "\n";
 		switch(i){
 		case MOVE_LEFT:{
 			int finding = findItemID(currRoom->getSpaceAt(currPlayerX,currPlayerY-1));
@@ -167,6 +194,7 @@ int Game::detectItemID(){
 		}
 		case MOVE_UP:{
 			int finding = findItemID(currRoom->getSpaceAt(currPlayerX-1,currPlayerY));
+			cout << finding;
 			if(finding >= 0){
 				return finding;
 			}
@@ -259,97 +287,28 @@ int Game::findItemID(char sym){
 		break;
 	}
 	}
+}
 
 //steve suh
 void Game::updateOrbProbability()
 {
 	int i = 0;
-	if(!orbInventory[0]&&!orbInventory[1]&&!orbInventory[2])
-	{
-	
-	}
 	for(int i=0;i<8;i++)
 	{
-		if(orbInventory[i]&&orbProb[i] != INFINITE)
+		activeText = "morethanjust orb\n";
+		if(orbInventory[i]&&orbProb[i] < 999999)
 		{
+			activeText = "littlemore\n";
 			orbProb[i+1] -= orbProb[i];
-			orbProb[i] = INFINITE;
+			orbProb[i] = 999999;
 
 		}
 	}
-	return -1;
+	//return -1;
 }
 
 
-// @author Andre Allan Ponce
-int Game::findItemID(char sym){
-	switch(sym){
-	case JUNK_SYMBOL:{
-		return itemData.ROOMITEM_JUNK;
-		break;
-	}
-	case VASE_SYMBOL:{
-		return itemData.ROOMITEM_VASE;
-		break;
-	}
-	case TABLE_SYMBOL:{
-		return itemData.ROOMITEM_TABLE;
-		break;
-	}
-	case CHAIR_SYMBOL:{
-		return itemData.ROOMITEM_CHAIR;
-		break;
-	}
-	case LAMP_SYMBOL:{
-		return itemData.ROOMITEM_LAMP;
-		break;
-	}
-	case BED_SYMBOL:{
-		return itemData.ROOMITEM_BED;
-		break;
-	}
-	case CANDLE_SYMBOL:{
-		return itemData.ROOMITEM_CANDLE;
-		break;
-	}
-	case DISH_SYMBOL:{
-		return itemData.ROOMITEM_DISH;
-		break;
-	}
-	case DUST_SYMBOL:{
-		return itemData.ROOMITEM_DUST;
-		break;
-	}
-	case FORK_SYMBOL:{
-		return itemData.ROOMITEM_FORK;
-		break;
-	}
-	case TOILET_SYMBOL:{
-		return itemData.ROOMITEM_TOILET;
-		break;
-	}
-	case BATHTUB_SYMBOL:{
-		return itemData.ROOMITEM_BATHTUB;
-		break;
-	}
-	case MIRROR_SYMBOL:{
-		return itemData.ROOMITEM_MIRROR;
-		break;
-	}
-	case BLOOD_SYMBOL:{
-		return itemData.ROOMITEM_BLOOD;
-		break;
-	}
-	case CD_SYMBOL:{
-		return itemData.ROOMITEM_CD;
-		break;
-	}
-	default:{
-		return -1;
-		break;
-	}
-	}
-
+//Steve Suh
 void Game::displayInventory()
 {
 	string invenStr = "";
@@ -359,14 +318,14 @@ void Game::displayInventory()
 		if(orbInventory[i])
 			invenStr += orbInventoryNames[i];
 		else
-			invenStr += "          ";
+			invenStr += "xxxxxxxxxx";
 		invenStr += "]\n";
 	}
 	cout << invenStr;
 
 }
 
-
+//Steve Suh
 Item* Game::retrieveItem(int id)
 {
 	Item *i;
@@ -455,6 +414,8 @@ Item* Game::retrieveItem(int id)
 
 	//return i;
 }
+
+// @author Andre Allan Ponce
 // @author Computergeek01
 // url: http://www.cplusplus.com/forum/beginner/75529/
 void Game::getKeyInput(WORD key, Location* currRoom){
@@ -465,54 +426,79 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 	}
     case VK_LEFT:
 	case VK_NUMPAD4:{
-		std::cout << "left!\n";
+		activeText = "left!\n";
 		movePlayer(MOVE_LEFT, currRoom);
 		break;
 	}
 	case VK_UP:
 	case VK_NUMPAD8:{
-		std::cout << "up!\n";
+		activeText = "up!\n";
 		movePlayer(MOVE_UP, currRoom);
 		break;
 	}
 	case VK_RIGHT:
 	case VK_NUMPAD6:{
-		std::cout << "right!\n";
+		activeText =  "right!\n";
 		movePlayer(MOVE_RIGHT, currRoom);
 		break;
 	}
 	case VK_DOWN:
 	case VK_NUMPAD2:{
-		std::cout << "down!\n";
+		activeText =  "down!\n";
 		movePlayer(MOVE_DOWN, currRoom);
 		break;
 	}
-	case 0x45: // e key
+<<<<<<< HEAD
+	case 0x45://pressing e(examine)
 		{
-
+			int check = 0;
+			int i=0;
+			retrieveItem(detectItemID())->action();
+			updateOrbProbability();
+			while(check == 0 && i<8)
+			{
+				if(rand()%orbProb[i] == 1)
+				{
+					orbInventory[i] = true;
+					cout<< "\nThere is a " + orbInventoryNames[i];
+					check ++;
+=======
+	case 0x41: // a key // this was steve
+		{
+			activeText = "ea \n";
+			int i = 0;
+			int id = detectItemID();
 			if(id >= 0){
 				Item* thisItem = retrieveItem(id);
 				thisItem->setDescription(itemData.getItemDesc(id));
 				thisItem->action();
 				int check = 0;
-			updateOrbProbability();
-			while(check == 0)
-			{
-				if(rand()%orbProb[i] == 1)
+				while(check == 0 && i<8)
 				{
-				orbInventory[i] = true;
-				check ++;
+					activeText = "orb\n";
+					int run = rand()%orbProb[i];
+					cout << run;
+					if( run == 1)
+					{
+						orbInventory[i] = true;
+						updateOrbProbability();
+						check++;
+					}
+				i++;
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 				}
+				i++;
 			}
-			}
-			
-
 			break;
 		}
+<<<<<<< HEAD
+	case 0x49://pressing i(inventory)
+=======
 
 
 			
-	case 0x49:
+	case 0x49: // this was steve as well
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 		{
 			displayInventory();
 			break;
@@ -528,10 +514,15 @@ void Game::getKeyInput(WORD key, Location* currRoom){
 // @author Andre Allan Ponce
 int Game::getRandomNumber(){
 	srand(time(NULL));
-	return (rand() % roomData.getSize()-1) +1;
+	int ran = (rand() % roomData.getSize()-1) +1;
+	if(ran == 0 || ran == 11){
+		ran = 5;
+	}
+	return ran;
 }
 
 // @author Andre Allan Ponce
+// when the player is at the edge of the screen (where the spaces are) we move to the next room
 int Game::isLocAtEdge(int x, int y, Location* currRoom){
 	if(x == 0){
 		return MOVE_UP;
@@ -634,6 +625,7 @@ void Game::placePlayerInNewRoom(int move, Player* play, char sym){
 }
 
 // @author Andre Allan Ponce
+// prepping the first two rooms
 void Game::preGameInit(){
 	world[currX][currY] = makeRoom(RoomData::ROOM_BEDROOM,currX,currY);
 	std::cout << "here\n";
@@ -648,12 +640,24 @@ void Game::preGameInit(){
 	state = STATE_LEVEL_ONE;
 }
 
+// @author Andre Allan Ponce
 void Game::printGame(){
 	system("CLS");
-	cout << world[currX][currY]->draw() << "\n";
+	cout << world[currX][currY]->draw() << "\n\n";
+	cout << activeText << "\n";
 }
 
 // @author Andre Allan Ponce
+// reads in room file format:
+/*
+	# # # <-- id numberOfRows numberOfColumns
+	+--...
+	|
+	|  (ROOM DESIGN)
+	|
+	|
+
+*/
 void Game::readInFile(std::string fileName){
 	std::ifstream inFile;
 	inFile.open(fileName.c_str());
@@ -688,6 +692,11 @@ void Game::readInFile(std::string fileName){
 }
 
 // @author Andre Allan Ponce
+/*
+	reads in items file (not much use, though)
+	<id> <name>
+	<description
+*/
 void Game::readInItemFile(std::string fileName){
 	std::ifstream inFile;
 	inFile.open(fileName.c_str());
@@ -741,7 +750,7 @@ void Game::runGame(){
 		}
 		case STATE_WAIT:{
 			
-			if(clock() - startTime > 20){
+			if(clock() - startTime > 20){ // it was too fast at one point
 				state = old_state;
 			}
 			//*/

@@ -5,20 +5,8 @@
 */
 
 #include <string>
-//#include <sstream> // converting ints to strings takes some work
 #include "player.h"
 
-/* THESE INCLUDE A NAME STRING (we'll see if we still need name string)
-// @author Andre Allan Ponce
-Player::Player() : name("debug"), symbol('d'), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1){
-	// constructors should be empty, yo
-}
-
-// @author Andre Allan Ponce
-Player::Player(std::string n, char sym) : name(n), symbol(sym), xBoard(-1), yBoard(-1), xRoom(-1), yRoom(-1){
-	// constructors should be empty, yo
-}
-//*/
 
 // @author Andre Allan Ponce
 Player::Player() : 
@@ -61,11 +49,6 @@ int Player::getRoomLocY(){
 	return yRoom;
 }
 
-/*
-// @author Andre Allan Ponce
-std::string Player::getName(){
-	return name;
-}//*/
 
 // @author Andre Allan Ponce
 char Player::getSymbol(){
@@ -92,13 +75,6 @@ void Player::moveUp(){
 	xRoom--;
 }
 
-/*
-// @author Andre Allan Ponce
-std::string Player::print(){
-	return "Name: "+name+"\n";
-		//"Age: "+temp.str()+"\n";
-}//*/
-
 // @author Andre Allan Ponce
 void Player::setBoardLocX(int x){
 	xBoard = x;
@@ -118,9 +94,3 @@ void Player::setRoomLocX(int x){
 void Player::setRoomLocY(int y){
 	yRoom = y;
 }
-
-/*
-// @author Andre Allan Ponce
-void Player::setName(std::string n){
-	name = n;
-}//*/

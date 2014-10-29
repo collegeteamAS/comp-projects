@@ -1,9 +1,13 @@
 
-#include <iostream> // debug
-#include "room.h"
+/*
+Andre Allan Ponce
+a_ponce2@u.pacific.edu
+*/
+// #include <iostream> // debug
+
+#include "location.h"
 #include "roomdata.h"
 
-class Room;
 
 // @author Andre Allan Ponce
 RoomData::RoomData() : 
@@ -67,7 +71,7 @@ void RoomData::fillRoom(int id, int rows, int cols, char** room){
 */
 int RoomData::findDoorOnCol(int id, int col, char** room){
 	for(int i = 0; i < roomSizes.at(id)[DIMENSION_ROW]; i++){
-		if(room[i][col] == Room::EMPTY_SPACE){
+		if(room[i][col] == Location::EMPTY_SPACE){
 			return i;
 		}
 	}
@@ -77,7 +81,7 @@ int RoomData::findDoorOnCol(int id, int col, char** room){
 // @author Andre Allan Ponce
 int RoomData::findDoorOnRow(int id, int row, char** room){
 	for(int i = 0; i < roomSizes.at(id)[DIMENSION_COL]; i++){
-		if(room[row][i] == Room::EMPTY_SPACE){
+		if(room[row][i] == Location::EMPTY_SPACE){
 			return i;
 		}
 	}

@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="attic.cpp" />
+    <ClCompile Include="basement.cpp" />
+    <ClCompile Include="bathroom.cpp" />
+    <ClCompile Include="bathtub.cpp" />
+    <ClCompile Include="bed.cpp" />
+    <ClCompile Include="bedroom.cpp" />
+    <ClCompile Include="blood.cpp" />
+    <ClCompile Include="bloodyhallway.cpp" />
+    <ClCompile Include="candle.cpp" />
+    <ClCompile Include="cd.cpp" />
+    <ClCompile Include="chair.cpp" />
+    <ClCompile Include="closedroom.cpp" />
+    <ClCompile Include="closetroom.cpp" />
+    <ClCompile Include="constants.cpp" />
+    <ClCompile Include="darkhallway.cpp" />
+    <ClCompile Include="diningroom.cpp" />
+    <ClCompile Include="dish.cpp" />
+    <ClCompile Include="dust.cpp" />
+    <ClCompile Include="fork.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="garage.cpp" />
+    <ClCompile Include="hallway.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="junk.cpp" />
+    <ClCompile Include="kitchen.cpp" />
+    <ClCompile Include="lamp.cpp" />
+    <ClCompile Include="livingroom.cpp" />
+    <ClCompile Include="location.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="mirror.cpp" />
+    <ClCompile Include="openroom.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="room.cpp" />
+    <ClCompile Include="roomdata.cpp" />
+    <ClCompile Include="startingroom.cpp" />
+    <ClCompile Include="table.cpp" />
+    <ClCompile Include="toilet.cpp" />
+    <ClCompile Include="vase.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+<<<<<<< HEAD
+    <ClInclude Include="attic.h" />
+    <ClInclude Include="basement.h" />
+    <ClInclude Include="bathroom.h" />
+    <ClInclude Include="bathtub.h" />
+    <ClInclude Include="bed.h" />
+    <ClInclude Include="bedroom.h" />
+    <ClInclude Include="blood.h" />
+    <ClInclude Include="bloodyhallway.h" />
+    <ClInclude Include="candle.h" />
+    <ClInclude Include="cd.h" />
+    <ClInclude Include="chair.h" />
+    <ClInclude Include="closedroom.h" />
+    <ClInclude Include="closetroom.h" />
+    <ClInclude Include="darkhallway.h" />
+    <ClInclude Include="diningroom.h" />
+    <ClInclude Include="dish.h" />
+    <ClInclude Include="dust.h" />
+    <ClInclude Include="fork.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="garage.h" />
+    <ClInclude Include="hallway.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="itemdata.h" />
+    <ClInclude Include="junk.h" />
+    <ClInclude Include="kitchen.h" />
+    <ClInclude Include="lamp.h" />
+    <ClInclude Include="livingroom.h" />
+    <ClInclude Include="location.h" />
+    <ClInclude Include="menutext.h" />
+    <ClInclude Include="mirror.h" />
+    <ClInclude Include="openroom.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="playeritem.h" />
+    <ClInclude Include="playerlist.h" />
+    <ClInclude Include="room.h" />
+    <ClInclude Include="roomdata.h" />
+    <ClInclude Include="table.h" />
+    <ClInclude Include="toilet.h" />
+    <ClInclude Include="vase.h" />
+  </ItemGroup>
+  <ItemGroup>
+=======
+    <ClCompile Include="bathtub.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="blood.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="candle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="cd.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="chair.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="closedroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="closetroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="constants.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dish.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dust.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fork.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="itemdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="junk.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="key.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lamp.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="location.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="mirror.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="openroom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="roomdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="table.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="toilet.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="vase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="bed.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="bathtub.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="blood.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="candle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cd.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="chair.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="closedroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="closetroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dish.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dust.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fork.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="itemdata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="junk.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="key.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="lamp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="location.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="menutext.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mirror.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="openroom.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="roomdata.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="table.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="toilet.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="bed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="items" />
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
+    <None Include="rooms" />
+  </ItemGroup>
+</Project>

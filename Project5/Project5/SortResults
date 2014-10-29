@@ -1,0 +1,45 @@
+Selection Sort
+------------------------
+bs
+bs
+bs
+bs
+bs
+bs
+
+Insertion Sort
+------------------------
+Insertion Sort: 200 elements took 0 milliseconds.
+Insertion Sort: 400 elements took 16 milliseconds.
+Insertion Sort: 800 elements took 47 milliseconds.
+Insertion Sort: 1600 elements took 219 milliseconds.
+Insertion Sort: 3200 elements took 907 milliseconds.
+Insertion Sort: 6400 elements took 3719 milliseconds.
+
+Bubble Sort
+------------------------
+Bubble Sort: 200 elements took 0 milliseconds.
+Bubble Sort: 400 elements took 15 milliseconds.
+Bubble Sort: 800 elements took 78 milliseconds.
+Bubble Sort: 1600 elements took 313 milliseconds.
+Bubble Sort: 3200 elements took 1203 milliseconds.
+Bubble Sort: 6400 elements took 4828 milliseconds.
+
+Merge Sort
+------------------------
+Merge Sort: 200 elements took 15 milliseconds.
+Merge Sort: 400 elements took 15 milliseconds.
+Merge Sort: 800 elements took 31 milliseconds.
+Merge Sort: 1600 elements took 62 milliseconds.
+Merge Sort: 3200 elements took 109 milliseconds.
+Merge Sort: 6400 elements took 203 milliseconds.
+
+Quick Sort
+------------------------
+bs2
+bs2
+bs2
+bs2
+bs2
+bs2
+

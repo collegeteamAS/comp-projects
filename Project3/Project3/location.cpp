@@ -1,8 +1,12 @@
 
+/*
+Andre Allan Ponce
+a_ponce1@u.pacific.edu
+Steve Suh
+h_suh@u.pacific.edu
+*/
 
-// #include <vector>
-// #include <sstream>
-// #include <iostream> // debug
+
 #include <string>
 #include "location.h"
 
@@ -113,13 +117,20 @@ int Location::getWidth(){
 bool Location::isRoomClosed(){
 	return isClosed;
 }
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 
 // @author Andre Allan Ponce
 // @returns true if player moved, false if not (because of illegal move)
 bool Location::movePlayer(int xOld, int yOld, char player, int xNew, int yNew){
+<<<<<<< HEAD
+	if(getSpaceAt(xNew, yNew) == EMPTY_SPACE || getSpaceAt(xNew,yNew) == ){
+=======
 	if(getSpaceAt(xNew, yNew) == EMPTY_SPACE){
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b
 		resetSpace(xOld, yOld, EMPTY_SPACE);
 		setPlayer(xNew, yNew, player);
 		return true;
@@ -137,14 +148,13 @@ void Location::setPlayer(int xPlay, int yPlay, char player){
 	roomLayout[xPlay][yPlay] = player;
 }
 
-/*
-// @author Andre Allan Ponce
-void Location::setLocationCloset(bool value){
-	hasCloset = value;
-}//*/
 
 // @author Andre Allan Ponce
 void Location::setRoomID(int idNum){
 	id = idNum;
+<<<<<<< HEAD
+}
+=======
 }
 
+>>>>>>> e692805bc743cdf709b3569e29a559e39528d45b

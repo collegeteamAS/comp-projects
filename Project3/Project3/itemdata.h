@@ -12,7 +12,7 @@ h_suh@u.pacific.edu
 
 class ItemData{
 private:
-	std::unordered_map<int,std::string*> data;
+	std::unordered_map<int,std::string*> data; // HASHMAPS!
 	//std::string itemNames[
 	// private methods
 	//std::string name;

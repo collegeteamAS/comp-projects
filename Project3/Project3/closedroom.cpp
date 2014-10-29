@@ -1,4 +1,7 @@
-
+/*
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+*/
 #include "closedroom.h"
 
 ClosedRoom::ClosedRoom() : Location(){
