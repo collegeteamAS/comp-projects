@@ -55,23 +55,24 @@ private:
 	// what floor is the player on right now?
 	//int curr_floor;
 
-	// methods
+	// old methods
 	void changeRoom(int move);
-	Location* createRandomRoom(int x, int y, int roomDoor); // rooms are randomy generated
 	Location* createRoom(int id, int x, int y);
-	void createWorld();
 	int detectItemID();
 	int findItemID(char sym);
-	void getKeyInput(unsigned short key);
 	int isLocAtEdge(int x, int y, Location* currRoom);
-	
 	void moveMonster();
-	void movePlayer(int xMove, int yMove);
 	void placePlayerInNewRoom(int move, Player* play, char sym);
-	void preGameInit();
+	
 
+	// currently used
+	Location* createRandomRoom(int x, int y, int flor); // rooms are randomy generated
+	void createWorld();
+	bool getKeyInput(unsigned short key);
 	Floor* makeFloor(int id);
 	Location* makeRoom(int id, int x, int y, int flor);
+	bool movePlayer(int xMove, int yMove);
+	void preGameInit();
 
 public:
 	enum Constants{

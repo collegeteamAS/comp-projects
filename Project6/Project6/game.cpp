@@ -14,8 +14,7 @@
 #include <iostream>
 #include <Windows.h> // handling keyboard input
 #include <wincon.h> // handling keyboard input as well
-
-
+#include <random> // for true random
 #include <time.h> // for waiting
 
 
@@ -71,22 +70,11 @@ void Game::changeRoom(int move){
 //*/
 // @author Andre Allan Ponce
 // more randomly generating rooms
-Location* Game::createRandomRoom(int x, int y, int roomDoor){
+Location* Game::createRandomRoom(int x, int y, int flor){
 	int id;
-	bool hasNoDoor = true;
-	do{
-		id = getRandomNumber();
-		if(id == roomData.ROOM_LIVINGROOM && isFinalDoorIn){ // thats the final room, cant have two of those
-			hasNoDoor = false;
-		}
-		else if(roomData.retrieveDoorSpot(id,roomDoor) > 0){
-			hasNoDoor = false;
-		}
-	}while(hasNoDoor);
-	if(id == roomData.ROOM_LIVINGROOM){
-		isFinalDoorIn = true;
-	}
-	return makeRoom(id,x,y);
+	id = getRandomNumber();
+	id = 0; // debug
+	return makeRoom(id,x,y,flor);
 }
 
 // @author Andre Allan Ponce
@@ -377,10 +365,31 @@ Item* Game::retrieveItem(int id)
 }
 //*/
 
+void Game::gameStates(int& state, int& old_state bool& mapPrint, clock_t& startTime, HANDLE hInput, unsigned short& irInput, unsigned int& inputsRead){
+	if(printMap){
+		printGame();
+		mapPrint = false;
+	}
+	do ReadConsoleInput( hInput, &irInput, 1, &inputsRead );
+	while ((irInput.EventType != KEY_EVENT) || irInput.Event.KeyEvent.bKeyDown);
+	//ReadConsoleInput(hInput, &irInput, 1, &InputsRead); 
+	startTime = clock();
+	//Location* thisRoom = world[player][currY];
+	printMap = getKeyInput(irInput.Event.KeyEvent.wVirtualKeyCode);
+	switch(state){
+	case STATE_EXPLORE:{
+		old_state = STATE_EXPLORE;
+		state = STATE_WAIT;
+		break;
+	}
+	}
+}
+
 // @author Andre Allan Ponce
 // @author Computergeek01
 // url: http://www.cplusplus.com/forum/beginner/75529/
-void Game::getKeyInput(WORD key){
+// true means we moved, false means no move
+bool Game::getKeyInput(WORD key){
 	int xNew = player->getBoardLocX();
 	int yNew = player->getBoardLocY();
 	bool move = false;
@@ -464,19 +473,28 @@ void Game::getKeyInput(WORD key){
 	}
     }
 	if(move){
-		movePlayer(xNew,yNew);
+		return movePlayer(xNew,yNew);
+	}
+	else{
+		return false;
 	}
 }
 
-/*// @author Andre Allan Ponce
+// @author Andre Allan Ponce
 int Game::getRandomNumber(){
-	srand(time(NULL));
-	int ran = (rand() % roomData.getSize()-1) +1;
-	if(ran == 0 || ran == 11){
-		ran = 5;
+	int ran;
+	try{
+		random_device rd;
+		ran = (rd() % locations.getSize()-1)+1;
 	}
+	catch(...){
+		ran = (rand() % locations.getSize()-1) +1;	
+	}
+	// remove debug when done 
+	// id 0
 	return ran;
 }
+/*
 
 // @author Andre Allan Ponce
 // when the player is at the edge of the screen (where the spaces are) we move to the next room
@@ -512,29 +530,23 @@ Location* Game::makeRoom(int id, int x, int y, int flor){
 
 
 // @author Andre Allan Ponce
-// we only go to this if we actually move
-void Game::movePlayer(int xMove, int yMove){
+// moves the player. invalid moving will be fixed probably.
+bool Game::movePlayer(int xMove, int yMove){
 	//cout << "X:" << currX << "," << currY << "\n"; // debug
 	cout << "xr:" << xMove << "," << yMove << "\n"; // debug
 	//int xNew, yNew;
-	if(xMove >= 0 && yMove >= 0 && xMove <= Floor::FLOOR_HEIGHT && yMove <= Floor::FLOOR_WIDTH
-	/*
-	if(currRoom->movePlayer(xOld,yOld,PLAYER_SYMBOL,player->getRoomLocX(),player->getRoomLocY())){
-		int xNewPlay = player->getRoomLocX();
-		int yNewPlay = player->getRoomLocY();
-		if(isLocAtEdge(xNewPlay,yNewPlay,currRoom) > 0){
-			currRoom->resetSpace(xNewPlay,yNewPlay,currRoom->EMPTY_SPACE);
-			changeRoom(move);
-			player->setBoardLocX(currX);
-			player->setBoardLocY(currY);
-			placePlayerInNewRoom(move, player, PLAYER_SYMBOL);
+	if(xMove >= 0 && yMove >= 0 && xMove <= Floor::FLOOR_HEIGHT && yMove <= Floor::FLOOR_WIDTH){
+		player->setBoardLocX(xMove);
+		player->setBoardLocY(yMove);
+		int playerFloor = player->get_current_floor()-1;
+		if(world[playerFloor]->getLoc(xMove,yMove) == 0){
+			world[playerFloor]->setLoc(createRandomRoom(xMove,yMove,playerFloor),xMove,yMove);
+			world[playerFloor]->set_room_doors(xMove,yMove,true); // debug
+			// door setting should be done in the makeroom method
 		}
+		return true;
 	}
-	else{
-		player->setRoomLocX(xOld);
-		player->setRoomLocY(yOld);
-	}
-	//*/
+	return false;
 }
 
 /*
@@ -581,7 +593,7 @@ void Game::preGameInit(){
 	world[START_FLOOR-1]->setLoc(makeRoom(0,START_ROOM_X,START_ROOM_Y,START_FLOOR),START_ROOM_X,START_ROOM_Y);
 	//std::cout << "hree2\n";
 	//world[currX][START_ROOM_Y] = makeRoom(RoomData::ROOM_HALLWAY,currX,START_ROOM_Y);
-	world[START_FLOOR-1]->set_room_doors(START_ROOM_X,START_ROOM_Y,true);
+	world[START_FLOOR-1]->set_room_doors(START_ROOM_X,START_ROOM_Y,true); //the first room should have all open doors
 	//currX = START_ROOM_X;
 	//currY = START_ROOM_Y;
 	player = new Player(PLAYER_SYMBOL);
@@ -703,6 +715,7 @@ void Game::runGame(){
 	GetNumberOfConsoleInputEvents(hInput, &NumInputs);
 	int old_state = 0;
 	clock_t startTime = clock();
+	bool updateMap = false;
 	while(running){
 		//printGame();
 		switch(state){
@@ -710,6 +723,7 @@ void Game::runGame(){
 			createWorld();
 			preGameInit();
 			//state = STATE_LEVEL_ONE;
+			updateMap = true;
 			break;
 		}
 		case STATE_GAME_FINISH:{
@@ -726,20 +740,7 @@ void Game::runGame(){
 			break;
 		}
 		default:{
-			printGame();
-			do ReadConsoleInput( hInput, &irInput, 1, &InputsRead );
-			while ((irInput.EventType != KEY_EVENT) || irInput.Event.KeyEvent.bKeyDown);
-			//ReadConsoleInput(hInput, &irInput, 1, &InputsRead); 
-			startTime = clock();
-			//Location* thisRoom = world[player][currY];
-			getKeyInput(irInput.Event.KeyEvent.wVirtualKeyCode, thisRoom);
-			switch(state){
-			case STATE_LEVEL_ONE:{
-				old_state = STATE_LEVEL_ONE;
-				state = STATE_WAIT;
-				break;
-			}
-			}
+			gameStates(state,old_state,updateMap,startTime,hInput,irInput,InputsRead);
 			break;
 		}
 		}
