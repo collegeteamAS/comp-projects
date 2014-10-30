@@ -73,11 +73,8 @@
     <ClCompile Include="linkedList.cpp" />
     <ClCompile Include="location.cpp" />
     <ClCompile Include="main.cpp" />
-<<<<<<< HEAD
     <ClCompile Include="node.cpp" />
-=======
     <ClCompile Include="menutext.cpp" />
->>>>>>> 544c4fdf0ba724c40810c789a15809faabdd5fa8
     <ClCompile Include="player.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="locationdata.cpp" />
@@ -91,11 +88,8 @@
     <ClInclude Include="key.h" />
     <ClInclude Include="linkedList.h" />
     <ClInclude Include="location.h" />
-<<<<<<< HEAD
     <ClInclude Include="node.h" />
-=======
     <ClInclude Include="menutext.h" />
->>>>>>> 544c4fdf0ba724c40810c789a15809faabdd5fa8
     <ClInclude Include="player.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="locationdata.h" />

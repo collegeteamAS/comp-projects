@@ -1,14 +1,14 @@
 #include "linkedList.h"
-//#include ".h"
+#include "node.h"
 /*Steve Suh
 h_suh@u.pacific.edu
 2014-10-29
 
 */
 LinkedList::LinkedList()
-
 {
-
+	head = 0;
+	numKeys = 0;
 }
 
 int LinkedList::getNumKeys()
@@ -40,4 +40,9 @@ Node* LinkedList::remove_node(){
 	head = removal->get_next();
 	removal->set_next(0);
 	return removal;
+}
+
+void LinkedList::displayList()
+{
+
 }
