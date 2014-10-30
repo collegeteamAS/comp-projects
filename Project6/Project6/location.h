@@ -8,6 +8,7 @@
 #define _LOCATION_H_INCLUDED_
 
 #include <string>
+#include "linkedList.h"
 
 class Location{
 protected:

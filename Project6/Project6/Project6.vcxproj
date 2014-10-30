@@ -68,8 +68,12 @@
     <ClCompile Include="coordnode.cpp" />
     <ClCompile Include="floor.cpp" />
     <ClCompile Include="game.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="key.cpp" />
+    <ClCompile Include="linkedList.cpp" />
     <ClCompile Include="location.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="node.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="tile.cpp" />
   </ItemGroup>
@@ -78,7 +82,11 @@
     <ClInclude Include="coordnode.h" />
     <ClInclude Include="floor.h" />
     <ClInclude Include="game.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="key.h" />
+    <ClInclude Include="linkedList.h" />
     <ClInclude Include="location.h" />
+    <ClInclude Include="node.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="tile.h" />
   </ItemGroup>
