@@ -1,10 +1,12 @@
 #include "linkedList.h"
 #include "node.h"
+#include <iostream>
 /*Steve Suh
 h_suh@u.pacific.edu
 2014-10-29
 
 */
+
 LinkedList::LinkedList()
 {
 	head = 0;
@@ -42,7 +44,16 @@ Node* LinkedList::remove_node(){
 	return removal;
 }
 
-void LinkedList::displayList()
+void LinkedList::displayInventory()
 {
 
+	std::string inventory = ":_   _:_   _:_   _:";
+	if (numKeys == 1)
+		inventory = ":_ K _:_   _:_   _:";
+	if (numKeys == 2)
+		inventory = ":_ K _:_ K _:_   _:";
+	if (numKeys == 3)
+		inventory = ":_ K _:_ K _:_ K _:";
+
+	std::cout << inventory << "\n";
 }

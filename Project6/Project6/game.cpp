@@ -454,7 +454,7 @@ bool Game::getKeyInput(WORD key){
 			
 	case 0x49: // this was steve as well
 		{
-			//displayInventory();
+			//linkedList.displayInventory();
 			break;
 
 		}
