@@ -2,6 +2,8 @@
 #ifndef _FLOOR_H_INCLUDED_
 #define _FLOOR_H_INCLUDED_
 
+#include <string>
+
 class Location;
 class Coord_List;
 
@@ -10,7 +12,8 @@ private:
 	Location*** floor;
 
 	char** map;
-	int mapSize;
+	int mapHeight;
+	int mapWidth;
 
 	// id of this floor
 	// 0 - debug
@@ -28,11 +31,16 @@ private:
 	static const char ROOM_BLANK = ' ';
 
 	// how many rows and cols of tiles are shown on the map
-	static const int MAP_TILES_VISIBLE = 5;
+	static const int MAP_TILES_VISIBLE = 2;
 
+	// x and y is the center of the map, sym is the symbol of player (or whatever 
+	// tahts in the center
 	void drawMap(int x, int y, char sym); 
+	void drawMapPartial(int x, int y, char sym, Coord_List* list);
 	void drawRoom(int startX, int startY, int x, int y, char sym);
 	void drawRoomBlank(int startX, int startY);
+	void drawRoomPartial(int startX, int startY, int x, int y, char sym, Coord_List* list);
+	void drawRoomBlankPartial(int startX, int startY, Coord_List* list);
 
 public:
 	enum Constants{
@@ -45,16 +53,14 @@ public:
 	Floor(int idNum);
 
 	void createFloor();
-	void createMap(int size);
+	void createMap();
 
 	int getID();
 	Location* getLoc(int x, int y);
 	std::string getMap();
+	Coord_List* getMapPartial(int x, int y, char sym);
 	std::string getNewMap(int x, int y, char sym);
 
-	// x and y is the center of the map, sym is the symbol of player (or whatever 
-	// tahts in the center
-	Coord_List* drawMapPartial(int x, int y, char sym);
 
 	void setID(int idNum); // we probably dont need this
 	void setLoc(Location* loc, int x, int y);

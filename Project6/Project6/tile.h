@@ -13,14 +13,14 @@ public:
 	enum Contsants{
 		//EMPTY_SPACE = ' '
 		TILE_HEIGHT = 5,
-		TILE_WIDTH = 9
+		TILE_WIDTH = 7
 	};
 
 	Tile(int idNum, int xCoord, int yCoord, int floor);
 
-	virtual void createArray();
+	virtual void createNewArray(char*** room);
 	virtual char*** draw();
-	virtual void fillArray(char*** room);
+	//virtual void fillArray(char*** room);
 
 	int get_floor_id();
 

@@ -9,7 +9,9 @@
 #define _GAME_H_INCLUDED_
 
 #include "locationdata.h"
+#include "coordlist.h"
 
+class Location;
 class Floor;
 class Player;
 class Item;
@@ -22,22 +24,11 @@ private:
 
 	Player* player; // the player
 	//Player* monster; // the monster
-	
+
 	/* STATE machine:
 		0 - start up state, reading in data, preparing game
 		1 - game start, first mode:
 			player active
-			monster inactive
-		2 -	second mode: ---------------------------- we only got up to here, though, not enough time, sorry --------------- (monsters are invisible)
-			player active
-			monster active, random movement
-		3 - third mode:
-			player active
-			monster active, moves toward player slowly, player can hide from monster by going in closets
-		4 -	fourth mode:
-			player active
-			monster active, moves normal speed to player, player cannot hide.
-		5 -	finish game:
 			tell player they have lost/won
 			either: delete arrays, shutdown game
 			OR: ask player to play again.
@@ -68,6 +59,7 @@ private:
 	// currently used
 	Location* createRandomRoom(int x, int y, int flor); // rooms are randomy generated
 	void createWorld();
+	void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime);
 	bool getKeyInput(unsigned short key);
 	Floor* makeFloor(int id);
 	Location* makeRoom(int id, int x, int y, int flor);
@@ -132,7 +124,10 @@ public:
 
 		// The player is always in the middle of the map 
 		CENTER_PLAYER_X = 22,
-		CETNER_PLAYER_Y = 22
+		CETNER_PLAYER_Y = 22,
+
+		// how many floors do we have
+		WORLD_SIZE = 1
 	};
 
 	Game();

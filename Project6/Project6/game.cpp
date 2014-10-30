@@ -20,11 +20,12 @@
 
 #include "game.h"
 #include "locationdata.h"
+#include "coordlist.h"
+#include "coordnode.h"
 #include "floor.h"
 #include "tile.h"
 #include "player.h"
 #include "menutext.h"
-
 
 // @author Andre Allan Ponce
 Game::Game() : 
@@ -365,17 +366,7 @@ Item* Game::retrieveItem(int id)
 }
 //*/
 
-void Game::gameStates(int& state, int& old_state bool& mapPrint, clock_t& startTime, HANDLE hInput, unsigned short& irInput, unsigned int& inputsRead){
-	if(printMap){
-		printGame();
-		mapPrint = false;
-	}
-	do ReadConsoleInput( hInput, &irInput, 1, &inputsRead );
-	while ((irInput.EventType != KEY_EVENT) || irInput.Event.KeyEvent.bKeyDown);
-	//ReadConsoleInput(hInput, &irInput, 1, &InputsRead); 
-	startTime = clock();
-	//Location* thisRoom = world[player][currY];
-	printMap = getKeyInput(irInput.Event.KeyEvent.wVirtualKeyCode);
+void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
 	switch(state){
 	case STATE_EXPLORE:{
 		old_state = STATE_EXPLORE;
@@ -525,6 +516,7 @@ Floor* Game::makeFloor(int id){
 
 Location* Game::makeRoom(int id, int x, int y, int flor){
 	Location* loc = new Tile(id,x,y,flor); 
+	loc->createNewArray(locations.retrieveRoom(id));
 	return loc;
 }
 
@@ -533,9 +525,9 @@ Location* Game::makeRoom(int id, int x, int y, int flor){
 // moves the player. invalid moving will be fixed probably.
 bool Game::movePlayer(int xMove, int yMove){
 	//cout << "X:" << currX << "," << currY << "\n"; // debug
-	cout << "xr:" << xMove << "," << yMove << "\n"; // debug
+	//cout << "xr:" << xMove << "," << yMove << "\n"; // debug
 	//int xNew, yNew;
-	if(xMove >= 0 && yMove >= 0 && xMove <= Floor::FLOOR_HEIGHT && yMove <= Floor::FLOOR_WIDTH){
+	if(xMove >= 0 && yMove >= 0 && xMove < Floor::FLOOR_HEIGHT && yMove < Floor::FLOOR_WIDTH){
 		player->setBoardLocX(xMove);
 		player->setBoardLocY(yMove);
 		int playerFloor = player->get_current_floor()-1;
@@ -599,6 +591,7 @@ void Game::preGameInit(){
 	player = new Player(PLAYER_SYMBOL);
 	player->setBoardLocX(START_ROOM_X);
 	player->setBoardLocY(START_ROOM_Y);
+	player->set_current_floor(START_FLOOR);
 	state = STATE_EXPLORE;
 }
 
@@ -622,6 +615,30 @@ void Game::printGame(){
 
 void Game::printGamePartial(){
 	// this should use a Coord_list linked list to print certain characters to screen
+	Coord_List* list = world[player->get_current_floor()-1]->getMapPartial(player->getBoardLocX(),player->getBoardLocY(),player->getSymbol());
+	HANDLE consoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
+	//DWORD numberOfWrites = 0;
+	Coord_Node* character = list->remove_node();
+	while(character != 0){
+		CHAR_INFO replace;
+		replace.Char.AsciiChar = character->get_replacement();
+		replace.Attributes = 0;
+		COORD coordinateSize;
+		coordinateSize.X = 1;
+		coordinateSize.Y = 1;
+		COORD coordinate;
+		coordinate.X = character->get_x();
+		coordinate.Y = character->get_y();
+		SMALL_RECT bound;
+		bound.Left = coordinate.X;
+		bound.Top = coordinate.Y;
+		bound.Right = coordinate.X+coordinateSize.X;
+		bound.Bottom = coordinate.Y+coordinateSize.Y;
+		WriteConsoleOutput(consoleOut,&replace,coordinateSize,coordinate,&bound);
+		delete character;
+		character = list->remove_node();
+	}
+	delete list;
 }
 
 // @author Andre Allan Ponce
@@ -708,12 +725,12 @@ void Game::readInItemFile(std::string fileName){
 // url: http://www.cplusplus.com/forum/articles/7312/#msg33734
 void Game::runGame(){
 	bool running = true;
+	int old_state = 0;
 	HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
 	DWORD NumInputs = 0;
 	DWORD InputsRead = 0;
 	INPUT_RECORD irInput;
 	GetNumberOfConsoleInputEvents(hInput, &NumInputs);
-	int old_state = 0;
 	clock_t startTime = clock();
 	bool updateMap = false;
 	while(running){
@@ -723,7 +740,7 @@ void Game::runGame(){
 			createWorld();
 			preGameInit();
 			//state = STATE_LEVEL_ONE;
-			updateMap = true;
+			printGame();
 			break;
 		}
 		case STATE_GAME_FINISH:{
@@ -740,7 +757,18 @@ void Game::runGame(){
 			break;
 		}
 		default:{
-			gameStates(state,old_state,updateMap,startTime,hInput,irInput,InputsRead);
+			if(updateMap){
+				printGame();
+				//std::cout << "even\n";
+				updateMap = false;
+			}
+			do ReadConsoleInput( hInput, &irInput, 1, &InputsRead );
+			while ((irInput.EventType != KEY_EVENT) || irInput.Event.KeyEvent.bKeyDown);
+			//ReadConsoleInput(hInput, &irInput, 1, &InputsRead); 
+			startTime = clock();
+			//Location* thisRoom = world[player][currY];
+			updateMap = getKeyInput(irInput.Event.KeyEvent.wVirtualKeyCode);
+			gameStates(old_state,updateMap,startTime);
 			break;
 		}
 		}
