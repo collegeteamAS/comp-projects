@@ -40,11 +40,11 @@ public:
 	Location(int idNum, int xCoord, int yCoord);
 	//~Room(); this is giving some issues right now
 
-	virtual void createArray() = 0; // height and width should be set, already
+	virtual void createNewArray(char*** room) = 0; // height and width should be set, already
 	//void deleteArray();
 	//bool doesRoomHaveCloset();
 	virtual char*** draw() = 0;
-	void fillArray(char** room); // dont forget to fill the array
+    // virtual void fillArray(char*** room) = 0; // dont forget to fill the array
 
 	bool get_east_door();
 	bool get_north_door();

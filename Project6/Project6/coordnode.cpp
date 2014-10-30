@@ -24,3 +24,7 @@ int Coord_Node::get_x(){
 int Coord_Node::get_y(){
 	return y;
 }
+
+void Coord_Node::set_next(Coord_Node* next_node){
+	next = next_node;
+}

@@ -12,13 +12,15 @@ private:
 public:
 	enum Contsants{
 		//EMPTY_SPACE = ' '
-		TILE_SIZE = 5 // size of a tile (for the map)
+		TILE_HEIGHT = 5,
+		TILE_WIDTH = 7
 	};
 
 	Tile(int idNum, int xCoord, int yCoord, int floor);
 
-	virtual void createArray();
+	virtual void createNewArray(char*** room);
 	virtual char*** draw();
+	//virtual void fillArray(char*** room);
 
 	int get_floor_id();
 

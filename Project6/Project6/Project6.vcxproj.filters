@@ -39,16 +39,10 @@
     <ClCompile Include="coordlist.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="linkedList.cpp">
+    <ClCompile Include="menutext.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="node.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="item.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="key.cpp">
+    <ClCompile Include="locationdata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -74,17 +68,14 @@
     <ClInclude Include="coordnode.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="linkedList.h">
+    <ClInclude Include="menutext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="node.h">
+    <ClInclude Include="locationdata.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="key.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tiles" />
   </ItemGroup>
 </Project>

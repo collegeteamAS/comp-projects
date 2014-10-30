@@ -18,6 +18,9 @@ void Coord_List::add_node(char c, int x, int y){
 }
 
 Coord_Node* Coord_List::remove_node(){
+	if(head == 0){
+		return head;
+	}
 	Coord_Node* removal = head;
 	head = removal->get_next();
 	removal->set_next(0);

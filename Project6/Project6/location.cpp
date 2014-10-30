@@ -72,7 +72,7 @@ std::string Location::draw(){
 	}
 	return layout;
 }
-
+//*/
 /*
 	fills array using the char**
 	@author Andre Allan Ponce
@@ -89,7 +89,7 @@ void Location::fillArray(char** room){
 	}
 }
 
-
+/*
 // @author Andre Allan Ponce
 int Location::getHeight(){
 	return height;
