@@ -1,6 +1,8 @@
 /*
 	Andre Allan Ponce
 	a_ponce1@u.pacific.edu
+	2014-10-30
+	this holds the layouts for the tiles
 */
 
 #ifndef _LOCATIONDATA_H_INCLUDED_
@@ -13,60 +15,37 @@ private:
 	std::unordered_map<int,char**> data; // each room's layouts
 	int size; // how many items in this list
 
-	// private methods
-	// where we're going, we dont need doors
-	//int findDoorOnCol(int id, int col, char** room);
-	//int findDoorOnRow(int id, int row, char** room);
-	//void findDoors(int id, int rows, int cols, char** room); // finds 'doors' which are just empty spaces
-
 public:
-	// enums are better for constants (java enums were not as great, though)
 	enum Constants{
-		// Room IDS
-		TILE = 0
-
-		/*
-		// closed rooms
-		ROOM_ATTIC = 1,
-		ROOM_GARAGE = 9,
-		ROOM_BATHROOM = 3,
-
-		// closet rooms
-		ROOM_BASEMENT = 2,
-		ROOM_BEDROOM = 4,
-
-		// open rooms
-		ROOM_HALLWAY = 5,
-		ROOM_HALLWAY_BLOODY = 6,
-		ROOM_HALLWAY_DARK = 7,
-		ROOM_DININGROOM = 8,
-		ROOM_KITCHEN = 10,
-		ROOM_LIVINGROOM = 11,
-
-		// dimension IDS (for roomsize)
-		DIMENSION_ROW = 0,
-		DIMENSION_COL = 1,
-
-		// door IDS
-		DOOR_LEFT = 0,
-		DOOR_UP = 1,
-		DOOR_RIGHT = 2,
-		DOOR_DOWN = 3
-		//*/
+		TILE_BASIC = 0,		// also known as debug
+		TILE_NORTH = 1,		// 1 North edge location
+		TILE_EAST = 2,		// 2 East edge location
+		TILE_SOUTH = 3,		// 3 South Edge Location
+		TILE_WEST = 4,		// 4 West edge location
+		TILE_NORTH_EAST = 5,// 5 North East location
+		TILE_SOUTH_EAST = 6,// 6 South East location
+		TILE_SOUTH_WEST = 7,// 7 South West location
+		TILE_NORTH_WEST = 8 // 8 North West location
 	};
 
 	LocationData();
 	LocationData(int amount);
 
 	void createMaps(int amount); // not sure if we need this
-	void deleteMaps(int* keys);
 	void fillRoom(int id, int rows, int cols, char*** room);
+	/*// fills one element of the map
+	@param id - the id of the map element to fill (also the index and key)
+	@param rows - the number of rows of this element
+	@param cols - the number of cols of this element
+	@param room - pointer to the 2d array of the layout to put in this map.
+	//*/
 
 	int getSize();
-
-	//int retrieveDoorSpot(int id, int door); 
 	char*** retrieveRoom(int id);
-	//int retrieveRoomSize(int id, int dimension); // 0 for rows or height, 1 is cols or width
+	/*// gets the room layout of id
+	@param id - the id/key/index of the room to retrieve
+	@return a pointer to the 2d array of the layout
+	//*/
 
 	void setSize(int num);
 };

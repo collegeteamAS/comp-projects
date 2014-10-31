@@ -1,4 +1,4 @@
-/*
+/*//
 	@author Andre Allan Ponce
 	Microsft's c++ windows/desktop library includes an awesome way to 
 	replace/write console output in certain coordinate locations
@@ -12,6 +12,8 @@
 	and then the print method will go through this and replace
 	what we need. Tis pretty neat.
 
+	unfortunatley, this is unused at the moment.
+	2014-10-30
 //*/
 
 #ifndef _COORDLIST_H_INCLUDED_
@@ -26,7 +28,7 @@ private:
 public:
 	Coord_List();
 
-	void add_node(char c, int x, int y);
+	void add_node(char c, int x, int y); // adds node to top of list
 
 	Coord_Node* remove_node(); // removes first node everytim
 };

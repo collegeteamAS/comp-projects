@@ -1,4 +1,8 @@
-
+/*//
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	2014-10-30
+//*/
 #include "coordnode.h"
 
 Coord_Node::Coord_Node(char r, int x_c, int y_c) :

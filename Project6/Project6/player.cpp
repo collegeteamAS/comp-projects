@@ -30,12 +30,22 @@ Player::Player(char sym) :
 	// constructors should be empty, yo
 }
 
+Player::~Player(){
+	deleteInventory();
+}
+
 void Player::addItem(Node* item){
 	inventory->add_node(item);
 }
 
 void Player::createInventory(){
 	inventory = new LinkedList();
+}
+
+void Player::deleteInventory(){
+	if(inventory != 0){
+		delete inventory;
+	}
 }
 
 // @author Andre Allan Ponce
@@ -56,45 +66,10 @@ LinkedList* Player::getInventory(){
 	return inventory;
 }
 
-/*
-// @author Andre Allan Ponce
-int Player::getRoomLocX(){
-	return xRoom;
-}
-
-// @author Andre Allan Ponce
-int Player::getRoomLocY(){
-	return yRoom;
-}
-//*/
-
-
 // @author Andre Allan Ponce
 char Player::getSymbol(){
 	return symbol;
 }
-
-/*
-// @author Andre Allan Ponce
-void Player::moveDown(){
-	xRoom++;
-}
-
-// @author Andre Allan Ponce
-void Player::moveLeft(){
-	yRoom--;
-}
-
-// @author Andre Allan Ponce
-void Player::moveRight(){
-	yRoom++;
-}
-
-// @author Andre Allan Ponce
-void Player::moveUp(){
-	xRoom--;
-}
-//*/
 
 Node* Player::removeItem(int id){
 	return inventory->remove_node(id);
@@ -113,14 +88,3 @@ void Player::setBoardLocY(int y){
 void Player::set_current_floor(int floor){
 	curr_floor = floor;
 }
-
-/*
-// @author Andre Allan Ponce
-void Player::setRoomLocX(int x){
-	xRoom = x;
-}
-
-// @author Andre Allan Ponce
-void Player::setRoomLocY(int y){
-	yRoom = y;
-}//*/

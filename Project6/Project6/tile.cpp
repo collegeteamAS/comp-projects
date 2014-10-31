@@ -1,5 +1,8 @@
-#include <iostream>
-
+/*//
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	
+//*/
 #include "tile.h"
 #include "node.h"
 #include "item.h"
@@ -35,7 +38,6 @@ void Tile::addExistingKey(Item* key){
 	}
 	else{
 		hasKey = true;
-		id = 1;
 		xKey = KEY_X_0;
 		yKey = KEY_Y_0;
 	}
@@ -95,7 +97,6 @@ Node* Tile::getItem(int id){
 		xKey = KEY_X_0;
 		yKey = KEY_Y_0;
 		hasKey = false;
-		Tile::id = 0;
 		break;
 	}
 	default:{
@@ -107,12 +108,8 @@ Node* Tile::getItem(int id){
 	roomLayout[xKey][yKey] = EMPTY_SPACE;
 	return Location::getItem(id);
 }
-/*
-void Tile::fillArray(char*** room){
-	for(int i = 0; i < TILE_HEIGHT; i++){
-		for(int k = 0; k < TILE_WIDTH; k++){
-			roomLayout[i][k] = (*room)[i][k];
-		}
-	}
+
+void Tile::setFinalRoom(bool value){
+	roomLayout[END_GAME_X][END_GAME_Y] = END_GAME_CHAR;
+	Location::setFinalRoom(value);
 }
-//*/

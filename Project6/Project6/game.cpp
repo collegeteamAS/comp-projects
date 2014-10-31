@@ -4,9 +4,6 @@
 	Andre Allan Ponce
 	a_ponce1@u.pacific.edu
 
-	WE ran out of time.
-	sorry
-
 */
 
 #include <string>
@@ -35,16 +32,56 @@ Game::Game() :
 	player(0),
 	locations(0),
 	state(STATE_PRE_GAME),
+	endGameCounter(0),
+	isFinalDoorIn(false),
 	activeText(""){
 	// nothing here yet
+}
+
+Game::~Game(){
+	deletePlayer();
+	deleteWorld();
 }
 
 // @author Andre Allan Ponce
 // more randomly generating rooms
 Location* Game::createRandomRoom(int x, int y, int flor){
 	int id;
-	id = getRandomNumber(0,locations.getSize());
-	id = 0; // debug
+	//id = getRandomNumber(0,locations.getSize());
+	if(x == 0){ // North Edge
+		if(y == 0){ // North West Edge
+			id = LocationData::TILE_NORTH_WEST;
+		}
+		else if(y == Floor::FLOOR_WIDTH-1){ // North East Edge
+			id = LocationData::TILE_NORTH_EAST;
+		}
+		else{
+			id = LocationData::TILE_NORTH;
+		}
+	}
+	else if(x == Floor::FLOOR_HEIGHT-1){ // South Edge
+		if(y == 0){ // South West Edge
+			id = LocationData::TILE_SOUTH_WEST;
+		}
+		else if(y == Floor::FLOOR_WIDTH-1){ // South East Edge
+			id = LocationData::TILE_SOUTH_EAST;
+		}
+		else{
+			id = LocationData::TILE_SOUTH;
+		}
+	}
+	else{
+		if(y == 0){ // West Edge
+			id = LocationData::TILE_WEST;
+		}
+		else if(y == Floor::FLOOR_WIDTH-1){ // East Edge
+			id = LocationData::TILE_EAST;
+		}
+		else{ // normal room
+			id = LocationData::TILE_BASIC;
+		}
+	}
+	// id = 0; // debug
 	return makeRoom(id,x,y,flor);
 }
 
@@ -56,11 +93,28 @@ void Game::createWorld(){
 	}
 }
 
+void Game::deletePlayer(){
+	if(player != 0 ){
+		delete player;
+	}
+}
+
+void Game::deleteWorld(){
+	if(world != 0){
+		for(int i = 0; i < WORLD_SIZE; i++){
+			if(world[i] != 0){
+				delete world[i];
+			}
+		}
+		delete [] world;
+	}
+}
+
 void Game::dropOffItem(){
 	//int selection = selectItem();
-	if(player->getInventory()->getNumKeys() > 0){
+	if(player->getInventory()->getNumKeys() > Player::INVENTORY_MIN){
 		Location* loc = world[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
-		if(loc->getNumOfKeys() < 3){
+		if(loc->getNumOfKeys() < Player::INVENTORY_MAX){
 			loc->addItem(player->getInventory()->remove_node(Item::ID_KEY));
 		}
 		else{
@@ -72,58 +126,22 @@ void Game::dropOffItem(){
 	}
 }
 
-
-// @author Andre Allan Ponce
-// checks the four cardinal spaces directly around player for an item (which was supposed to be symbols)
-/*//
-int Game::detectItemID(){
-	int currPlayerX = player->getRoomLocX();
-	int currPlayerY = player->getRoomLocY();
-	bool noItem = true;
-	Location* currRoom = world[currX][currY];
-	for(int i = 1; i < 5; i++){
-		cout << "in here" << i << "\n";
-		switch(i){
-		case MOVE_LEFT:{
-			int finding = findItemID(currRoom->getSpaceAt(currPlayerX,currPlayerY-1));
-			if(finding >= 0){
-				return finding;
-			}
-			break;
-		}
-		case MOVE_UP:{
-			int finding = findItemID(currRoom->getSpaceAt(currPlayerX-1,currPlayerY));
-			cout << finding;
-			if(finding >= 0){
-				return finding;
-			}
-			break;
-		}
-		case MOVE_RIGHT:{
-			int finding = findItemID(currRoom->getSpaceAt(currPlayerX,currPlayerY+1));
-			if(finding >= 0){
-				return finding;
-			}
-			break;
-		}
-		case MOVE_DOWN:{
-			int finding = findItemID(currRoom->getSpaceAt(currPlayerX+1,currPlayerY));
-			if(finding >= 0){
-				return finding;
-			}
-			break;
-		}
-		}
-	}
-	return -1;
-}
-//*/
-
 void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
 	switch(state){
 	case STATE_EXPLORE:{
-		//old_state = STATE_EXPLORE;
-		//state = STATE_WAIT;
+		if(isFinalDoorIn){
+			state = STATE_FINAL_DOOR;
+		}
+		break;
+	}
+	case STATE_FINAL_DOOR:{
+		if(world[player->get_current_floor()-1]->getLoc(finalRoomX,finalRoomY)->getNumOfKeys() == 3){
+			state = STATE_GAME_FINISH;
+		}
+		break;
+	}
+	default:{
+		// we should not be going here
 		break;
 	}
 	}
@@ -141,13 +159,12 @@ bool Game::getKeyInput(WORD key){
 	switch(key)
     {
 	case VK_ESCAPE:{
+		state = STATE_GAME_FINSH_BAD;
 		break;
 	}
     case VK_LEFT:
 	case 0x41: // A
 	case VK_NUMPAD4:{ // decrement y
-		//activeText = "left!\n"; // debug
-		//movePlayer(MOVE_LEFT);
 		yNew--;
 		move = true;
 		break;
@@ -155,8 +172,6 @@ bool Game::getKeyInput(WORD key){
 	case VK_UP:
 	case 0x57: // W
 	case VK_NUMPAD8:{ // decrement x
-		//activeText = "up!\n"; // debug
-		//movePlayer(MOVE_UP);
 		xNew--;
 		move = true;
 		break;
@@ -164,8 +179,6 @@ bool Game::getKeyInput(WORD key){
 	case VK_RIGHT:
 	case 0x44: // D
 	case VK_NUMPAD6:{ // increment y
-		//activeText =  "right!\n"; // debug
-		//movePlayer(MOVE_RIGHT);
 		yNew++;
 		move = true;
 		break;
@@ -173,8 +186,6 @@ bool Game::getKeyInput(WORD key){
 	case VK_DOWN:
 	case 0x53: // S
 	case VK_NUMPAD2:{ // increment x
-		//activeText =  "down!\n"; // debug
-		//movePlayer(MOVE_DOWN);
 		xNew++;
 		move = true;
 		break;
@@ -186,6 +197,11 @@ bool Game::getKeyInput(WORD key){
 	}
 	case 0x51:{ // q key // drop off item
 		dropOffItem();
+		return true;
+		break;
+	}
+	case 0x48:{ // H key // help
+		printHelp();
 		return true;
 		break;
 	}
@@ -201,7 +217,8 @@ bool Game::getKeyInput(WORD key){
 	}
     }
 	if(move){
-		return movePlayer(xNew,yNew);
+		movePlayer(xNew,yNew);
+		return true;
 	}
 	else{
 		return false;
@@ -212,39 +229,15 @@ bool Game::getKeyInput(WORD key){
 int Game::getRandomNumber(int start, int end){
 	int ran;
 	try{
-		random_device rd;
+		random_device rd; // random_device is true random
 		ran = (rd() % (end-start));
 	}
 	catch(...){
 		ran = (rand() % (end-start));	
 	}
-	// remove debug when done 
-	// id 0
 	return ran;
 }
-/*
 
-// @author Andre Allan Ponce
-// when the player is at the edge of the screen (where the spaces are) we move to the next room
-int Game::isLocAtEdge(int x, int y, Location* currRoom){
-	if(x == 0){
-		return MOVE_UP;
-	}
-	else if(y == 0){
-		return MOVE_LEFT;
-	}
-	else if(x == currRoom->getHeight()-1){
-		return MOVE_DOWN;
-	}
-	else if(y == currRoom->getWidth()-1){
-		return MOVE_RIGHT;
-	}
-	else{
-		//cout << "in here?\n";
-		return -1; // we are not at the edge
-	}
-}
-//*/
 // @author Andre Allan Ponce
 Floor* Game::makeFloor(int id){
 	Floor* floor = new Floor(id);
@@ -254,9 +247,18 @@ Floor* Game::makeFloor(int id){
 Location* Game::makeRoom(int id, int x, int y, int flor){
 	Location* loc = new Tile(id,x,y,flor); 
 	loc->createNewArray(locations.retrieveRoom(id));
-	int keyChance = getRandomNumber(0,100);
-	// std::cout << keyChance; //debug
-	if(keyChance < 100){
+	setupDoors(loc,id);
+	int chance = getRandomNumber(0,100);
+	if(!isFinalDoorIn){
+		if(chance <= endGameCounter++){
+			loc->setFinalRoom(true);
+			isFinalDoorIn = true;
+			modeText = MenuText::MAP_FIND_KEYS;
+			finalRoomX = x;
+			finalRoomY = y;
+		}
+	}
+	if(chance < 10){
 		loc->addKey();
 	}
 	return loc;
@@ -272,18 +274,19 @@ bool Game::movePlayer(int xMove, int yMove){
 		int playerFloor = player->get_current_floor()-1;
 		if(world[playerFloor]->getLoc(xMove,yMove) == 0){
 			world[playerFloor]->setLoc(createRandomRoom(xMove,yMove,playerFloor),xMove,yMove);
-			world[playerFloor]->set_room_doors(xMove,yMove,true); // debug
+			//world[playerFloor]->set_room_doors(xMove,yMove,true); // debug
 			// door setting should be done in the makeroom method
 		}
 		return true;
 	}
+	activeText = MenuText::INVALID_MOVE;
 	return false;
 }
 
 void Game::pickUpItem(){
 	Location* loc = world[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
-	if(loc->getNumOfKeys() > 0){
-		if(player->getInventory()->getNumKeys() < 3){
+	if(loc->getNumOfKeys() > Player::INVENTORY_MIN){
+		if(player->getInventory()->getNumKeys() < Player::INVENTORY_MAX){
 			player->addItem(loc->getItem(Item::ID_KEY));
 		}
 		else{
@@ -313,22 +316,24 @@ void Game::preGameInit(){
 // @author Andre Allan Ponce
 /*
 	found a way to change a certain set of chars:
+	// NOT IMPLEMENTED DUE TO ISSUES
 	http://msdn.microsoft.com/en-us/library/windows/desktop/ms683231(v=vs.85).aspx
 	http://msdn.microsoft.com/en-us/library/windows/desktop/ms682119(v=vs.85).aspx
 	http://msdn.microsoft.com/en-us/library/windows/desktop/ms682663(v=vs.85).aspx
 	http://msdn.microsoft.com/en-us/library/windows/desktop/ms682022(v=vs.85).aspx
 
 	(22,22) is the direct center of the map
-	the map is 45x45 chars, which works for 5 rooms in either direction
+	the map is 35x35 chars, which works for 2 rooms in either direction
 
 //*/
 void Game::printGame(){
 	system("CLS"); 
-	cout << world[player->get_current_floor()-1]->getNewMap(player->getBoardLocX(),player->getBoardLocY(),player->getSymbol()) << "\n\n";
-	cout << activeText << "\n";
+	std::cout << world[player->get_current_floor()-1]->getNewMap(player->getBoardLocX(),player->getBoardLocY(),player->getSymbol()) << MenuText::MAP_EDGE_BOTTOM << "\n";
+	std::cout << activeText << "\n";
+	std::cout << modeText << "\n";
 }
-
-void Game::printGamePartial(){
+/*//
+void Game::printGamePartial(){ // not working at the moment
 	// this should use a Coord_list linked list to print certain characters to screen
 	Coord_List* list = world[player->get_current_floor()-1]->getMapPartial(player->getBoardLocX(),player->getBoardLocY(),player->getSymbol());
 	HANDLE consoleOut = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -354,6 +359,12 @@ void Game::printGamePartial(){
 		character = list->remove_node();
 	}
 	delete list;
+}
+//*/
+void Game::printHelp(){
+	system("CLS");
+	std::cout << MenuText::MENU_HELP;
+	system("pause");
 }
 
 // @author Andre Allan Ponce
@@ -420,29 +431,38 @@ void Game::runGame(){
 		//printGame();
 		switch(state){
 		case STATE_PRE_GAME:{
-			createWorld();
+			//createWorld();
 			preGameInit();
-			//state = STATE_LEVEL_ONE;
+			modeText = MenuText::MAP_EXPLORE;
+			printHelp();
 			printGame();
 			break;
 		}
 		case STATE_GAME_FINISH:{
+			activeText = MenuText::GAME_WINNER;
+			modeText = "";
+			printGame();
+			system("pause");
+			running = false;
+			break;
+		}
+		case STATE_GAME_FINSH_BAD:{
+			system("CLS");
+			std::cout << MenuText::GAME_QUIT;
+			running = false;
 			break;
 		}
 		case STATE_WAIT:{
-			
 			if(clock() - startTime > 20){ // it was too fast at one point
 				state = old_state;
 			}
-			//*/
-			//Sleep(1*1000);
-			//state = old_state;
 			break;
 		}
 		default:{
 			if(updateMap){
-				printGame();
+				//printGamePartial();
 				//std::cout << "even\n";
+				printGame();
 				updateMap = false;
 			}
 			do ReadConsoleInput( hInput, &irInput, 1, &InputsRead );
@@ -476,3 +496,18 @@ int Game::selectItem(){
 		std::cout << MenuText::INVALID_MENU_CHOICE;
 	}while(!valid);
 }//*/
+
+void Game::setupDoors(Location* loc, int id){
+	if(id != LocationData::TILE_NORTH || id != LocationData::TILE_NORTH_EAST || id != LocationData::TILE_NORTH_WEST){
+		loc->set_north_door(true);
+	}
+	if(id != LocationData::TILE_EAST || id != LocationData::TILE_NORTH_EAST || id != LocationData::TILE_SOUTH_EAST){
+		loc->set_east_door(true);
+	}
+	if(id != LocationData::TILE_SOUTH || id != LocationData::TILE_SOUTH_EAST || id != LocationData::TILE_SOUTH_WEST){
+		loc->set_south_door(true);
+	}
+	if(id != LocationData::TILE_WEST || id != LocationData::TILE_SOUTH_WEST || id != LocationData::TILE_NORTH_WEST){
+		loc->set_west_door(true);
+	}
+}

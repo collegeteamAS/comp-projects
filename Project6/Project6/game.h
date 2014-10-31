@@ -22,23 +22,31 @@ private:
 	Floor** world; // the world
 
 	LocationData locations;
+	// holds roomlayout data for the tiles
 
 	Player* player; // the player
 	//Player* monster; // the monster
 
 	/* STATE machine:
+		-1- nothing
 		0 - start up state, reading in data, preparing game
-		1 - game start, first mode:
-			player active
-			tell player they have lost/won
-			either: delete arrays, shutdown game
-			OR: ask player to play again.
+		1 - game start, explore
+		2 - the final door has been found
+		5 - game finish
+		6 - game quit
 	*/
 	int state;
 
-	//bool isFinalDoorIn; // there was supposed to be an end, eventually
+	int endGameCounter;
+	// starts at 0, increases by 1 per new room
+	// this room is where you supposed to drop the keys.
+
+	bool isFinalDoorIn; // here is the end
+	int finalRoomX; // the endgame x coord
+	int finalRoomY;  // the endgame room y coord
 
 	std::string activeText; // debug
+	std::string modeText; // what you should be doing right now.
 
 	// where is the player right now?
 	//int currX;
@@ -47,27 +55,44 @@ private:
 	// what floor is the player on right now?
 	//int curr_floor;
 
-	// old methods
-	void changeRoom(int move);
-	Location* createRoom(int id, int x, int y);
-	int detectItemID();
-	int findItemID(char sym);
-	int isLocAtEdge(int x, int y, Location* currRoom);
-	void moveMonster();
-	void placePlayerInNewRoom(int move, Player* play, char sym);
-	
+	Location* createRandomRoom(int x, int y, int flor);
+	/*// creates a random room (which really isnt random since we only have one type of tile
+	@param x - the x coordinate of the room to create
+	@param y - the y coordinate of the room to create
+	@param flor - the floor of the room to create
+	@return a pointer to the new location
+	//*/
 
-	// currently used
-	Location* createRandomRoom(int x, int y, int flor); // rooms are randomy generated
 	void createWorld();
+	void deletePlayer();
+	void deleteWorld();
 	void dropOffItem();
+
 	void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime);
+	/*// handles other game states other than finish and pregame
+	@param old_state - the old_state, used for debugging
+	@param mapPrint - true if we want a new map, false if not
+	@param startTime - clocking the time we started, used for debugging
+	//*/
+
 	bool getKeyInput(unsigned short key);
+	/*// decides what we do based on input key
+	@param key - the key we pressed
+	refer to http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx for key codes
+	@return true for updating the map, false if not
+	//*/
+
 	Floor* makeFloor(int id);
 	Location* makeRoom(int id, int x, int y, int flor);
 	bool movePlayer(int xMove, int yMove);
 	void pickUpItem();
 	void preGameInit();
+
+	void setupDoors(Location* loc, int id);
+	/*// sets the door bools based on the id
+	@param loc - pointer to location to adjust doors
+	@param id - id of the room
+	//*/
 
 	// int selectItem(); 
 	// allow user to select which item to drop
@@ -76,32 +101,17 @@ private:
 public:
 	enum Constants{
 		PLAYER_SYMBOL = 'O',
-	
-
-		// size of the map which displays character location
-		//MAP_SIZE = 45,
 
 		// STATE MACHINE
 		STATE_WAIT = -1,
 		STATE_PRE_GAME = 0,
 		STATE_EXPLORE = 1,
-		STATE_LEVEL_TWO = 2,
-		STATE_LEVEL_THREE = 3,
-		STATE_LEVEL_FOUR = 4,
+		STATE_FINAL_DOOR = 2,
 		STATE_GAME_FINISH = 5,
-
-		// MOVE IDS
-		// we might not need this anymore
-		/*
-		MOVE_NONE = 0,
-		MOVE_LEFT = 1,
-		MOVE_UP = 2,
-		MOVE_RIGHT = 3,
-		MOVE_DOWN = 4,
-		//*/
+		STATE_GAME_FINSH_BAD = 6,
 
 		// STARTING FlOOR and ROOM
-		START_FLOOR = 2, // this should be the ground floor
+		START_FLOOR = 1, // this should be the ground floor
 		START_ROOM_X = 15,
 		START_ROOM_Y = 15,
 
@@ -114,25 +124,20 @@ public:
 	};
 
 	Game();
+	~Game();
 
 	int getRandomNumber(int start, int end);
-	// start inclusive, end exclusive
+	/*// gets a random number from start to end
+	@param start - the starting number of the range (inclusive)
+	@param end - the ending number of the range (exclusive)
+	@return an int between start (inclusive) and end (exclusive)
+	//*/
 
 	void printGame();
 	void printGamePartial();
+	void printHelp();
 	void readInFile(std::string fileName);
-	void readInItemFile(std::string fileName);
 	void runGame();
-
-	Item* retrieveItem(int id);
-
-
-	int orbProb [8]; // prob = 1/n
-	void updateOrbProbability(); //updating the probability of getting rarer orbs little bit easier(0.1%>5% for instance) if you have more common orbs
-	bool orbInventory [8]; //array of storing bool of whether you got that orb
-	void displayInventory(); // displaying the orbs you have
-	std::string orbInventoryNames [8]; //green, yellow, red, white, black, light, dark, pale
-
 };
 
 #endif

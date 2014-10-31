@@ -1,3 +1,8 @@
+/*//
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	2014-10-30
+//*/
 
 #include "coordlist.h"
 #include "coordnode.h"

@@ -1,4 +1,10 @@
-
+/*//
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	2014-10-30
+	Node that contains char to replace and coordinates of 
+	this char
+//*/
 #ifndef _COORDNODE_H_INCLUDED_
 #define _COORDNODE_H_INCLUDED_
 

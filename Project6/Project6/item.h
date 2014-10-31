@@ -10,7 +10,7 @@ protected:
 	int id;
 
 public:
-	enum Constants{
+	enum Constants{ 
 		ID_KEY = 1
 	};
 

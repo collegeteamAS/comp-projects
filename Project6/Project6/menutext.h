@@ -15,8 +15,17 @@ public:
 	static const string ERROR_NO_ROOM;
 	static const string ERROR_NO_ROOM_ITEMS;
 
-	static const string INVALID_MENU_CHOICE;
+	static const string GAME_QUIT;
+	static const string GAME_WINNER;
 
+	static const string INVALID_MENU_CHOICE;
+	static const string INVALID_MOVE;
+
+	static const string MAP_EDGE_BOTTOM;
+	static const string MAP_EXPLORE;
+	static const string MAP_FIND_KEYS;
+
+	static const string MENU_HELP;
 	static const string MENU_ITEM_DISPLAY_INVENTORY;
 	static const string MENU_ITEM_SELECT;
 

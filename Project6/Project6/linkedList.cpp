@@ -15,7 +15,6 @@ LinkedList::LinkedList()
 {
 	head = 0;
 	numKeys = 0;
-	boolDisplayed =false;
 }
 
 int LinkedList::getNumKeys()
@@ -82,21 +81,12 @@ Node* LinkedList::remove_node(int id){
 
 std::string LinkedList::displayInventory()
 {
-	if(boolDisplayed)
-	{
-		inventory = "";
-		boolDisplayed = false;
-	}
-	else
-	{
-		inventory = MenuText::PLAYER_INVENTORY_EMPTY;
-		if (numKeys == 1)
-			inventory = MenuText::PLAYER_INVENTORY_KEY_1;
-		if (numKeys == 2)
-			inventory = MenuText::PLAYER_INVENTORY_KEY_2;
-		if (numKeys == 3)
-			inventory = MenuText::PLAYER_INVENTORY_KEY_3;
-		boolDisplayed = true;
-	}
-	return inventory + "\n";
+	std::string inventory = MenuText::PLAYER_INVENTORY_EMPTY;
+	if (numKeys == 1)
+		inventory = MenuText::PLAYER_INVENTORY_KEY_1;
+	if (numKeys == 2)
+		inventory = MenuText::PLAYER_INVENTORY_KEY_2;
+	if (numKeys == 3)
+		inventory = MenuText::PLAYER_INVENTORY_KEY_3;
+	return inventory;
 }

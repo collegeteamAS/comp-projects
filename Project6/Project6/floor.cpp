@@ -1,4 +1,9 @@
-//#include <iostream>
+/*//
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	2014-10-30
+//*/
+//#include <iostream> //debug
 #include "floor.h"
 #include "location.h"
 #include "tile.h"
@@ -12,6 +17,11 @@ Floor::Floor(int idNum) :
 	mapWidth(Tile::TILE_WIDTH*(MAP_TILES_VISIBLE*2+1)){
 	createFloor();
 	createMap();
+}
+
+Floor::~Floor(){
+	deleteFloor();
+	deleteMap();
 }
 
 void Floor::createFloor(){
@@ -35,35 +45,27 @@ void Floor::createMap(){
 	}
 }
 
-int Floor::getID(){
-	return id;
-}
-
-Location* Floor::getLoc(int x, int y){
-	return floor[x][y];
-}
-
-std::string Floor::getMap(){
-	std::string mapStr = "";
-	for(int i = 0; i < mapHeight;i++){
-		for(int k = 0; k < mapWidth;k++){
-			mapStr += map[i][k];
-			//std::cout << map[i][k] << ":" << i << "," << k << "\n";
+void Floor::deleteFloor(){
+	if(floor != 0){
+		for(int i = 0; i < FLOOR_HEIGHT; i++){
+			if(floor[i] != 0){
+				for(int k = 0; k < FLOOR_WIDTH; k++){
+					delete floor[i][k];
+				}
+				delete [] floor[i];
+			}
 		}
-		mapStr += "\n";
+		delete [] floor;
 	}
-	return mapStr;
 }
 
-Coord_List* Floor::getMapPartial(int x, int y, char sym){
-	Coord_List* list = new Coord_List();
-	drawMapPartial(x,y,sym,list);
-	return list;
-}
-
-std::string Floor::getNewMap(int x, int y, char sym){
-	drawMap(x,y,sym);
-	return getMap();
+void Floor::deleteMap(){
+	if(map != 0){
+		for(int i = 0; i < mapHeight; i++){
+			delete [] map[i];
+		}
+		delete [] map;
+	}
 }
 
 void Floor::drawMap(int x, int y, char sym){
@@ -84,7 +86,7 @@ void Floor::drawMap(int x, int y, char sym){
 		yRoom = 0;
 	}
 }
-
+/*//
 void Floor::drawMapPartial(int x, int y, char sym, Coord_List* list){
 	int xRoom = 0;
 	int yRoom = 0;
@@ -103,7 +105,7 @@ void Floor::drawMapPartial(int x, int y, char sym, Coord_List* list){
 		yRoom = 0;
 	}
 }
-
+//*/
 void Floor::drawRoom(int startX, int startY, int x, int y, char sym){
 	if(x < 0 || y < 0 || floor[x][y] == 0 || x >= FLOOR_HEIGHT || y >= FLOOR_WIDTH){
 		drawRoomBlank(startX,startY);
@@ -122,7 +124,7 @@ void Floor::drawRoom(int startX, int startY, int x, int y, char sym){
 		}
 	}
 }
-
+/*//
 void Floor::drawRoomPartial(int startX, int startY, int x, int y, char sym, Coord_List* list){
 	if(x < 0 || y < 0 || floor[x][y] == 0 || x >= FLOOR_HEIGHT || y >= FLOOR_WIDTH){
 		drawRoomBlankPartial(startX,startY,list);
@@ -147,11 +149,10 @@ void Floor::drawRoomPartial(int startX, int startY, int x, int y, char sym, Coor
 		}
 	}
 }
-
+//*/
 void Floor::drawRoomBlank(int startX, int startY){
 	for(int i = startX; i < startX+Tile::TILE_HEIGHT; i++){
 		for(int k = startY; k < startY+Tile::TILE_WIDTH; k++){
-			//if(map[i][k] == ROOM_
 			if(map[i][k] != ROOM_BLANK){
 				map[i][k] = ROOM_BLANK;
 			}
@@ -159,11 +160,10 @@ void Floor::drawRoomBlank(int startX, int startY){
 		}
 	}
 }
-
+/*//
 void Floor::drawRoomBlankPartial(int startX, int startY, Coord_List* list){
 	for(int i = startX; i < startX+Tile::TILE_HEIGHT; i++){
 		for(int k = startY; k < startY+Tile::TILE_WIDTH; k++){
-			//if(map[i][k] == ROOM_
 			if(map[i][k] != ROOM_BLANK){
 				map[i][k] = ROOM_BLANK;
 				list->add_node(map[i][k],i,k);
@@ -171,6 +171,37 @@ void Floor::drawRoomBlankPartial(int startX, int startY, Coord_List* list){
 			//std::cout << i << ":" << k <<"\n";
 		}
 	}
+}
+//*/
+int Floor::getID(){
+	return id;
+}
+
+Location* Floor::getLoc(int x, int y){
+	return floor[x][y];
+}
+
+std::string Floor::getMap(){
+	std::string mapStr = "";
+	for(int i = 0; i < mapHeight;i++){
+		for(int k = 0; k < mapWidth;k++){
+			mapStr += map[i][k];
+			//std::cout << map[i][k] << ":" << i << "," << k << "\n";
+		}
+		mapStr += "\n";
+	}
+	return mapStr;
+}
+/*//
+Coord_List* Floor::getMapPartial(int x, int y, char sym){
+	Coord_List* list = new Coord_List();
+	drawMapPartial(x,y,sym,list);
+	return list;
+}
+//*/
+std::string Floor::getNewMap(int x, int y, char sym){
+	drawMap(x,y,sym);
+	return getMap();
 }
 
 void Floor::setID(int idNum){

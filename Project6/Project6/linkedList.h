@@ -10,8 +10,7 @@ class LinkedList
 	private:
 		Node* head;
 		int numKeys; //this will keep track of the number of keys that player has
-		bool boolDisplayed;
-		std::string inventory;
+
 	public:
 		LinkedList();
 		void add_node(Node* n);
@@ -19,7 +18,6 @@ class LinkedList
 		Node* remove_node(); // removes first node everytime
 		Node* remove_node(int id); // removes node based on id
 		int getNumKeys(); //get the number of how many keys player currently has.
-
 };
 
 #endif
