@@ -10,7 +10,8 @@ class LinkedList
 	private:
 		Node* head;
 		int numKeys; //this will keep track of the number of keys that player has
-		
+		bool boolDisplayed;
+		std::string inventory;
 	public:
 		LinkedList();
 		void add_node(Node* n);
