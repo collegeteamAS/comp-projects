@@ -1,4 +1,5 @@
 #include "node.h"
+#include "item.h"
 
 //steve suh
 Node::Node()
@@ -15,12 +16,6 @@ void Node::set_next(Node* next_node)
 {
 	next = next_node->get_next();
 }
-
-
-char Node::get_replacement(){
-	return replacement;
-}
-
 
 Item* Node::getItem()
 {

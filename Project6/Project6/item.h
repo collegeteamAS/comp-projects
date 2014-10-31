@@ -10,6 +10,9 @@ private:
 	int id;
 
 public:
+	enum Constants{
+		ID_KEY = 1
+	};
 
 	Item();
 	void setID(int idNum); 

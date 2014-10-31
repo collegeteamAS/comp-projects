@@ -6,13 +6,17 @@
 
 #include <string>
 #include "player.h"
+#include "linkedList.h"
+#include "node.h"
 
 
 // @author Andre Allan Ponce
 Player::Player() : 
 	symbol('d'), // d stands for debug
 	xBoard(-1), 
-	yBoard(-1){
+	yBoard(-1),
+	inventory(0),
+	curr_floor(-1){
 	// constructors should be empty, yo
 }
 
@@ -20,10 +24,19 @@ Player::Player() :
 Player::Player(char sym) : 
 	symbol(sym), 
 	xBoard(-1), 
-	yBoard(-1){
+	yBoard(-1),
+	inventory(0),
+	curr_floor(-1){
 	// constructors should be empty, yo
 }
 
+void Player::addItem(Node* item){
+	inventory->add_node(item);
+}
+
+void Player::createInventory(){
+	inventory = new LinkedList();
+}
 
 // @author Andre Allan Ponce
 int Player::getBoardLocX(){
@@ -37,6 +50,10 @@ int Player::getBoardLocY(){
 
 int Player::get_current_floor(){
 	return curr_floor;
+}
+
+LinkedList* Player::getInventory(){
+	return inventory;
 }
 
 /*
@@ -78,6 +95,10 @@ void Player::moveUp(){
 	xRoom--;
 }
 //*/
+
+Node* Player::removeItem(int id){
+	return inventory->remove_node(id);
+}
 
 // @author Andre Allan Ponce
 void Player::setBoardLocX(int x){

@@ -9,6 +9,7 @@ h_suh@u.pacific.edu
 
 #include <string>
 #include "location.h"
+#include "linkedList.h"
 
 
 // @author Andre Allan Ponce
@@ -16,8 +17,9 @@ Location::Location() :
 	x(-1), 
 	y(-1),
 	id(-1), 
+	items(0),
 	roomLayout(0){
-
+	items = new LinkedList();
 }
 
 // @author Andre Allan Ponce
@@ -25,8 +27,13 @@ Location::Location(int idNum, int xCoord, int yCoord) :
 	x(xCoord), 
 	y(yCoord),
 	id(idNum),
+	items(0),
 	roomLayout(0){
-	
+	items = new LinkedList();
+}
+
+void Location::addItem(Node* n){
+	items->add_node(n);
 }
 
 // @author Andre Allan Ponce
@@ -103,6 +110,10 @@ bool Location::get_east_door(){
 
 bool Location::get_north_door(){
 	return has_north_door;
+}
+
+Node* Location::getItem(int id){
+	return items->remove_node(id);
 }
 
 // @author Andre Allan Ponce

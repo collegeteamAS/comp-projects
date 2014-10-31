@@ -20,11 +20,13 @@
 
 #include "game.h"
 #include "locationdata.h"
+#include "linkedList.h"
 #include "coordlist.h"
 #include "coordnode.h"
 #include "floor.h"
 #include "tile.h"
 #include "player.h"
+#include "item.h"
 #include "menutext.h"
 
 // @author Andre Allan Ponce
@@ -38,81 +40,14 @@ Game::Game() :
 }
 
 // @author Andre Allan Ponce
-// moves from one ROOOM ( or Location) to the next
-/*
-void Game::changeRoom(int move){
-	int nextRoomDoor;
-	switch(move){
-	case MOVE_LEFT:{
-		currY--;
-		nextRoomDoor = roomData.DOOR_RIGHT;
-		break;
-	}
-	case MOVE_UP:{
-		currX--;
-		nextRoomDoor = roomData.DOOR_DOWN;
-		break;
-	}
-	case MOVE_RIGHT:{
-		currY++;
-		nextRoomDoor = roomData.DOOR_LEFT;
-		break;
-	}
-	case MOVE_DOWN:{
-		currX++;
-		nextRoomDoor = roomData.DOOR_UP;
-		break;
-	}
-	}
-	if(world[currX][currY] == 0){
-		world[currX][currY] = createRandomRoom(currX,currY,nextRoomDoor); // RANDOMLY generated rooms
-	}
-}
-//*/
-// @author Andre Allan Ponce
 // more randomly generating rooms
 Location* Game::createRandomRoom(int x, int y, int flor){
 	int id;
-	id = getRandomNumber();
+	id = getRandomNumber(0,locations.getSize());
 	id = 0; // debug
 	return makeRoom(id,x,y,flor);
 }
 
-// @author Andre Allan Ponce
-/*
-Location* Game::createRoom(int id, int x, int y){
-	int h = roomData.retrieveRoomSize(id,RoomData::DIMENSION_ROW);
-	int w = roomData.retrieveRoomSize(id,RoomData::DIMENSION_COL);
-	switch(id){
-	case RoomData::ROOM_LIVINGROOM :
-	case RoomData::ROOM_KITCHEN :
-	case RoomData::ROOM_DININGROOM :
-	case RoomData::ROOM_HALLWAY_DARK :
-	case RoomData::ROOM_HALLWAY_BLOODY :
-	case RoomData::ROOM_HALLWAY :{
-		return new OpenRoom(id,x,y,h,w); // no closet, multiple doors
-		break;
-	}
-	case RoomData::ROOM_BEDROOM :
-	case RoomData::ROOM_BASEMENT :{
-		return new ClosetRoom(id,x,y,h,w); // closet, one door
-		break;
-	}
-	case RoomData::ROOM_GARAGE :
-	case RoomData::ROOM_BATHROOM :
-	case RoomData::ROOM_ATTIC :{
-		return new ClosedRoom(id,x,y,h,w); // no closet, one door
-		break;
-	}
-	case RoomData::ROOM :
-	default : {
-		// return Room(id,x,y,h,w,true,false); // debug
-		return new Location(id,x,y,h,w,false,false);
-		break;
-	}
-	}
-}
-//*/
 // @author Andre Allan Ponce
 void Game::createWorld(){
 	world = new Floor*[WORLD_SIZE];
@@ -121,10 +56,19 @@ void Game::createWorld(){
 	}
 }
 
+void Game::dropOffItem(){
+	//int selection = selectItem();
+	if(player->getInventory()->getNumKeys() > 0){
+
+	}
+	Location* loc = world[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
+	//if(loc
+}
+
 
 // @author Andre Allan Ponce
 // checks the four cardinal spaces directly around player for an item (which was supposed to be symbols)
-/*
+/*//
 int Game::detectItemID(){
 	int currPlayerX = player->getRoomLocX();
 	int currPlayerY = player->getRoomLocY();
@@ -166,204 +110,6 @@ int Game::detectItemID(){
 	}
 	return -1;
 }
-
-// @author Andre Allan Ponce
-/*
-int Game::findItemID(char sym){
-	switch(sym){
-	case JUNK_SYMBOL:{
-		return itemData.ROOMITEM_JUNK;
-		break;
-	}
-	case VASE_SYMBOL:{
-		return itemData.ROOMITEM_VASE;
-		break;
-	}
-	case TABLE_SYMBOL:{
-		return itemData.ROOMITEM_TABLE;
-		break;
-	}
-	case CHAIR_SYMBOL:{
-		return itemData.ROOMITEM_CHAIR;
-		break;
-	}
-	case LAMP_SYMBOL:{
-		return itemData.ROOMITEM_LAMP;
-		break;
-	}
-	case BED_SYMBOL:{
-		return itemData.ROOMITEM_BED;
-		break;
-	}
-	case CANDLE_SYMBOL:{
-		return itemData.ROOMITEM_CANDLE;
-		break;
-	}
-	case DISH_SYMBOL:{
-		return itemData.ROOMITEM_DISH;
-		break;
-	}
-	case DUST_SYMBOL:{
-		return itemData.ROOMITEM_DUST;
-		break;
-	}
-	case FORK_SYMBOL:{
-		return itemData.ROOMITEM_FORK;
-		break;
-	}
-	case TOILET_SYMBOL:{
-		return itemData.ROOMITEM_TOILET;
-		break;
-	}
-	case BATHTUB_SYMBOL:{
-		return itemData.ROOMITEM_BATHTUB;
-		break;
-	}
-	case MIRROR_SYMBOL:{
-		return itemData.ROOMITEM_MIRROR;
-		break;
-	}
-	case BLOOD_SYMBOL:{
-		return itemData.ROOMITEM_BLOOD;
-		break;
-	}
-	case CD_SYMBOL:{
-		return itemData.ROOMITEM_CD;
-		break;
-	}
-	default:{
-		return -1;
-		break;
-	}
-	}
-}
-
-//steve suh
-void Game::updateOrbProbability()
-{
-	int i = 0;
-	for(int i=0;i<8;i++)
-	{
-		activeText = "morethanjust orb\n";
-		if(orbInventory[i]&&orbProb[i] < 999999)
-		{
-			activeText = "littlemore\n";
-			orbProb[i+1] -= orbProb[i];
-			orbProb[i] = 999999;
-
-		}
-	}
-	//return -1;
-}
-
-
-//Steve Suh
-/*
-void Game::displayInventory()
-{
-	string invenStr = "";
-	for (int i=0;i<8;i++)
-	{
-		invenStr += "[";
-		if(orbInventory[i])
-			invenStr += orbInventoryNames[i];
-		else
-			invenStr += "xxxxxxxxxx";
-		invenStr += "]\n";
-	}
-	cout << invenStr;
-
-}
-
-//Steve Suh
-Item* Game::retrieveItem(int id)
-{
-	Item *i;
-	switch(id)
-	{
-	case 0:
-		{
-			i = new Junk(JUNK_SYMBOL,id);
-			break;
-		}
-	case 1:
-		{
-			i = new Vase(VASE_SYMBOL,id);
-			break;
-		}
-	case 2:
-		{
-			i = new Table(TABLE_SYMBOL,id);
-			break;
-		}
-	case 3:
-		{
-			i = new Chair(CHAIR_SYMBOL,id);
-			break;
-		}
-	case 4:
-		{
-			i = new Lamp(LAMP_SYMBOL,id);
-			break;
-		}
-	case 5:
-		{
-			i = new Bed(BED_SYMBOL,id);
-			break;
-		}
-	case 6:
-		{
-			i = new Candle(CANDLE_SYMBOL,id);
-			break;
-		}
-	case 7:
-		{
-			i = new Dish(DISH_SYMBOL,id);
-			break;
-		}
-	case 8:
-		{
-			i = new Dust(DUST_SYMBOL,id);
-			break;
-		}
-	case 9:
-		{
-			i = new Fork(FORK_SYMBOL,id);
-			break;
-		}
-	case 10:
-		{
-			i = new Toilet(TOILET_SYMBOL,id);
-			break;
-		}
-	case 11:
-		{
-			i = new Bathtub(BATHTUB_SYMBOL,id);
-			break;
-		}
-	case 12:
-		{
-			i = new Mirror(MIRROR_SYMBOL,id);
-			break;
-		}
-	case 13:
-		{
-			i = new Blood(BLOOD_SYMBOL,id);
-			break;
-		}
-	case 14:
-		{
-			i = new Cd(CD_SYMBOL,id);
-			break;
-		}
-	default:
-		i = new Junk('d',-1);
-	}
-
-	return i;
-
-	//return i;
-}
 //*/
 
 void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
@@ -379,6 +125,7 @@ void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
 // @author Andre Allan Ponce
 // @author Computergeek01
 // url: http://www.cplusplus.com/forum/beginner/75529/
+// key codes: http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 // true means we moved, false means no move
 bool Game::getKeyInput(WORD key){
 	int xNew = player->getBoardLocX();
@@ -390,73 +137,56 @@ bool Game::getKeyInput(WORD key){
 		break;
 	}
     case VK_LEFT:
+	case 0x41: // A
 	case VK_NUMPAD4:{ // decrement y
-		activeText = "left!\n"; // debug
+		//activeText = "left!\n"; // debug
 		//movePlayer(MOVE_LEFT);
 		yNew--;
 		move = true;
 		break;
 	}
 	case VK_UP:
+	case 0x57: // W
 	case VK_NUMPAD8:{ // decrement x
-		activeText = "up!\n"; // debug
+		//activeText = "up!\n"; // debug
 		//movePlayer(MOVE_UP);
 		xNew--;
 		move = true;
 		break;
 	}
 	case VK_RIGHT:
+	case 0x44: // D
 	case VK_NUMPAD6:{ // increment y
-		activeText =  "right!\n"; // debug
+		//activeText =  "right!\n"; // debug
 		//movePlayer(MOVE_RIGHT);
 		yNew++;
 		move = true;
 		break;
 	}
 	case VK_DOWN:
+	case 0x53: // S
 	case VK_NUMPAD2:{ // increment x
-		activeText =  "down!\n"; // debug
+		//activeText =  "down!\n"; // debug
 		//movePlayer(MOVE_DOWN);
 		xNew++;
 		move = true;
 		break;
 	}
-	case 0x41: // a key // this was steve
+	case 0x45:{ // e key // pick up item
+		pickUpItem();
+		return true;
+		break;
+	}
+	case 0x51:{ // q key // drop off item
+		dropOffItem();
+		return true;
+		break;
+	}
+	case 0x49: // this was steve as well // i key
 		{
-			/*activeText = "ea \n";
-			int i = 0;
-			int id = detectItemID();
-			if(id >= 0){
-				Item* thisItem = retrieveItem(id);
-				thisItem->setDescription(itemData.getItemDesc(id));
-				thisItem->action();
-				int check = 0;
-				while(check == 0 && i<8)
-				{
-					activeText = "orb\n";
-					int run = rand()%orbProb[i];
-					cout << run;
-					if( run == 1)
-					{
-						orbInventory[i] = true;
-						updateOrbProbability();
-						check++;
-					}
-				i++;
-				}
-			}
-			//*/
-
+			activeText = player->getInventory()->displayInventory();
+			return true;
 			break;
-		}
-
-
-			
-	case 0x49: // this was steve as well
-		{
-			//linkedList.displayInventory();
-			break;
-
 		}
 	default :{
 		// we dont move.
@@ -472,14 +202,14 @@ bool Game::getKeyInput(WORD key){
 }
 
 // @author Andre Allan Ponce
-int Game::getRandomNumber(){
+int Game::getRandomNumber(int start, int end){
 	int ran;
 	try{
 		random_device rd;
-		ran = (rd() % locations.getSize()-1)+1;
+		ran = (rd() % (end-start));
 	}
 	catch(...){
-		ran = (rand() % locations.getSize()-1) +1;	
+		ran = (rand() % (end-start));	
 	}
 	// remove debug when done 
 	// id 0
@@ -517,6 +247,10 @@ Floor* Game::makeFloor(int id){
 Location* Game::makeRoom(int id, int x, int y, int flor){
 	Location* loc = new Tile(id,x,y,flor); 
 	loc->createNewArray(locations.retrieveRoom(id));
+	int keyChance = getRandomNumber(0,100);
+	if(keyChance < 10){
+		loc->addKey();
+	}
 	return loc;
 }
 
@@ -524,9 +258,6 @@ Location* Game::makeRoom(int id, int x, int y, int flor){
 // @author Andre Allan Ponce
 // moves the player. invalid moving will be fixed probably.
 bool Game::movePlayer(int xMove, int yMove){
-	//cout << "X:" << currX << "," << currY << "\n"; // debug
-	//cout << "xr:" << xMove << "," << yMove << "\n"; // debug
-	//int xNew, yNew;
 	if(xMove >= 0 && yMove >= 0 && xMove < Floor::FLOOR_HEIGHT && yMove < Floor::FLOOR_WIDTH){
 		player->setBoardLocX(xMove);
 		player->setBoardLocY(yMove);
@@ -541,57 +272,22 @@ bool Game::movePlayer(int xMove, int yMove){
 	return false;
 }
 
-/*
-// @author Andre Allan Ponce
-void Game::placePlayerInNewRoom(int move, Player* play, char sym){
-	Location* newRoom = world[currX][currY];
-	int id = newRoom->getRoomID();
-	int xNew, yNew;
-	switch(move){
-	case MOVE_LEFT:{
-		xNew = roomData.retrieveDoorSpot(id,roomData.DOOR_RIGHT);
-		yNew = newRoom->getWidth()-2;
-		break;
-	}
-	case MOVE_UP:{
-		xNew = newRoom->getHeight()-2;
-		yNew = roomData.retrieveDoorSpot(id,roomData.DOOR_DOWN);
-		break;
-	}
-	case MOVE_RIGHT:{
-		xNew = roomData.retrieveDoorSpot(id,roomData.DOOR_LEFT);
-		yNew = 1;
-		break;
-	}
-	case MOVE_DOWN:{
-		xNew = 1;
-		yNew = roomData.retrieveDoorSpot(id,roomData.DOOR_UP);
-		break;
-	}
-	}
-	newRoom->setPlayer(xNew,yNew,sym);
-	play->setRoomLocX(xNew);
-	play->setRoomLocY(yNew);
+void Game::pickUpItem(){
+
 }
-//*/
 
 // @author Andre Allan Ponce
 // prepping the first two rooms
 void Game::preGameInit(){
 	createWorld();
 	world[START_FLOOR-1] = makeFloor(START_FLOOR);
-	//std::cout << "here\n";
-	//world[currX][currY]->setPlayer(START_PLAYER_X,START_PLAYER_Y,PLAYER_SYMBOL);
 	world[START_FLOOR-1]->setLoc(makeRoom(0,START_ROOM_X,START_ROOM_Y,START_FLOOR),START_ROOM_X,START_ROOM_Y);
-	//std::cout << "hree2\n";
-	//world[currX][START_ROOM_Y] = makeRoom(RoomData::ROOM_HALLWAY,currX,START_ROOM_Y);
 	world[START_FLOOR-1]->set_room_doors(START_ROOM_X,START_ROOM_Y,true); //the first room should have all open doors
-	//currX = START_ROOM_X;
-	//currY = START_ROOM_Y;
 	player = new Player(PLAYER_SYMBOL);
 	player->setBoardLocX(START_ROOM_X);
 	player->setBoardLocY(START_ROOM_Y);
 	player->set_current_floor(START_FLOOR);
+	player->createInventory();
 	state = STATE_EXPLORE;
 }
 
@@ -645,11 +341,11 @@ void Game::printGamePartial(){
 // reads in room file format:
 /*
 	# <-- id 
-	+--- ---+
-	|       |
-	         
-	|       |
-	+--- ---+
+	+-- --+
+	|     |
+	       
+	|     |
+	+-- --+
 	(Tile DESIGN)
 
 */
@@ -686,38 +382,6 @@ void Game::readInFile(std::string fileName){
 	inFile.close();
 }
 
-// @author Andre Allan Ponce
-/*
-	reads in items file (not much use, though)
-	<id> <name>
-	<description
-//*/
-/*
-void Game::readInItemFile(std::string fileName){
-	std::ifstream inFile;
-	inFile.open(fileName.c_str());
-	if(!inFile.good()){
-		throw MenuText::ERROR_FILE_NAME;
-	}
-	int size;
-	inFile >> size;
-	inFile.ignore();
-	itemData.setSize(size);
-	while(!inFile.eof()){
-		int id;
-		inFile >> id;
-		std::string name;
-		char symbol;
-		inFile >> name;
-		inFile >> symbol;
-		inFile.ignore();
-		std::string line = "";
-		getline(inFile,line);
-		itemData.createItemEntry(id, name, line);
-	}
-	inFile.close();
-}
-//*/
 // @author Andre Allan Ponce
 // @author Computergeek01 (for the keyboard input stuff)
 // @author Duoas (for more keyboard input stuff)
@@ -774,3 +438,21 @@ void Game::runGame(){
 		}
 	}
 }
+
+/*// unused, check game.h for reason
+int Game::selectItem(){
+	bool valid;
+	system("CLS");
+	do{
+		std::cout << MenuText::MENU_ITEM_DISPLAY_INVENTORY << "\n";
+		std::cout << player->getInventory()->displayInventory(); // already newlines
+		std::cout << MenuText::MENU_ITEM_SELECT;
+		int selection;
+		std::cin >> selection;
+		if(selection >= 1 && selection <= 4){
+			return selection;
+		}
+		valid = false;
+		std::cout << MenuText::INVALID_MENU_CHOICE;
+	}while(!valid);
+}//*/

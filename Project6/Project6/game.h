@@ -15,6 +15,7 @@ class Location;
 class Floor;
 class Player;
 class Item;
+class LinkedList;
 
 class Game {
 private:
@@ -59,44 +60,26 @@ private:
 	// currently used
 	Location* createRandomRoom(int x, int y, int flor); // rooms are randomy generated
 	void createWorld();
+	void dropOffItem();
 	void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime);
 	bool getKeyInput(unsigned short key);
 	Floor* makeFloor(int id);
 	Location* makeRoom(int id, int x, int y, int flor);
 	bool movePlayer(int xMove, int yMove);
+	void pickUpItem();
 	void preGameInit();
+
+	// int selectItem(); 
+	// allow user to select which item to drop
+	// cannot be used with the current display inventory
 
 public:
 	enum Constants{
 		PLAYER_SYMBOL = 'O',
-		MONSTER_SYMBOL = 'X',
-		CLOSET_SYMBOL = 'C',
-		
-		
-		JUNK_SYMBOL = 'j',
-		VASE_SYMBOL = 'v',
-		TABLE_SYMBOL = 'T',
-		CHAIR_SYMBOL = 'c',
-		LAMP_SYMBOL = 'l',
-		BED_SYMBOL = 'B',
-		CANDLE_SYMBOL = 'I',
-		DISH_SYMBOL = 'd',
-		DUST_SYMBOL = 'w',
-		FORK_SYMBOL = 'f',
-		TOILET_SYMBOL = 'e',
-		BATHTUB_SYMBOL = 'u',
-		MIRROR_SYMBOL = 'H',
-		BLOOD_SYMBOL = '*',
-		CD_SYMBOL = 'a',
-		//*/
-		EXIT_SYMBOL = 'E',
-		WALL_SYMBOL_A = '|',
-		WALL_SYMBOL_B = '-',
-		WALL_SYMBOL_C = '=',
-		CORNER_SYMBOL = '+',
+	
 
 		// size of the map which displays character location
-		MAP_SIZE = 45,
+		//MAP_SIZE = 45,
 
 		// STATE MACHINE
 		STATE_WAIT = -1,
@@ -132,7 +115,8 @@ public:
 
 	Game();
 
-	int getRandomNumber();
+	int getRandomNumber(int start, int end);
+	// start inclusive, end exclusive
 
 	void printGame();
 	void printGamePartial();

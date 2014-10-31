@@ -4,7 +4,7 @@
 //author steve suh
 #include "item.h"
 
-class Key:Item 
+class Key: public Item 
 {
 private:
 	char symbol;//symbol of the item on the printed screen
@@ -12,6 +12,7 @@ private:
 
 public:
 	Key();
+
 };
 
 #endif

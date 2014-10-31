@@ -8,13 +8,19 @@
 #define _LOCATION_H_INCLUDED_
 
 #include <string>
-#include "linkedList.h"
+class LinkedList;
+class Node;
 
 class Location{
 protected:
 	bool visited;
 
+	LinkedList* items;
+
 	int id;
+	// 0 debug location
+	// 1 key location
+
 	char** roomLayout; // visualization of the room
 	// roomLayout(0,std::vector<char>(0,'0'))
 
@@ -40,6 +46,9 @@ public:
 	Location(int idNum, int xCoord, int yCoord);
 	//~Room(); this is giving some issues right now
 
+	virtual void addItem(Node* n);
+	virtual void addKey() = 0;
+
 	virtual void createNewArray(char*** room) = 0; // height and width should be set, already
 	//void deleteArray();
 	//bool doesRoomHaveCloset();
@@ -52,6 +61,7 @@ public:
 	bool get_west_door();
 
 	int getHeight();
+	virtual Node* getItem(int id);
 	int getRoomID();
 	char getSpaceAt(int xCoord, int yCoord);
 	int getWidth();
