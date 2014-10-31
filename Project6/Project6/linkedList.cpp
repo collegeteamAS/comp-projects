@@ -28,7 +28,7 @@ void LinkedList::add_node(Node* n)
 		head = n;
 	}
 	else{
-		n->set_next(head->get_next());
+		n->set_next(head);
 		head = n;
 	}
 	if(n->getItem()->getID() == Item::ID_KEY) //if the node is a key

@@ -255,7 +255,7 @@ Location* Game::makeRoom(int id, int x, int y, int flor){
 	Location* loc = new Tile(id,x,y,flor); 
 	loc->createNewArray(locations.retrieveRoom(id));
 	int keyChance = getRandomNumber(0,100);
-	std::cout << keyChance;
+	// std::cout << keyChance; //debug
 	if(keyChance < 100){
 		loc->addKey();
 	}

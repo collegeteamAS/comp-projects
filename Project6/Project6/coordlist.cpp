@@ -12,7 +12,7 @@ void Coord_List::add_node(char c, int x, int y){
 	}
 	else{
 		Coord_Node* new_node = new Coord_Node(c,x,y);
-		new_node->set_next(head->get_next());
+		new_node->set_next(head);
 		head = new_node;
 	}
 }
