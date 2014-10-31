@@ -3,6 +3,10 @@
 #include "menutext.h"
 
 const string MenuText::ERROR_FILE_NAME = "BAd file!";
+const string MenuText::ERROR_NO_INVENTORY_SPACE = "You don't have any more room in your inventory!";
+const string MenuText::ERROR_NO_ITEMS = "You don't have any items to drop!";
+const string MenuText::ERROR_NO_ROOM = "There's no more space in this room!";
+const string MenuText::ERROR_NO_ROOM_ITEMS = "There's no items in this room!";
 
 const string MenuText::INVALID_MENU_CHOICE = "Invalid choice, try again.";
 

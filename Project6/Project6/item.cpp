@@ -4,8 +4,8 @@
 
 Item::Item()
 {
-	symbol = 'd';
-	id = -1 ;
+	//symbol = 'd';
+	//id = -1 ;
 }
 
 void Item::setID(int idNum)

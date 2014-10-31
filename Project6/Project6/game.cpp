@@ -35,7 +35,7 @@ Game::Game() :
 	player(0),
 	locations(0),
 	state(STATE_PRE_GAME),
-	activeText("debug"){
+	activeText(""){
 	// nothing here yet
 }
 
@@ -59,10 +59,17 @@ void Game::createWorld(){
 void Game::dropOffItem(){
 	//int selection = selectItem();
 	if(player->getInventory()->getNumKeys() > 0){
-
+		Location* loc = world[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
+		if(loc->getNumOfKeys() < 3){
+			loc->addItem(player->getInventory()->remove_node(Item::ID_KEY));
+		}
+		else{
+			activeText = MenuText::ERROR_NO_ROOM;
+		}
 	}
-	Location* loc = world[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
-	//if(loc
+	else{
+		activeText = MenuText::ERROR_NO_ITEMS;
+	}
 }
 
 
@@ -115,8 +122,8 @@ int Game::detectItemID(){
 void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
 	switch(state){
 	case STATE_EXPLORE:{
-		old_state = STATE_EXPLORE;
-		state = STATE_WAIT;
+		//old_state = STATE_EXPLORE;
+		//state = STATE_WAIT;
 		break;
 	}
 	}
@@ -248,7 +255,8 @@ Location* Game::makeRoom(int id, int x, int y, int flor){
 	Location* loc = new Tile(id,x,y,flor); 
 	loc->createNewArray(locations.retrieveRoom(id));
 	int keyChance = getRandomNumber(0,100);
-	if(keyChance < 10){
+	std::cout << keyChance;
+	if(keyChance < 100){
 		loc->addKey();
 	}
 	return loc;
@@ -273,7 +281,18 @@ bool Game::movePlayer(int xMove, int yMove){
 }
 
 void Game::pickUpItem(){
-
+	Location* loc = world[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
+	if(loc->getNumOfKeys() > 0){
+		if(player->getInventory()->getNumKeys() < 3){
+			player->addItem(loc->getItem(Item::ID_KEY));
+		}
+		else{
+			activeText = MenuText::ERROR_NO_INVENTORY_SPACE;
+		}
+	}
+	else{
+		activeText = MenuText::ERROR_NO_ROOM_ITEMS;
+	}
 }
 
 // @author Andre Allan Ponce
@@ -429,6 +448,7 @@ void Game::runGame(){
 			do ReadConsoleInput( hInput, &irInput, 1, &InputsRead );
 			while ((irInput.EventType != KEY_EVENT) || irInput.Event.KeyEvent.bKeyDown);
 			//ReadConsoleInput(hInput, &irInput, 1, &InputsRead); 
+			activeText = "";
 			startTime = clock();
 			//Location* thisRoom = world[player][currY];
 			updateMap = getKeyInput(irInput.Event.KeyEvent.wVirtualKeyCode);

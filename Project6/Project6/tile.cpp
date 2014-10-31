@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "tile.h"
 #include "node.h"
 #include "item.h"
@@ -5,7 +7,8 @@
 
 Tile::Tile(int idNum, int xCoord, int yCoord, int floor) : Location(idNum,xCoord,yCoord), 
 	floor_id(floor),
-	hasKey(false){
+	hasKey(false),
+	numKeys(0){
 	
 }
 
@@ -36,6 +39,7 @@ void Tile::addExistingKey(Item* key){
 		xKey = KEY_X_0;
 		yKey = KEY_Y_0;
 	}
+	numKeys++;
 	roomLayout[xKey][yKey] = key->getSymbol();
 }
 
@@ -49,6 +53,7 @@ void Tile::addKey(){
 void Tile::addItem(Node* n){
 	if(n->getItem()->getID() == Item::ID_KEY){
 		addExistingKey(n->getItem());
+		//std::cout << "key making\n";
 	}
 	Location::addItem(n);
 }
@@ -90,7 +95,7 @@ Node* Tile::getItem(int id){
 		xKey = KEY_X_0;
 		yKey = KEY_Y_0;
 		hasKey = false;
-		id = 0;
+		Tile::id = 0;
 		break;
 	}
 	default:{
@@ -98,6 +103,7 @@ Node* Tile::getItem(int id){
 		break;
 	}
 	}
+	numKeys--;
 	roomLayout[xKey][yKey] = EMPTY_SPACE;
 	return Location::getItem(id);
 }

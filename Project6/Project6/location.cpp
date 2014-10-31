@@ -116,6 +116,10 @@ Node* Location::getItem(int id){
 	return items->remove_node(id);
 }
 
+int Location::getNumOfKeys(){
+	return items->getNumKeys();
+}
+
 // @author Andre Allan Ponce
 int Location::getRoomID(){
 	return id;

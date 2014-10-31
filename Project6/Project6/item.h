@@ -4,7 +4,7 @@
 #define _ITEM_H_INCLUDED_
 
 class Item {
-private:
+protected:
 
 	char symbol;//symbol of the item on the printed screen
 	int id;

@@ -62,6 +62,7 @@ public:
 
 	int getHeight();
 	virtual Node* getItem(int id);
+	virtual int getNumOfKeys();
 	int getRoomID();
 	char getSpaceAt(int xCoord, int yCoord);
 	int getWidth();

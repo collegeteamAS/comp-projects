@@ -2,9 +2,9 @@
 #include "item.h"
 
 //steve suh
-Node::Node()
-{
-	itemPointing = 0;
+Node::Node():
+	next(0),
+	itemPointing(0){
 }
 
 
@@ -14,7 +14,7 @@ Node* Node::get_next(){
 
 void Node::set_next(Node* next_node)
 {
-	next = next_node->get_next();
+	next = next_node;
 }
 
 Item* Node::getItem()

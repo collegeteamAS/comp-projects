@@ -10,6 +10,10 @@ class MenuText{
 public:
 
 	static const string ERROR_FILE_NAME;
+	static const string ERROR_NO_INVENTORY_SPACE;
+	static const string ERROR_NO_ITEMS;
+	static const string ERROR_NO_ROOM;
+	static const string ERROR_NO_ROOM_ITEMS;
 
 	static const string INVALID_MENU_CHOICE;
 

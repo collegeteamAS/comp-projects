@@ -6,10 +6,6 @@
 
 class Key: public Item 
 {
-private:
-	char symbol;//symbol of the item on the printed screen
-	int id;
-
 public:
 	Key();
 
