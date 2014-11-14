@@ -1,0 +1,9 @@
+8 8
+o o o enemy o o crystal o
+o crystal o o o o o o
+o o o o o o enemy o
+o o enemy o o o o crystal
+o enemy o o o enemy o o
+o enemy o o o o o enemy
+crystal o o o crystal o o o
+o enemy o o crystal o o crystal
