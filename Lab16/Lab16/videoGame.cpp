@@ -58,6 +58,9 @@ void Videogame::setUpGame()
 	//Read the number of rows and columns from the file
 	dataFile >> rows >> cols;
 
+	theRows = rows;
+	theCols = cols;
+
 	//Now we need to dynamically allocate world to be a 2D array of pointers to Locations
 	world = new Location **[rows];
 	for (r = 0; r < rows; r++)
@@ -333,6 +336,15 @@ void Videogame::playGame()
 			if (choice == 'u' && playerRow > 0)  //Check to see if the player pressed 'u'
 			{
 				playerRow--;					//if the player pressed 'u' subtract one from his/her row
+			}
+			else if(choice == 'd' && playerRow < theRows-1){
+				playerRow++;
+			}
+			else if(choice == 'r' && playerCol < theCols-1){
+				playerCol++;
+			}
+			else if(choice == 'l' && playerCol > 0){
+				playerCol--;
 			}
 			//TODO: WRITE THE REST OF THE CODE HERE TO MODIFY playerRow AND playerCol BASED ON THE VARIABLE choice
 			//MAKE SURE YOU DO NOT LET THE PLAYER MOVE OFF OF THE GAMEBOARD WHOSE DIMENSIONS ARE STORED IN VARIABLES 

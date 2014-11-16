@@ -25,6 +25,9 @@ class Videogame : public Game
 		static string message2;
 		static string message3;
 
+		int theRows;
+		int theCols;
+
 	public:
 		Videogame();
 
