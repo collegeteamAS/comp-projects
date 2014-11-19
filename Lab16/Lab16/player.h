@@ -6,12 +6,16 @@
 #ifndef _PLAYER_H_INCLUDED_
 #define _PLAYER_H_INCLUDED_
 
-class LinkedList;
-class Node;
+#include <string>
+
+//class LinkedList;
+//class Node;
 
 class Player{
 private:
 	char symbol;
+	
+	std::string name;
 
 	int keys;
 
@@ -23,7 +27,7 @@ private:
 	int curr_floor;
 
 	// players items
-	LinkedList* inventory;
+	//LinkedList* inventory;
 
 public:
 	enum Constants{
@@ -33,21 +37,22 @@ public:
 
 	Player();
 	Player(char sym);
-	~Player();
+	//~Player();
 
-	void addItem(Node* item);
+	//void addItem(Node* item);
 	void createInventory();
 	void deleteInventory();
 
 	int getBoardLocX();
 	int getBoardLocY();
 	int get_current_floor();
-	LinkedList* getInventory();
+	//LinkedList* getInventory();
 	int getKeyCount();
 	char getSymbol();
 
-	Node* removeItem(int id);
+	//Node* removeItem(int id);
 
+	void setName(std::string nam);
 	void setBoardLocX(int x);
 	void setBoardLocY(int y);
 	void set_current_floor(int floor);

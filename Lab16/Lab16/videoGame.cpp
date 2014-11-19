@@ -11,7 +11,9 @@
 
 #include "videogame.h"
 #include "texture.h"
-#include "VGcrystal.h"
+
+#include "VGkey.h"
+#include "VGdoor.h"
 #include <SDL.h>
 #include <Windows.h>  //Must include this here to get it to compile
 //#include <gl/gl.h>
@@ -29,7 +31,9 @@ const int WINDOWHEIGHT = 800;
 //Define ID numbers to associate with textures
 const int PLAYER_TEXID = 500;  //This is NOT a value in the ASCII table
 //TODO: Define constants for each of your Location subclasses
-const char CRYSTAL_ID = 'C';
+//const char CRYSTAL_ID = 'C';
+const char DOOR_ID = 'D';
+const char KEY_ID = 'K';
 
 //Static class variables
 string Videogame::message1 = "";
@@ -76,11 +80,13 @@ void Videogame::setUpGame()
 		{
 			dataFile >> locationType;
 		
-			if (locationType == "crystal")
+			if (locationType == "k")
 			{
-				world[r][c] = new VGcrystal(CRYSTAL_ID);
+				world[r][c] = new VGkey(KEY_ID);
 			}
-			//TODO:  check for other location subtypes here
+			else if(locationType == "d"){
+				world[r][c] = new VGdoor(DOOR_ID);
+			}
 			else //put a default Location object
 			{
 				world[r][c] = new Location;
@@ -136,9 +142,9 @@ bool Videogame::init()
 
 	//NOTE: the texture IDs are defined as constants at the top of this file
 	Texture loader;
-	loader.loadTexBMP("images//door.bmp", ((int)(CRYSTAL_ID)), addAlpha);  //Image for the crystal
-	loader.loadTexBMP("images//player.bmp", PLAYER_TEXID, addAlpha);  //Image for the player
-	//TODO:  Load more textures here
+	loader.loadTexBMP("images//door.bmp", ((int)(DOOR_ID)), addAlpha);  // The door!
+	loader.loadTexBMP("images//player.bmp", PLAYER_TEXID, addAlpha);  // the player
+	loader.loadTexBMP("images//key.bmp", ((int)(KEY_ID)), addAlpha);
 
 	return true;  //Everything got initialized
 }
@@ -337,7 +343,7 @@ void Videogame::playGame()
 		do
 		{
 			choice = 'z';
-			message1 = "Use WASD to move, E to pick up item, Q to drop";
+			message1 = "Use WASD to move";
 			drawGame();
 			while (SDL_PollEvent(&events)) 
 			{
@@ -358,10 +364,14 @@ void Videogame::playGame()
 				playerCol--;
 			}
 			else if(choice == 'e'){
-
+				message2 = "yeah bitch";
+				drawGame();
+				Sleep(500);
 			}
 			else if(choice == 'q'){
-
+				message2 = "what you expectnigger";
+				drawGame();
+				Sleep(500);
 			}
 			else if (choice != 'z')  //User made an illegal move
 			{

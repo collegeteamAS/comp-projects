@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="crystal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="game.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -30,17 +27,23 @@
     <ClCompile Include="texture.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VGcrystal.cpp">
+    <ClCompile Include="videoGame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="videoGame.cpp">
+    <ClCompile Include="key.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VGkey.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="door.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="VGdoor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="crystal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="game.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -53,10 +56,19 @@
     <ClInclude Include="texture.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="VGcrystal.h">
+    <ClInclude Include="videoGame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="videoGame.h">
+    <ClInclude Include="key.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VGkey.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="door.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VGdoor.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -65,6 +77,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="images\player.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\door.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="images\key.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

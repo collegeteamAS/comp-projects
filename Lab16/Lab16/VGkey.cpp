@@ -1,3 +1,7 @@
+/*//
+	Andre Allan Ponce
+//*/
+
 #include "VGkey.h"
 #include "player.h"
 #include "videoGame.h"

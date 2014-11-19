@@ -4,13 +4,13 @@
 //Purpose:		This file defines the methods for the game class
 
 #include "game.h"
-#include "crystal.h"
+#include "key.h"
+#include "door.h"
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
 #include <time.h>
 #include <Windows.h>
-using namespace std;
 
 Game::Game()
 {
@@ -26,7 +26,7 @@ Game::Game()
 void Game::setUpGame()
 {
 	int r, c;
-	string locationType;
+	std::string locationType;
 
 	ifstream dataFile("maze.txt");
 
@@ -52,9 +52,11 @@ void Game::setUpGame()
 		{
 			dataFile >> locationType;
 		
-			if (locationType == "crystal")
-			{
-				world[r][c] = new Crystal('C');
+			if(locationType == "k"){
+				world[r][c] = new Key('k');
+			}
+			else if(locationType == "d"){
+				world[r][c] = new Door('d');
 			}
 			else //put a default Location object
 			{
@@ -133,7 +135,7 @@ void Game::playGame()
 
 void Game::instructions()
 {
-	string name;
+	std::string name;
 
 	cout << "Welcome to the exciting game of Find the Crystals. In this game you use the" << endl;
 	cout << "arrow keys to navigate around on the game board and find crystals." << endl;

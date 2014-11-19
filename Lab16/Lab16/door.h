@@ -12,8 +12,8 @@ class Door : public Location{
 public:
 	Door(char symbol = 'd');
 
-	virtual int visit(Player& p) = 0;
-	virtual void draw() = 0;
+	virtual int visit(Player& p);
+	virtual void draw();
 };
 
 

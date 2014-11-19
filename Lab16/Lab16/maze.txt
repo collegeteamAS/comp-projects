@@ -1,9 +1,9 @@
 8 8
-o o o o o o crystal o
-o crystal o o o o o o
+o o o o o o k o
 o o o o o o o o
-o o o o o o o crystal
+o o o k o o o o
+o o o o o o o k
 o o o o o o o o
 o o o o o o o o
-o o o o crystal o o o
-o o o o o o o crystal
+o o o o d o o o
+o o o o o o o o
