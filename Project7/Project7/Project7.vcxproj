@@ -1,0 +1,118 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{3861520C-C3F3-4065-9EBC-17593E626173}</ProjectGuid>
+    <RootNamespace>Project7</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v110</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>E:\quickwin\libs\glut-3.7.6-bin\glut-3.7.6-bin;E:\quickwin\libs\SDL-devel-1.2.15-VC\SDL-1.2.15\include;$(IncludePath)</IncludePath>
+    <LibraryPath>E:\quickwin\libs\glut-3.7.6-bin\glut-3.7.6-bin;E:\quickwin\libs\SDL-devel-1.2.15-VC\SDL-1.2.15\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalOptions>opengl32.lib glu32.lib glut32.lib SDLmain.lib SDL.lib %(AdditionalOptions)</AdditionalOptions>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="coordlist.h" />
+    <ClInclude Include="coordnode.h" />
+    <ClInclude Include="crystal.h" />
+    <ClInclude Include="floor.h" />
+    <ClInclude Include="game.h" />
+    <ClInclude Include="item.h" />
+    <ClInclude Include="key.h" />
+    <ClInclude Include="linkedList.h" />
+    <ClInclude Include="location.h" />
+    <ClInclude Include="locationdata.h" />
+    <ClInclude Include="menutext.h" />
+    <ClInclude Include="node.h" />
+    <ClInclude Include="player.h" />
+    <ClInclude Include="texture.h" />
+    <ClInclude Include="tile.h" />
+    <ClInclude Include="VGcrystal.h" />
+    <ClInclude Include="videoGame.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="coordlist.cpp" />
+    <ClCompile Include="coordnode.cpp" />
+    <ClCompile Include="crystal.cpp" />
+    <ClCompile Include="floor.cpp" />
+    <ClCompile Include="game.cpp" />
+    <ClCompile Include="item.cpp" />
+    <ClCompile Include="key.cpp" />
+    <ClCompile Include="linkedList.cpp" />
+    <ClCompile Include="location.cpp" />
+    <ClCompile Include="locationdata.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="menutext.cpp" />
+    <ClCompile Include="node.cpp" />
+    <ClCompile Include="player.cpp" />
+    <ClCompile Include="texture.cpp" />
+    <ClCompile Include="tile.cpp" />
+    <ClCompile Include="VGcrystal.cpp" />
+    <ClCompile Include="videoGame.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="maze.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="tiles" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
