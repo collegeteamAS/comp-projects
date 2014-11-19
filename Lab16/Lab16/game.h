@@ -1,7 +1,8 @@
-//FileName:		game.h
-//Programmer:	Dan Cliburn
-//Date:			2/4/2013
-//Purpose:		This file defines the header for the Game class
+/*//
+	Andre Allan Ponce
+	Steve Suh
+	-> modified version of lab16 game.h
+//*/
 
 #ifndef GAME_H
 #define GAME_H
@@ -21,6 +22,16 @@ class Game
 		int playerCol;
 
 	public:
+		enum Constants{
+
+			// movement chars
+			ACTION_BLANK = 'x',
+			ACTION_UP = 'u',
+			ACTION_LEFT = 'l',
+			ACTION_RIGHT = 'r',
+			ACTION_DOWN = 'd'
+		};
+
 		Game();
 
 		//Required Methods

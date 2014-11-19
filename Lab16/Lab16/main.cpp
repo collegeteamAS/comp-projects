@@ -1,7 +1,9 @@
-//FileName:		main.cpp
-//Programmer:	Dan Cliburn
-//Date:			2/4/2013
-//Purpose:		This file defines the main function for this simple video game 
+/*//
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	Steve Suh
+	h_suh@u.pacific.edu
+//*/
 
 #include "videogame.h"
 

@@ -1,8 +1,8 @@
-//FileName:		videoGame.h
-//Programmer:	Dan Cliburn
-//Date:			4/22/2014
-//Purpose:		This file defines the header for the Videogame class
-//We will use OpenGL (www.opengl.org) and SDL (www.libsdl.org) for the game
+/*//
+	Andre Allan Ponce
+	Steve Suh
+	-> modified version of Lab16 videoGame.h
+//*/
 
 
 #ifndef VIDEOGAME_H
@@ -25,10 +25,20 @@ class Videogame : public Game
 		static string message2;
 		static string message3;
 
-		int theRows;
-		int theCols;
-
 	public:
+		enum Constants{
+			// size of window
+			WINDOW_WIDTH = 1200, 
+			WINDOW_HEIGHT = 800,
+
+			// IDS
+			ID_PLAYER = 500,
+			ID_DOOR = 'D',
+			ID_KEY = 'K',
+
+			// more actions
+			ACTION_NOTHING = 'z'
+		};
 		Videogame();
 
 		static void setMessage1(string s) {message1 = s;}

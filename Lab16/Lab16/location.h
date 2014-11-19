@@ -1,7 +1,8 @@
-//FileName:		location.h
-//Programmer:	Dan Cliburn
-//Date:			2/4/2013
-//Purpose:		This file defines the header for the location class
+/*//
+	Andre Allan Ponce
+	Steven Suh
+	-> modified version of Lab16 location.h
+//*/
 
 #ifndef LOCATION_H
 #define LOCATION_H
@@ -9,7 +10,8 @@
 #include <string>
 #include <iostream>
 #include "player.h"
-using namespace std;
+#include "menutext.h"
+
 
 class Location
 {
@@ -26,7 +28,7 @@ class Location
 		bool getVisited() {return visited;}
 		char getSymbol() {return symbol;}
 
-		virtual void draw() {if (visited) cout << symbol; else cout << ".";}
+		virtual void draw() {if (visited) std::cout << symbol; else std::cout << ".";}
 		virtual int visit(Player &p) {visited = true; return 1;}
 };
 

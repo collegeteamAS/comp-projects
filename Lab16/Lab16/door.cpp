@@ -11,16 +11,16 @@ Door::Door(char symbol) : Location(symbol){
 void Door::draw()
 {
 	if (visited == true)
-		cout << symbol;
+		std::cout << symbol;
 	else
-		cout << ".";
+		std::cout << ".";
 }
 
 int Door::visit(Player &p)
 {
 	if (visited == false)
 	{
-		cout << "ya found the door!\n";
+		std::cout << MenuText::GAME_DOOR_FOUND << "\n";
 	}
 	visited = true;
 	return 1;

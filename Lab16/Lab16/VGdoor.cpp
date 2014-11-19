@@ -18,7 +18,7 @@ void VGdoor::draw(){
 
 int VGdoor::visit(Player& p){
 	if(visited == false){
-		Videogame::setMessage2("You found the door!");
+		Videogame::setMessage2(MenuText::GAME_DOOR_FOUND);
 	}
 	visited = true;
 	return 1;

@@ -1,14 +1,8 @@
-//FileName:		Videogame.cpp
-//Programmer:	Dan Cliburn
-//Date:			4/22/2014
-//Purpose:		This file defines the methods for the Videogame class
-//See:  http://www.sdltutorials.com/sdl-tutorial-basics/
-//		http://www.sdltutorials.com/sdl-opengl-tutorial-basics/
-//		http://www.sdltutorials.com/sdl-soundbank
-//for many more details on how to write an OpenGL program using SDL.
-//You might also want to go to these pages which will link you to other
-//tutorials on how to do stuff with SDL
-
+/*//
+	Andre Allan Ponce
+	Steve Suh
+	-> modified version of Lab16 videoGame.cpp
+//*/
 #include "videogame.h"
 #include "texture.h"
 
@@ -16,35 +10,19 @@
 #include "VGdoor.h"
 #include <SDL.h>
 #include <Windows.h>  //Must include this here to get it to compile
-//#include <gl/gl.h>
-//#include <gl/glu.h>
 #include <glut.h>  //includes gl.h and glu.h
 #include <iostream>
 #include <string>
 #include <sstream>
-using namespace std;
-
-//Define how large the window will be
-const int WINDOWWIDTH = 1200;
-const int WINDOWHEIGHT = 800;
-
-//Define ID numbers to associate with textures
-const int PLAYER_TEXID = 500;  //This is NOT a value in the ASCII table
-//TODO: Define constants for each of your Location subclasses
-//const char CRYSTAL_ID = 'C';
-const char DOOR_ID = 'D';
-const char KEY_ID = 'K';
 
 //Static class variables
 string Videogame::message1 = "";
 string Videogame::message2 = "";
 string Videogame::message3 = "";
 
-Videogame::Videogame()
+Videogame::Videogame() : Game()
 {
-	message1 = "";
-	message2 = "";
-	message3 = "";
+
 }
 
 void Videogame::setUpGame()
@@ -52,18 +30,15 @@ void Videogame::setUpGame()
 	int r, c;
 	string locationType;
 
-	ifstream dataFile("maze.txt");
+	ifstream dataFile(MenuText::FILE_NAME_LAYOUT);
 
 	if (!dataFile)
 	{
-		cout << "Could not open maze.txt for reading" << endl;
+		cout << MenuText::ERROR_FILE_CANNOT_READ << "\n";
 	}
 
 	//Read the number of rows and columns from the file
 	dataFile >> rows >> cols;
-
-	theRows = rows;
-	theCols = cols;
 
 	//Now we need to dynamically allocate world to be a 2D array of pointers to Locations
 	world = new Location **[rows];
@@ -80,12 +55,12 @@ void Videogame::setUpGame()
 		{
 			dataFile >> locationType;
 		
-			if (locationType == "k")
+			if (locationType.c_str()[0] == Key::SYMBOL_KEY)
 			{
-				world[r][c] = new VGkey(KEY_ID);
+				world[r][c] = new VGkey(ID_KEY);
 			}
-			else if(locationType == "d"){
-				world[r][c] = new VGdoor(DOOR_ID);
+			else if(locationType.c_str()[0] == Door::SYMBOL_DOOR){
+				world[r][c] = new VGdoor(ID_DOOR);
 			}
 			else //put a default Location object
 			{
@@ -108,7 +83,7 @@ bool Videogame::init()
 		return false;
 	}
 
-	if ((display = SDL_SetVideoMode(WINDOWWIDTH, WINDOWHEIGHT, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL )) == NULL)
+	if ((display = SDL_SetVideoMode(WINDOW_WIDTH, WINDOW_HEIGHT, 32, SDL_HWSURFACE | SDL_GL_DOUBLEBUFFER | SDL_OPENGL )) == NULL)
 	{
 		return false;
 	}
@@ -116,11 +91,11 @@ bool Videogame::init()
 	glClearColor(0.3, 0.3, 0.3, 1.0);  //Will be the color of the background
 	
 	//Set parameters for how we want to view the scene
-	glViewport(0,0, WINDOWWIDTH, WINDOWHEIGHT);
+	glViewport(0,0, WINDOW_WIDTH, WINDOW_HEIGHT);
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//Create a view frustum whose aspect ratio matches that of the window 
-	double aspectRatio = ((double)(WINDOWWIDTH)) / ((double)(WINDOWHEIGHT));
+	double aspectRatio = ((double)(WINDOW_WIDTH)) / ((double)(WINDOW_HEIGHT));
 	glFrustum(-0.1, 0.1, -0.1/aspectRatio, 0.1/aspectRatio, 0.1, 100);
 	
 	glMatrixMode(GL_MODELVIEW);
@@ -142,9 +117,9 @@ bool Videogame::init()
 
 	//NOTE: the texture IDs are defined as constants at the top of this file
 	Texture loader;
-	loader.loadTexBMP("images//door.bmp", ((int)(DOOR_ID)), addAlpha);  // The door!
-	loader.loadTexBMP("images//player.bmp", PLAYER_TEXID, addAlpha);  // the player
-	loader.loadTexBMP("images//key.bmp", ((int)(KEY_ID)), addAlpha);
+	loader.loadTexBMP(MenuText::FILE_NAME_IMAGE_DOOR.c_str(), ID_DOOR, addAlpha);  // The door!
+	loader.loadTexBMP(MenuText::FILE_NAME_IMAGE_PLAYER.c_str(), ID_PLAYER, addAlpha);  // the player
+	loader.loadTexBMP(MenuText::FILE_NAME_IMAGE_KEY.c_str(), ID_KEY, addAlpha);
 
 	return true;  //Everything got initialized
 }
@@ -189,7 +164,7 @@ void Videogame::drawHUD()
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
 	//Create a view frustum whose aspect ratio matches that of the window 
-	double aspectRatio = ((double)(WINDOWWIDTH)) / ((double)(WINDOWHEIGHT));
+	double aspectRatio = ((double)(WINDOW_WIDTH)) / ((double)(WINDOW_HEIGHT));
 	int width = 260;  //TODO:  Make this bigger if you need more space for your messages
 	int height = width/aspectRatio;
 	glOrtho(0, width, 0, height, -10, 10);
@@ -269,7 +244,7 @@ void Videogame::drawGame()
 	//Now render the Player
 	glPushMatrix(); //Save the current transformation state
 		glTranslatef(playerCol, 0, playerRow+0.3);
-		renderBitMap(PLAYER_TEXID);
+		renderBitMap(ID_PLAYER);
 	glPopMatrix();
 
 	//Draw the text messages.  HUD stands for Heads Up Display
@@ -286,53 +261,55 @@ char Videogame::handleEvent(SDL_Event *theEvent)
 		{
 			endGame();
 			exit(0);
-			return 'X';
+			return ACTION_BLANK;
 		}
 		case SDL_KEYDOWN:
 		{
 			if (theEvent->key.keysym.sym == SDLK_LEFT || theEvent->key.keysym.sym == SDLK_a)
 			{ 
-			   return 'l'; 
+				return ACTION_LEFT; 
 			}
 			else if (theEvent->key.keysym.sym == SDLK_RIGHT || theEvent->key.keysym.sym == SDLK_d)
 			{ 
-			   return 'r'; 
+			   return ACTION_RIGHT; 
 			} 
 			else if (theEvent->key.keysym.sym == SDLK_UP || theEvent->key.keysym.sym == SDLK_w)
 			{ 
-			   return 'u';
+			   return ACTION_UP;
 			}
 			else if (theEvent->key.keysym.sym == SDLK_DOWN || theEvent->key.keysym.sym == SDLK_s)
 			{ 
-			   return 'd';
+			   return ACTION_DOWN;
 			}
+			/*//
 			else if (theEvent->key.keysym.sym == SDLK_e){ // pick up
 				return 'e';
 			}
 			else if (theEvent->key.keysym.sym == SDLK_q){ // drop item
 				return 'q';
 			}
+			//*/
 			else if (theEvent->key.keysym.sym == SDLK_ESCAPE){
 				endGame();
 				exit(0);
-				return 'X';
+				return ACTION_BLANK;
 			}
 		}
 	 } 
-	 return 'z';
+	 return ACTION_NOTHING;
 }
 
 void Videogame::playGame()
 {
 	int state = 1;
-	char choice = 'z';
+	char choice = ACTION_NOTHING;
 
 	instructions();
 	setUpGame();  //Make sure everything is set up for the first level
 
 	if (!init())  //This function (defined above) sets up OpenGL and SDL
 	{
-		cout << "Not everything was initialized" << endl;
+		cout << MenuText::ERROR_FAILED_INITIALIZE << "\n";
 		return;
 	}
 	SDL_Event events;  //Makes and SDL_Events object that we can use to handle events
@@ -342,46 +319,48 @@ void Videogame::playGame()
 	{
 		do
 		{
-			choice = 'z';
-			message1 = "Use WASD to move";
+			choice = ACTION_NOTHING;
+			message1 = MenuText::MENU_HELP_SHORT;
 			drawGame();
 			while (SDL_PollEvent(&events)) 
 			{
 				choice = handleEvent(&events);
 			}
 
-			if (choice == 'u' && playerRow > 0)  //Check to see if the player pressed 'u'
+			if (choice == ACTION_UP && playerRow > 0)  //Check to see if the player pressed 'u'
 			{
 				playerRow--;					//if the player pressed 'u' subtract one from his/her row
 			}
-			else if(choice == 'd' && playerRow < theRows-1){
+			else if(choice == ACTION_DOWN && playerRow < rows-1){
 				playerRow++;
 			}
-			else if(choice == 'r' && playerCol < theCols-1){
+			else if(choice == ACTION_RIGHT && playerCol < cols-1){
 				playerCol++;
 			}
-			else if(choice == 'l' && playerCol > 0){
+			else if(choice == ACTION_LEFT && playerCol > 0){
 				playerCol--;
 			}
+			/*//
 			else if(choice == 'e'){
-				message2 = "yeah bitch";
+				message2 = "yeah nothing"
 				drawGame();
 				Sleep(500);
 			}
 			else if(choice == 'q'){
-				message2 = "what you expectnigger";
+				message2 = "what you expect";
 				drawGame();
 				Sleep(500);
 			}
-			else if (choice != 'z')  //User made an illegal move
+			//*/
+			else if (choice != ACTION_NOTHING)  //User made an illegal move
 			{
-				choice = 'z';
-				message2 = "You can't do that!";
+				choice = ACTION_NOTHING;
+				message2 = MenuText::ERROR_INVALID_INPUT;
 				drawGame();
 				Sleep(500);
 			}
 
-		} while (choice == 'z');  //stays in this loop until the user presses a key
+		} while (choice == ACTION_NOTHING);  //stays in this loop until the user presses a key
 
 		//resolve actions involved with that move
 		message1 = message2 = message3 = "";

@@ -73,6 +73,7 @@
     <ClCompile Include="game.cpp" />
     <ClCompile Include="key.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="menutext.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="texture.cpp" />
     <ClCompile Include="VGdoor.cpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="game.h" />
     <ClInclude Include="key.h" />
     <ClInclude Include="location.h" />
+    <ClInclude Include="menutext.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="texture.h" />
     <ClInclude Include="VGdoor.h" />

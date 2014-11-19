@@ -46,7 +46,7 @@ class Texture
 		Texture() {isLOADED = false;}
 		Texture(char filename[], int id, TexType t = rgb, bool displayTexData = false);
 
-		int loadTexBMP(char filename[], int id, TexType t = rgb, bool displayTexData = false);
+		int loadTexBMP(const char filename[], int id, TexType t = rgb, bool displayTexData = false);
 
 		int isLoaded() {return isLOADED;}
 

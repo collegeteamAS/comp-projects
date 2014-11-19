@@ -42,6 +42,9 @@
     <ClCompile Include="VGdoor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="menutext.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -69,6 +72,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="VGdoor.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="menutext.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

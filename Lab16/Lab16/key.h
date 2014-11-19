@@ -11,7 +11,11 @@ protected:
 	bool taken;
 
 public:
-	Key(char symbol = 'k');
+	enum Constants{
+		SYMBOL_KEY = 'k'
+	};
+
+	Key(char symbol = SYMBOL_KEY);
 
 	virtual int visit(Player& p);
 	virtual void draw();

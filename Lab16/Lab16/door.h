@@ -10,7 +10,11 @@
 
 class Door : public Location{
 public:
-	Door(char symbol = 'd');
+	enum Constants{
+		SYMBOL_DOOR = 'd'
+	};
+
+	Door(char symbol = SYMBOL_DOOR);
 
 	virtual int visit(Player& p);
 	virtual void draw();

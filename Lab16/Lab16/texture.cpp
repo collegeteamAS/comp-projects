@@ -51,7 +51,7 @@ void Texture::readHeaderData(ifstream &in, int &offset, int &bitsPerPixel, bool 
 	// offset to the pixel data, bitsPerPixel, image width, and image height
 }
 
-int Texture::loadTexBMP(char fileName[], int id, TexType t, bool displayTexData)
+int Texture::loadTexBMP(const char fileName[], int id, TexType t, bool displayTexData)
 {
 	unsigned char temp;
 	int offset, bitsPerPixel;

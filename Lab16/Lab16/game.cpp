@@ -1,11 +1,13 @@
-//FileName:		game.cpp
-//Programmer:	Dan Cliburn
-//Date:			2/4/2013
-//Purpose:		This file defines the methods for the game class
+/*//
+	Andre Allan Ponce
+	Steve Suh
+	-> modified version of lab16's game.cpp
+//*/
 
 #include "game.h"
 #include "key.h"
 #include "door.h"
+#include "menutext.h"
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
@@ -28,11 +30,11 @@ void Game::setUpGame()
 	int r, c;
 	std::string locationType;
 
-	ifstream dataFile("maze.txt");
+	ifstream dataFile(MenuText::FILE_NAME_LAYOUT);
 
 	if (!dataFile)
 	{
-		cout << "Could not open maze.txt for reading" << endl;
+		std::cout << MenuText::ERROR_FILE_CANNOT_READ << "\n";
 	}
 
 	//Read the number of rows and columns from the file
@@ -52,11 +54,11 @@ void Game::setUpGame()
 		{
 			dataFile >> locationType;
 		
-			if(locationType == "k"){
-				world[r][c] = new Key('k');
+			if(locationType.c_str()[0] == Key::SYMBOL_KEY){
+				world[r][c] = new Key();
 			}
-			else if(locationType == "d"){
-				world[r][c] = new Door('d');
+			else if(locationType.c_str()[0] == Door::SYMBOL_DOOR){
+				world[r][c] = new Door();
 			}
 			else //put a default Location object
 			{
@@ -77,11 +79,11 @@ void Game::drawGame()
 		for (int c = 0; c < cols; c++)
 		{
 			if (r == playerRow && c == playerCol)
-				cout << "P";
+				std::cout << Player::SYMBOL_PLAYER;
 			else
 				world[r][c]->draw();
 		}
-		cout << endl;
+		std::cout << "\n";
 	}
 }
 
@@ -89,7 +91,7 @@ void Game::drawGame()
 void Game::playGame()
 {
 	int state = 1;
-	char move = 'x';
+	char move = ACTION_BLANK;
 
 	instructions();
 	setUpGame();  //Make sure level is set up for the first level
@@ -100,31 +102,31 @@ void Game::playGame()
 		//Handle player move
 		do
 		{
-			cout << "What direction do you want to move (u,d,l,r)? ";
-			cin >> move;
-			cout << endl;
-			if (move == 'u' && playerRow > 0)
+			std::cout << MenuText::MENU_ASK_DIRECTION;
+			std::cin >> move;
+			std::cout << "\n";
+			if (move == ACTION_UP && playerRow > 0)
 			{
 				playerRow--;
 			}
-			else if (move == 'd' && playerRow < rows-1)
+			else if (move == ACTION_DOWN && playerRow < rows-1)
 			{
 				playerRow++;
 			}
-			else if (move == 'l' && playerCol > 0)
+			else if (move == ACTION_LEFT && playerCol > 0)
 			{
 				playerCol--;
 			}
-			else if (move == 'r' && playerCol < cols-1)
+			else if (move == ACTION_RIGHT && playerCol < cols-1)
 			{
 				playerCol++;
 			}
 			else
 			{
-				cout << "You can't do that!" << endl;
-				move = 'x';
+				std::cout << MenuText::ERROR_INVALID_INPUT << "\n";
+				move = ACTION_BLANK;
 			}
-		} while (move == 'x');
+		} while (move == ACTION_BLANK);
 
 		system("cls");
 		drawGame();
@@ -135,15 +137,7 @@ void Game::playGame()
 
 void Game::instructions()
 {
-	std::string name;
-
-	cout << "Welcome to the exciting game of Find the Crystals. In this game you use the" << endl;
-	cout << "arrow keys to navigate around on the game board and find crystals." << endl;
-	cout << "\nGood Luck!" << endl;
-	
-	cout << "Please enter your name: ";
-	cin >> name;
-	p.setName(name);
+	cout << MenuText::MENU_HELP;
 	system("pause");
 	system("cls");
 }

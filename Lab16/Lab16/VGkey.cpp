@@ -22,7 +22,7 @@ void VGkey::draw(){
 
 int VGkey::visit(Player& p){
 	if(visited == false){
-		Videogame::setMessage2("You found a key!");
+		Videogame::setMessage2(MenuText::GAME_KEY_FOUND);
 	}
 	visited = true;
 	return 1;

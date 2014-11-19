@@ -21,8 +21,7 @@ int Key::visit(Player &p)
 {
 	if (taken == false)
 	{
-		//taken = true;
-		cout << "ya found a key!\n";
+		cout << MenuText::GAME_KEY_FOUND << "\n";
 	}
 	visited = true;
 	return 1;

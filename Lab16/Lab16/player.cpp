@@ -6,31 +6,33 @@
 
 #include <string>
 #include "player.h"
-#include "linkedList.h"
-#include "node.h"
 
 
 // @author Andre Allan Ponce
+/*//
 Player::Player() : 
-	symbol('d'), // d stands for debug
-	xBoard(-1), 
-	yBoard(-1),
+	symbol(sym), // d stands for debug
+	//xBoard(-1), 
+	//yBoard(-1),
 	//inventory(0),
-	keys(0),
+	//keys(0),
 	curr_floor(-1){
 	// constructors should be empty, yo
-}
+}//*/
 
 // @author Andre Allan Ponce
 Player::Player(char sym) : 
-	symbol(sym), 
-	xBoard(-1), 
-	yBoard(-1),
+	symbol(sym)
+	//xBoard(-1), 
+	//yBoard(-1),
 	//inventory(0),
-	keys(0),
-	curr_floor(-1){
+	//keys(0),
+	//curr_floor(-1){
 	// constructors should be empty, yo
+{
+
 }
+
 /*//
 Player::~Player(){
 	deleteInventory();
@@ -50,7 +52,7 @@ void Player::deleteInventory(){
 		delete inventory;
 	}
 }
-//*/
+
 
 // @author Andre Allan Ponce
 int Player::getBoardLocX(){
@@ -65,7 +67,7 @@ int Player::getBoardLocY(){
 int Player::get_current_floor(){
 	return curr_floor;
 }
-/*//
+
 LinkedList* Player::getInventory(){
 	return inventory;
 }
@@ -79,7 +81,7 @@ Node* Player::removeItem(int id){
 	keys--;
 	return inventory->remove_node(id);
 }
-//*/
+
 // @author Andre Allan Ponce
 void Player::setBoardLocX(int x){
 	xBoard = x;
@@ -97,3 +99,4 @@ void Player::set_current_floor(int floor){
 void Player::setName(std::string nam){
 	name = nam;
 }
+//*/
