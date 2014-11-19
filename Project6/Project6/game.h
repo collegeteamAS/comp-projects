@@ -19,7 +19,7 @@ class LinkedList;
 
 class Game {
 private:
-	Floor** world; // the world
+	std::vector<Floor*> world // the world
 
 	LocationData locations;
 	// holds roomlayout data for the tiles
