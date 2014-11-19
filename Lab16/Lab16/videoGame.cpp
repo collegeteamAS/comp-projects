@@ -136,7 +136,7 @@ bool Videogame::init()
 
 	//NOTE: the texture IDs are defined as constants at the top of this file
 	Texture loader;
-	loader.loadTexBMP("images//crystal.bmp", ((int)(CRYSTAL_ID)), addAlpha);  //Image for the crystal
+	loader.loadTexBMP("images//door.bmp", ((int)(CRYSTAL_ID)), addAlpha);  //Image for the crystal
 	loader.loadTexBMP("images//player.bmp", PLAYER_TEXID, addAlpha);  //Image for the player
 	//TODO:  Load more textures here
 
@@ -284,21 +284,32 @@ char Videogame::handleEvent(SDL_Event *theEvent)
 		}
 		case SDL_KEYDOWN:
 		{
-			if (theEvent->key.keysym.sym == SDLK_LEFT)
+			if (theEvent->key.keysym.sym == SDLK_LEFT || theEvent->key.keysym.sym == SDLK_a)
 			{ 
 			   return 'l'; 
 			}
-			else if (theEvent->key.keysym.sym == SDLK_RIGHT)
+			else if (theEvent->key.keysym.sym == SDLK_RIGHT || theEvent->key.keysym.sym == SDLK_d)
 			{ 
 			   return 'r'; 
 			} 
-			else if (theEvent->key.keysym.sym == SDLK_UP)
+			else if (theEvent->key.keysym.sym == SDLK_UP || theEvent->key.keysym.sym == SDLK_w)
 			{ 
 			   return 'u';
 			}
-			else if (theEvent->key.keysym.sym == SDLK_DOWN)
+			else if (theEvent->key.keysym.sym == SDLK_DOWN || theEvent->key.keysym.sym == SDLK_s)
 			{ 
 			   return 'd';
+			}
+			else if (theEvent->key.keysym.sym == SDLK_e){ // pick up
+				return 'e';
+			}
+			else if (theEvent->key.keysym.sym == SDLK_q){ // drop item
+				return 'q';
+			}
+			else if (theEvent->key.keysym.sym == SDLK_ESCAPE){
+				endGame();
+				exit(0);
+				return 'X';
 			}
 		}
 	 } 
@@ -326,7 +337,7 @@ void Videogame::playGame()
 		do
 		{
 			choice = 'z';
-			message1 = "Use the arrow keys to move " + p.getName();
+			message1 = "Use WASD to move, E to pick up item, Q to drop";
 			drawGame();
 			while (SDL_PollEvent(&events)) 
 			{
@@ -346,9 +357,12 @@ void Videogame::playGame()
 			else if(choice == 'l' && playerCol > 0){
 				playerCol--;
 			}
-			//TODO: WRITE THE REST OF THE CODE HERE TO MODIFY playerRow AND playerCol BASED ON THE VARIABLE choice
-			//MAKE SURE YOU DO NOT LET THE PLAYER MOVE OFF OF THE GAMEBOARD WHOSE DIMENSIONS ARE STORED IN VARIABLES 
-			//rows AND cols
+			else if(choice == 'e'){
+
+			}
+			else if(choice == 'q'){
+
+			}
 			else if (choice != 'z')  //User made an illegal move
 			{
 				choice = 'z';

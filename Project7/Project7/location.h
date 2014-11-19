@@ -54,7 +54,8 @@ public:
 	virtual void addItem(Node* n);
 	virtual void addKey() = 0; // adds a key
 	virtual void createNewArray(char*** room) = 0; // height and width should be set, already
-	virtual char*** draw() = 0;
+	//virtual char*** draw() = 0;
+	virtual void draw() = 0;
 
 	// getting the doors
 	bool get_east_door();

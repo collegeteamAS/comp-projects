@@ -63,4 +63,9 @@
   <ItemGroup>
     <Text Include="maze.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="images\player.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

@@ -1,33 +1,57 @@
-//FileName:		player.h
-//Programmer:	Dan Cliburn
-//Date:			2/4/2013
-//Purpose:		This file defines the header for the player class
+/*
+	Andre Allan Ponce
+	a_ponce1@u.pacific.edu
+	Header for Player class
+*/
+#ifndef _PLAYER_H_INCLUDED_
+#define _PLAYER_H_INCLUDED_
 
-#ifndef PLAYER_H
-#define PLAYER_H
+class LinkedList;
+class Node;
 
-#include <string>
-using namespace std;
+class Player{
+private:
+	char symbol;
 
-class Player
-{
-	protected: //attributes usually go here
-		string name;
-		int age;
+	int keys;
 
-	public:  //method prototypes usually go here
-		Player(string n = "Dan");
+	// location on Location Board
+	int xBoard;
+	int yBoard;
 
-		//Set methods allow objects to change the attributes
-		void setName(string n);
-		void setAge(int a) {age = a;}
+	// current floor
+	int curr_floor;
 
-		//Get methods allow objects to tell us about their attributes
-		string getName();
-		int getAge() {return age;}
+	// players items
+	LinkedList* inventory;
 
-		//Functionality methods are additional actions of objects of the class
-		void display();
+public:
+	enum Constants{
+		INVENTORY_MAX = 3,
+		INVENTORY_MIN = 0
+	};
+
+	Player();
+	Player(char sym);
+	~Player();
+
+	void addItem(Node* item);
+	void createInventory();
+	void deleteInventory();
+
+	int getBoardLocX();
+	int getBoardLocY();
+	int get_current_floor();
+	LinkedList* getInventory();
+	int getKeyCount();
+	char getSymbol();
+
+	Node* removeItem(int id);
+
+	void setBoardLocX(int x);
+	void setBoardLocY(int y);
+	void set_current_floor(int floor);
+
 };
 
 #endif
