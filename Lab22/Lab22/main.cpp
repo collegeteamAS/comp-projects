@@ -19,7 +19,7 @@ int main()
 	cout << "Do you want to be parallel? (y/N): ";
 	cin >> paraChoice;
 	bool parallel;
-	if(paraChoice){
+	if(paraChoice == 'Y' || paraChoice == 'y'){
 		parallel = true;
 	}
 	else{
