@@ -14,9 +14,18 @@ int main()
 	const int SIZE = 400000;
 	long start, stop;
 	PrimeCounter p(SIZE);
-
+	
+	char paraChoice;
+	cout << "Do you want to be parallel? (y/N): ";
+	cin >> paraChoice;
+	bool parallel;
+	if(paraChoice == 'Y' || paraChoice == 'y'){
+		parallel = true;
+	}
+	else{
+		parallel = false;
+	}
 	cout << "Determining the primes ..." << endl;
-	bool parallel = false;
 	start = clock();
 	if(parallel){
 		p.parallelDeterminePrimes(1, SIZE);
