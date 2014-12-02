@@ -4,16 +4,36 @@
 	
 //*/
 #include "tile.h"
+#include "player.h"
 #include "node.h"
 #include "item.h"
 #include "key.h"
 
-Tile::Tile(int idNum, int xCoord, int yCoord, int floor) : Location(idNum,xCoord,yCoord), 
-	floor_id(floor),
+Tile::Tile(int idNum, int xCoord, int yCoord, int floor, char sym) : Location(idNum,xCoord,yCoord,floor,sym), 
 	hasKey(false),
 	numKeys(0){
 	
 }
+
+Tile::~Tile(){
+	deleteLayout();
+}
+
+// ==== private methods ====
+
+void Tile::deleteLayout(){
+	if(roomLayout != 0){
+		for(int i = 0; i < Tile::TILE_HEIGHT; i++){
+			if(roomLayout[i] != 0){
+				delete [] roomLayout[i];
+			}
+		}
+		delete [] roomLayout;
+	}
+}
+
+// ==== protected methods ====
+
 
 void Tile::addExistingKey(Item* key){
 	int xKey;
@@ -43,6 +63,12 @@ void Tile::addExistingKey(Item* key){
 	}
 	numKeys++;
 	roomLayout[xKey][yKey] = key->getSymbol();
+}
+
+// ==== public methods ====
+
+void Tile::action(Player* p){
+	// add a message to player
 }
 
 void Tile::addKey(){
@@ -75,10 +101,6 @@ char*** Tile::draw(){
 	return layout;
 }
 
-int Tile::get_floor_id(){
-	return floor_id;
-}
-
 Node* Tile::getItem(int id){
 	int xKey;
 	int yKey;
@@ -107,9 +129,4 @@ Node* Tile::getItem(int id){
 	numKeys--;
 	roomLayout[xKey][yKey] = EMPTY_SPACE;
 	return Location::getItem(id);
-}
-
-void Tile::setFinalRoom(bool value){
-	roomLayout[END_GAME_X][END_GAME_Y] = END_GAME_CHAR;
-	Location::setFinalRoom(value);
 }

@@ -26,6 +26,7 @@ public:
 		TILE_SOUTH_EAST = 6,// 6 South East location
 		TILE_SOUTH_WEST = 7,// 7 South West location
 		TILE_NORTH_WEST = 8 // 8 North West location
+
 	};
 
 	LocationData();

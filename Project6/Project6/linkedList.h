@@ -13,6 +13,8 @@ class LinkedList
 
 	public:
 		LinkedList();
+		~LinkedList();
+
 		void add_node(Node* n);
 		std::string displayInventory();
 		Node* remove_node(); // removes first node everytime

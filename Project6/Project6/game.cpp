@@ -13,6 +13,7 @@
 #include <wincon.h> // handling keyboard input as well
 #include <random> // for true random
 #include <time.h> // for waiting
+#include <vector>
 
 
 #include "game.h"
@@ -87,9 +88,8 @@ Location* Game::createRandomRoom(int x, int y, int flor){
 
 // @author Andre Allan Ponce
 void Game::createWorld(){
-	world = new Floor*[WORLD_SIZE];
 	for(int i = 0; i < WORLD_SIZE; i++){
-		world[i] = 0;
+		world.push_back(new Floor(i+1));
 	}
 }
 
@@ -100,13 +100,8 @@ void Game::deletePlayer(){
 }
 
 void Game::deleteWorld(){
-	if(world != 0){
-		for(int i = 0; i < WORLD_SIZE; i++){
-			if(world[i] != 0){
-				delete world[i];
-			}
-		}
-		delete [] world;
+	for(int i = 0; i < WORLD_SIZE; i++){
+		delete world.at(i);
 	}
 }
 

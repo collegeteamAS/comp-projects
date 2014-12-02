@@ -6,6 +6,8 @@
 #ifndef _PLAYER_H_INCLUDED_
 #define _PLAYER_H_INCLUDED_
 
+#include <string>
+
 class LinkedList;
 class Node;
 
@@ -22,6 +24,8 @@ private:
 
 	// players items
 	LinkedList* inventory;
+
+	std::string* messages;
 
 public:
 	enum Constants{

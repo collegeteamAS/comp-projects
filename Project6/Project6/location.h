@@ -8,15 +8,21 @@
 #ifndef _LOCATION_H_INCLUDED_
 #define _LOCATION_H_INCLUDED_
 
-#include <string>
+//#include <string>
 class LinkedList;
+class Player;
 class Node;
 
 class Location{
+private:
+	void deleteItems();
+
 protected:
 	bool visited; // really not used
 
 	bool endGame; // is this room the endGame room? used for debugging
+
+	char symbol; // certain tiles have symbols
 
 	LinkedList* items; // the items in this room
 
@@ -24,17 +30,11 @@ protected:
 	// id of this room
 
 	char** roomLayout; // visualization of the room
-	// roomLayout(0,std::vector<char>(0,'0'))
-
-	// rooms with closets have importance
-	//bool hasCloset;
-
-	// rooms with only one door are closed
-	//bool isClosed;
 
 	// where this location is
 	int x; 
 	int y;
+	int floorID; // what floor this is on
 
 	// door placement // not very important it turns out.
 	bool has_east_door;
@@ -42,19 +42,18 @@ protected:
 	bool has_south_door;
 	bool has_west_door;
 
-	void deleteItems();
-	void deleteLayout();
-
 public:
 	
 	Location();
-	Location(int idNum, int xCoord, int yCoord);
-	~Location();
+	Location(int idNum, int xCoord, int yCoord, int floor, char sym);
+	virtual ~Location();
 
+	virtual void action(Player* p) = 0;
 	virtual void addItem(Node* n);
 	virtual void addKey() = 0; // adds a key
 	virtual void createNewArray(char*** room) = 0; // height and width should be set, already
 	virtual char*** draw() = 0;
+	virtual void examine(Player* p) = 0;
 
 	// getting the doors
 	bool get_east_door();
@@ -62,11 +61,11 @@ public:
 	bool get_south_door();
 	bool get_west_door();
 
-	int getHeight();
+	int getFloorID();
 	virtual Node* getItem(int id);
 	virtual int getNumOfKeys();
 	int getRoomID();
-	int getWidth();
+	char getSymbol();
 	bool isFinalRoom(); // for debug
 	virtual void setFinalRoom(bool value);
 	void setRoomID(int idNum);

@@ -17,6 +17,13 @@ LinkedList::LinkedList()
 	numKeys = 0;
 }
 
+LinkedList::~LinkedList(){
+	while(head != 0){
+		Node* removed = remove_node();
+		delete removed;
+	}
+}
+
 int LinkedList::getNumKeys()
 {
 	return numKeys;
