@@ -5,7 +5,7 @@
 
 #include "tile_exit.h"
 
-ExitTile::ExitTile(int idNum, int xCoord, int yCoord, char sym) : Tile(idNum,xCoord,yCoord,sym){
+ExitTile::ExitTile(int idNum, int xCoord, int yCoord, int floor, char sym) : Tile(idNum,xCoord,yCoord,floor,sym){
 
 }
 

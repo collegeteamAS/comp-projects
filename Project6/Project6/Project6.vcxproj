@@ -78,6 +78,8 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="tile.cpp" />
     <ClCompile Include="locationdata.cpp" />
+    <ClCompile Include="tile_exit.cpp" />
+    <ClCompile Include="tile_stairs.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="coordlist.h" />
@@ -93,6 +95,8 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="tile.h" />
     <ClInclude Include="locationdata.h" />
+    <ClInclude Include="tile_exit.h" />
+    <ClInclude Include="tile_stairs.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="tiles" />

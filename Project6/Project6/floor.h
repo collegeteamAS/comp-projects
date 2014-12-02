@@ -9,8 +9,9 @@
 
 #include <string>
 
+//class CoordList;
+class StairsTile;
 class Location;
-class Coord_List;
 
 class Floor {
 private:
@@ -23,15 +24,19 @@ private:
 	int mapHeight;
 	int mapWidth;
 
+	int stairCounter; 
+	// starts at 00, increases by 01 each new room.
+	// we should have at least 100 rooms before making some stairs.
+	// the first floor may have a differing stair counter increment
+	// since it will not have a stair room at the start.
+
 	// id of this floor
-	// 0 - debug
-	// 1 - basement
-	// 2 - ground // currently the only one used
-	// 3 - upper
+	// the index of where this floor is at in game vector
 	int id;
 
-	// we need this to empty a spot
-	static const char ROOM_BLANK = ' ';
+	// Floordinates!
+	StairsTile* upStairs;
+	StairsTile* downStairs;
 
 	// how many rows and cols of tiles are shown on the map
 	static const int MAP_TILES_VISIBLE = 2;
@@ -69,7 +74,10 @@ private:
 
 public:
 	enum Constants{
-		// height and width
+		// height and width -- each floor has max 900 rooms
+		// 700 is the *important room* cutoff
+		// all required rooms should spawn by this point
+
 		FLOOR_HEIGHT = 30,
 		FLOOR_WIDTH = 30
 		
@@ -81,6 +89,9 @@ public:
 	void createFloor();
 	void createMap();
 
+	// stairs;
+	void createStairs(int idNum, int x, int y, bool isUp);
+
 	int getID();
 	Location* getLoc(int x, int y);
 	std::string getMap();
@@ -91,6 +102,11 @@ public:
 	@param y - the y coordinate of the player
 	@param sym - the player's symbol
 	@return the string representation of this map
+	//*/
+
+	int getStairCount();
+	/*// gets and increments the stair counter
+	@returns the current Stair Counter value and post-increments it
 	//*/
 
 	//Coord_List* getMapPartial(int x, int y, char sym);

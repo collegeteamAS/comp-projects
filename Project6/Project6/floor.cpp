@@ -7,14 +7,18 @@
 #include "floor.h"
 #include "location.h"
 #include "tile.h"
-#include "coordlist.h"
+#include "tile_stairs.h"
+//#include "coordlist.h"
 
 Floor::Floor(int idNum) : 
 	id(idNum),
 	floor(0),
 	map(0),
+	upStairs(0),
+	downStairs(0),
 	mapHeight(Tile::TILE_HEIGHT*(MAP_TILES_VISIBLE*2+1)),
-	mapWidth(Tile::TILE_WIDTH*(MAP_TILES_VISIBLE*2+1)){
+	mapWidth(Tile::TILE_WIDTH*(MAP_TILES_VISIBLE*2+1)),
+	stairCounter(0){
 	createFloor();
 	createMap();
 }
@@ -24,26 +28,7 @@ Floor::~Floor(){
 	deleteMap();
 }
 
-void Floor::createFloor(){
-	floor = new Location**[FLOOR_HEIGHT];
-	for(int i = 0; i < FLOOR_HEIGHT; i++){
-		floor[i] = new Location*[FLOOR_WIDTH];
-		for(int k = 0; k < FLOOR_WIDTH; k++){
-			floor[i][k] = 0;
-		}
-	}
-}
-
-void Floor::createMap(){
-	//mapSize = size;
-	map = new char*[mapHeight];
-	for(int i = 0; i < mapHeight; i++){
-		map[i] = new char[mapWidth];
-		for(int k = 0; k < mapWidth; k++){
-			map[i][k] = ROOM_BLANK;
-		}
-	}
-}
+// ==== private methods ==== 
 
 void Floor::deleteFloor(){
 	if(floor != 0){
@@ -78,7 +63,7 @@ void Floor::drawMap(int x, int y, char sym){
 				drawRoom(xRoom,yRoom,i,k,sym);
 			}
 			else{
-				drawRoom(xRoom, yRoom, i, k, ROOM_BLANK);
+				drawRoom(xRoom, yRoom, i, k, Tile::EMPTY_SPACE);
 			}
 			yRoom += Tile::TILE_WIDTH;
 		}
@@ -86,6 +71,7 @@ void Floor::drawMap(int x, int y, char sym){
 		yRoom = 0;
 	}
 }
+
 /*//
 void Floor::drawMapPartial(int x, int y, char sym, Coord_List* list){
 	int xRoom = 0;
@@ -124,6 +110,10 @@ void Floor::drawRoom(int startX, int startY, int x, int y, char sym){
 		}
 	}
 }
+
+
+
+
 /*//
 void Floor::drawRoomPartial(int startX, int startY, int x, int y, char sym, Coord_List* list){
 	if(x < 0 || y < 0 || floor[x][y] == 0 || x >= FLOOR_HEIGHT || y >= FLOOR_WIDTH){
@@ -153,8 +143,8 @@ void Floor::drawRoomPartial(int startX, int startY, int x, int y, char sym, Coor
 void Floor::drawRoomBlank(int startX, int startY){
 	for(int i = startX; i < startX+Tile::TILE_HEIGHT; i++){
 		for(int k = startY; k < startY+Tile::TILE_WIDTH; k++){
-			if(map[i][k] != ROOM_BLANK){
-				map[i][k] = ROOM_BLANK;
+			if(map[i][k] != Tile::EMPTY_SPACE){
+				map[i][k] = Tile::EMPTY_SPACE;
 			}
 			//std::cout << i << ":" << k <<"\n";
 		}
@@ -173,6 +163,42 @@ void Floor::drawRoomBlankPartial(int startX, int startY, Coord_List* list){
 	}
 }
 //*/
+
+// ==== public methods ====
+
+void Floor::createFloor(){
+	floor = new Location**[FLOOR_HEIGHT];
+	for(int i = 0; i < FLOOR_HEIGHT; i++){
+		floor[i] = new Location*[FLOOR_WIDTH];
+		for(int k = 0; k < FLOOR_WIDTH; k++){
+			floor[i][k] = 0;
+		}
+	}
+}
+
+void Floor::createMap(){
+	//mapSize = size;
+	map = new char*[mapHeight];
+	for(int i = 0; i < mapHeight; i++){
+		map[i] = new char[mapWidth];
+		for(int k = 0; k < mapWidth; k++){
+			map[i][k] = Tile::EMPTY_SPACE;
+		}
+	}
+}
+
+void Floor::createStairs(int idNum, int x, int y, bool isUp){
+	StairsTile* stairs = new StairsTile(idNum,x,y,id,isUp);
+	Location* loc = &(*stairs); // can we set base pointers = to derived pointers?
+	if(isUp){
+		upStairs = stairs;
+	}
+	else{
+		downStairs = stairs;
+	}
+	setLoc(loc,x,y);
+}
+
 int Floor::getID(){
 	return id;
 }
@@ -202,6 +228,10 @@ Coord_List* Floor::getMapPartial(int x, int y, char sym){
 std::string Floor::getNewMap(int x, int y, char sym){
 	drawMap(x,y,sym);
 	return getMap();
+}
+
+int Floor::getStairCount(){
+	return stairCounter++;
 }
 
 void Floor::setID(int idNum){

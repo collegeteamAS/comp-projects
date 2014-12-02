@@ -12,6 +12,9 @@
 
 class StairsTile : public Tile{
 protected:
+	StairsTile* connectedStairs;
+	// stairs point to its corresponding stairs (which should be on another floor)
+
 	void changeStairs(bool isUp);
 	/*// changes the stairs oreintation based on the boolean
 		@param isUp - true if we are changing the stairs to up, false if down
@@ -24,7 +27,7 @@ public:
 		STAIRS_X = 3,
 		STAIRS_Y = 1
 	};
-	StairsTile(int idNum, int xCoord, int yCoord, bool isUp);
+	StairsTile(int idNum, int xCoord, int yCoord, int floor, bool isUp);
 	/*//
 		when isUp == true, we use stairs up char
 		else we use the down char
@@ -33,6 +36,11 @@ public:
 	virtual void action(Player* p);
 	virtual void createNewArray(char*** room);
 	virtual void examine(Player* p);
+
+	int getNextFloor();
+	// @returns -1 if there stairs are not matched
+
+	void setNextFloor(StairsTile* next);
 };
 
 #endif

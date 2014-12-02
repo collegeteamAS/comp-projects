@@ -34,7 +34,7 @@ protected:
 	// where this location is
 	int x; 
 	int y;
-	int floorID; // what floor this is on
+	int floorID; // what floor this is on (index of floor in game vector)
 
 	// door placement // not very important it turns out.
 	bool has_east_door;

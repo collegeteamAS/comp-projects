@@ -5,7 +5,8 @@
 
 #include "tile_stairs.h"
 
-StairsTile::StairsTile(int idNum, int xCoord, int yCoord, bool isUp) : Tile(idNum,xCoord,yCoord,EMPTY_SPACE){
+StairsTile::StairsTile(int idNum, int xCoord, int yCoord, int floor, bool isUp) : Tile(idNum,xCoord,yCoord,floor,EMPTY_SPACE),
+	connectedStairs(0){
 	changeStairs(isUp);
 }
 
@@ -34,4 +35,17 @@ void StairsTile::createNewArray(char*** room){
 void StairsTile::examine(Player* p){
 	// move player up or down a floor
 	// add message to player if we cant do that
+}
+
+int StairsTile::getNextFloor(){
+	if(connectedStairs == 0){
+		return -1;
+	}
+	else{
+		return connectedStairs->getFloorID();
+	}
+}
+
+void StairsTile::setNextFloor(StairsTile* next){
+	connectedStairs = next;
 }
