@@ -50,7 +50,7 @@ public:
 	virtual void addItem(Node* n);
 	virtual void createNewArray(char*** room);
 	virtual char*** draw();
-	virtual void examine(Player* p) = 0;
+	virtual void examine(Player* p);
 
 	virtual Node* getItem(int id);
 

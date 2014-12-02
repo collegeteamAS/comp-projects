@@ -4,6 +4,7 @@
 //*/
 
 #include "tile_stairs.h"
+#include "player.h"
 
 StairsTile::StairsTile(int idNum, int xCoord, int yCoord, int floor, bool isUp) : Tile(idNum,xCoord,yCoord,floor,EMPTY_SPACE),
 	connectedStairs(0){
@@ -33,7 +34,7 @@ void StairsTile::createNewArray(char*** room){
 }
 
 void StairsTile::examine(Player* p){
-	// move player up or down a floor
+	p->set_current_floor(getNextFloor());
 	// add message to player if we cant do that
 }
 

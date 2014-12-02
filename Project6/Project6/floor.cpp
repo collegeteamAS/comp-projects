@@ -199,6 +199,12 @@ void Floor::createStairs(int idNum, int x, int y, bool isUp){
 	setLoc(loc,x,y);
 }
 
+void Floor::createStairs(Location* loc, int x, int y, bool isUp){
+	if(isUp){
+		upStairs = &(*loc);
+	}
+}
+
 int Floor::getID(){
 	return id;
 }
@@ -232,6 +238,14 @@ std::string Floor::getNewMap(int x, int y, char sym){
 
 int Floor::getStairCount(){
 	return stairCounter++;
+}
+
+StairsTile* Floor::getStairsDown(){
+	return downStairs;
+}
+
+StairsTile* Floor::getStairsUp(){
+	return upStairs;
 }
 
 void Floor::setID(int idNum){

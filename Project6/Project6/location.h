@@ -61,6 +61,8 @@ public:
 	bool get_south_door();
 	bool get_west_door();
 
+	int getCoordinateX();
+	int getCoordinateY();
 	int getFloorID();
 	virtual Node* getItem(int id);
 	virtual int getNumOfKeys();

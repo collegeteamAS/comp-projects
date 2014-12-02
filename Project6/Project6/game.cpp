@@ -23,6 +23,7 @@
 #include "coordnode.h"
 #include "floor.h"
 #include "tile.h"
+#include "tile_stairs.h"
 #include "player.h"
 #include "item.h"
 #include "menutext.h"
@@ -31,6 +32,8 @@
 Game::Game() : 
 	world(0),
 	player(0),
+	playerFloor(START_FLOOR),
+	numberOfFloors(0),
 	locations(0),
 	state(STATE_PRE_GAME),
 	endGameCounter(0),
@@ -42,6 +45,21 @@ Game::Game() :
 Game::~Game(){
 	deletePlayer();
 	deleteWorld();
+}
+
+// ==== private methods ====
+
+bool Game::arePreviousStairsUp(int x, int y, int floor){
+	Floor* previousFloor = (*world)[floor];
+	if(previousFloor->getStairsDown() == 0){ // no downstairs, we only have upstairs
+		return true;
+	}
+	else if(previousFloor->getStairsUp() == 0){ // no upstairs, we only have downstairs
+		return false;
+	}
+	else{
+		return (previousFloor->getStairsUp()->getCoordinateX() == x && previousFloor->getStairsUp()->getCoordinateY() == y);
+	}
 }
 
 // @author Andre Allan Ponce
@@ -89,7 +107,7 @@ Location* Game::createRandomRoom(int x, int y, int flor){
 // @author Andre Allan Ponce
 void Game::createWorld(){
 	for(int i = 0; i < WORLD_SIZE; i++){
-		world.push_back(new Floor(i+1));
+		world->push_back(new Floor(i+1));
 	}
 }
 
@@ -101,14 +119,14 @@ void Game::deletePlayer(){
 
 void Game::deleteWorld(){
 	for(int i = 0; i < WORLD_SIZE; i++){
-		delete world.at(i);
+		delete world->at(i);
 	}
 }
 
 void Game::dropOffItem(){
 	//int selection = selectItem();
 	if(player->getInventory()->getNumKeys() > Player::INVENTORY_MIN){
-		Location* loc = world[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
+		Location* loc = (*world)[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
 		if(loc->getNumOfKeys() < Player::INVENTORY_MAX){
 			loc->addItem(player->getInventory()->remove_node(Item::ID_KEY));
 		}
@@ -121,6 +139,17 @@ void Game::dropOffItem(){
 	}
 }
 
+void Game::examine(){
+	(*world)[player->get_current_floor()]->getLoc(player->getBoardLocX(),player->getBoardLocY())->examine(player);
+	examineResults();
+}
+
+void Game::examineResults(){
+	if(player->get_current_floor() != playerFloor){ // the player has moved floors
+		movePlayerFloor();
+	}
+}
+
 void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
 	switch(state){
 	case STATE_EXPLORE:{
@@ -130,7 +159,7 @@ void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
 		break;
 	}
 	case STATE_FINAL_DOOR:{
-		if(world[player->get_current_floor()-1]->getLoc(finalRoomX,finalRoomY)->getNumOfKeys() == 3){
+		if((*world)[player->get_current_floor()-1]->getLoc(finalRoomX,finalRoomY)->getNumOfKeys() == 3){
 			state = STATE_GAME_FINISH;
 		}
 		break;
@@ -155,6 +184,7 @@ bool Game::getKeyInput(WORD key){
     {
 	case VK_ESCAPE:{
 		state = STATE_GAME_FINSH_BAD;
+		return false;
 		break;
 	}
     case VK_LEFT:
@@ -185,57 +215,48 @@ bool Game::getKeyInput(WORD key){
 		move = true;
 		break;
 	}
-	case 0x45:{ // e key // pick up item
+	case 0x43:{ // c key // pick up item
 		pickUpItem();
-		return true;
+		//return true;
 		break;
 	}
-	case 0x51:{ // q key // drop off item
-		dropOffItem();
-		return true;
+	case 0x45:{ // e key // examine
+		examine();
+		//return true; // the map mostlikely changed
 		break;
 	}
 	case 0x48:{ // H key // help
 		printHelp();
-		return true;
+		//return true;
 		break;
 	}
 	case 0x49: // this was steve as well // i key
-		{
-			activeText = player->getInventory()->displayInventory();
-			return true;
-			break;
-		}
+	{
+		activeText = player->getInventory()->displayInventory();
+		//return true;
+		break;
+	}
+	case 0x5A:{ // z key // drop off item
+		dropOffItem();
+		//return true;
+		break;
+	}
 	default :{
 		// we dont move.
+		return false;
 		break;
 	}
     }
 	if(move){
 		movePlayer(xNew,yNew);
-		return true;
 	}
-	else{
-		return false;
-	}
-}
-
-// @author Andre Allan Ponce
-int Game::getRandomNumber(int start, int end){
-	int ran;
-	try{
-		random_device rd; // random_device is true random
-		ran = (rd() % (end-start));
-	}
-	catch(...){
-		ran = (rand() % (end-start));	
-	}
-	return ran;
+	return true;
 }
 
 // @author Andre Allan Ponce
 Floor* Game::makeFloor(int id){
 	Floor* floor = new Floor(id);
+	numberOfFloors++;
 	return floor;
 }
 
@@ -259,16 +280,15 @@ Location* Game::makeRoom(int id, int x, int y, int flor){
 	return loc;
 }
 
-
 // @author Andre Allan Ponce
-// moves the player. invalid moving will be fixed probably.
+// moves the player on the x and y grid. invalid moving will be fixed probably.
 bool Game::movePlayer(int xMove, int yMove){
 	if(xMove >= 0 && yMove >= 0 && xMove < Floor::FLOOR_HEIGHT && yMove < Floor::FLOOR_WIDTH){
 		player->setBoardLocX(xMove);
 		player->setBoardLocY(yMove);
-		int playerFloor = player->get_current_floor()-1;
-		if(world[playerFloor]->getLoc(xMove,yMove) == 0){
-			world[playerFloor]->setLoc(createRandomRoom(xMove,yMove,playerFloor),xMove,yMove);
+		int currentPlayerFloor = player->get_current_floor();
+		if((*world)[currentPlayerFloor]->getLoc(xMove,yMove) == 0){
+			(*world)[currentPlayerFloor]->setLoc(createRandomRoom(xMove,yMove,currentPlayerFloor),xMove,yMove);
 			//world[playerFloor]->set_room_doors(xMove,yMove,true); // debug
 			// door setting should be done in the makeroom method
 		}
@@ -278,8 +298,22 @@ bool Game::movePlayer(int xMove, int yMove){
 	return false;
 }
 
+void Game::movePlayerFloor(){
+	if(player->get_current_floor() == -1){ // make a new floor
+		player->set_current_floor(numberOfFloors);
+		int thisFloor = numberOfFloors;
+		world->push_back(makeFloor(numberOfFloors));
+		int playerX = player->getBoardLocX();
+		int playerY = player->getBoardLocY();
+		(*world)[thisFloor]->createStairs(createRandomRoom(playerX,playerY,thisFloor),playerX,playerY,!arePreviousStairsUp(playerX,playerY,playerFloor));
+	}
+	else{ // move to exisiting floor
+		playerFloor = player->get_current_floor();
+	}
+}
+
 void Game::pickUpItem(){
-	Location* loc = world[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
+	Location* loc = (*world)[player->get_current_floor()]->getLoc(player->getBoardLocX(),player->getBoardLocY());
 	if(loc->getNumOfKeys() > Player::INVENTORY_MIN){
 		if(player->getInventory()->getNumKeys() < Player::INVENTORY_MAX){
 			player->addItem(loc->getItem(Item::ID_KEY));
@@ -297,15 +331,46 @@ void Game::pickUpItem(){
 // prepping the first two rooms
 void Game::preGameInit(){
 	createWorld();
-	world[START_FLOOR-1] = makeFloor(START_FLOOR);
-	world[START_FLOOR-1]->setLoc(makeRoom(0,START_ROOM_X,START_ROOM_Y,START_FLOOR),START_ROOM_X,START_ROOM_Y);
-	world[START_FLOOR-1]->set_room_doors(START_ROOM_X,START_ROOM_Y,true); //the first room should have all open doors
-	player = new Player(PLAYER_SYMBOL);
+	(*world)[START_FLOOR] = makeFloor(START_FLOOR);
+	(*world)[START_FLOOR]->setLoc(makeRoom(0,START_ROOM_X,START_ROOM_Y,START_FLOOR),START_ROOM_X,START_ROOM_Y);
+	(*world)[START_FLOOR]->set_room_doors(START_ROOM_X,START_ROOM_Y,true); //the first room should have all open doors
+	player = new Player(PLAYER_SYMBOL); // adjust this later
 	player->setBoardLocX(START_ROOM_X);
 	player->setBoardLocY(START_ROOM_Y);
 	player->set_current_floor(START_FLOOR);
+	// playerFloor = START_FLOOR; // done in constructor
 	player->createInventory();
 	state = STATE_EXPLORE;
+}
+
+void Game::setupDoors(Location* loc, int id){
+	if(id != LocationData::TILE_NORTH || id != LocationData::TILE_NORTH_EAST || id != LocationData::TILE_NORTH_WEST){
+		loc->set_north_door(true);
+	}
+	if(id != LocationData::TILE_EAST || id != LocationData::TILE_NORTH_EAST || id != LocationData::TILE_SOUTH_EAST){
+		loc->set_east_door(true);
+	}
+	if(id != LocationData::TILE_SOUTH || id != LocationData::TILE_SOUTH_EAST || id != LocationData::TILE_SOUTH_WEST){
+		loc->set_south_door(true);
+	}
+	if(id != LocationData::TILE_WEST || id != LocationData::TILE_SOUTH_WEST || id != LocationData::TILE_NORTH_WEST){
+		loc->set_west_door(true);
+	}
+}
+
+// ==== public methods ====
+
+// @author Andre Allan Ponce
+int Game::getRandomNumber(int start, int end){
+	int ran;
+	try{
+		random_device rd; // random_device is true random
+		ran = (rd() % (end-start));
+	}
+	catch(...){
+		ran = (rand() % (end-start));	
+	}
+	return ran;
 }
 
 // @author Andre Allan Ponce
@@ -323,9 +388,10 @@ void Game::preGameInit(){
 //*/
 void Game::printGame(){
 	system("CLS"); 
-	std::cout << world[player->get_current_floor()-1]->getNewMap(player->getBoardLocX(),player->getBoardLocY(),player->getSymbol()) << MenuText::MAP_EDGE_BOTTOM << "\n";
-	std::cout << activeText << "\n";
-	std::cout << modeText << "\n";
+	std::cout << (*world)[player->get_current_floor()]->getNewMap(player->getBoardLocX(),player->getBoardLocY(),player->getSymbol()) << MenuText::MAP_EDGE_BOTTOM << "\n";
+	std::cout << player->getMessages(); // more efficient
+	//std::cout << activeText << "\n";
+	//std::cout << modeText << "\n";
 }
 /*//
 void Game::printGamePartial(){ // not working at the moment
@@ -361,19 +427,6 @@ void Game::printHelp(){
 	std::cout << MenuText::MENU_HELP;
 	system("pause");
 }
-
-// @author Andre Allan Ponce
-// reads in room file format:
-/*
-	# <-- id 
-	+-- --+
-	|     |
-	       
-	|     |
-	+-- --+
-	(Tile DESIGN)
-
-*/
 
 void Game::readInFile(std::string fileName){
 	std::ifstream inFile;
@@ -492,17 +545,3 @@ int Game::selectItem(){
 	}while(!valid);
 }//*/
 
-void Game::setupDoors(Location* loc, int id){
-	if(id != LocationData::TILE_NORTH || id != LocationData::TILE_NORTH_EAST || id != LocationData::TILE_NORTH_WEST){
-		loc->set_north_door(true);
-	}
-	if(id != LocationData::TILE_EAST || id != LocationData::TILE_NORTH_EAST || id != LocationData::TILE_SOUTH_EAST){
-		loc->set_east_door(true);
-	}
-	if(id != LocationData::TILE_SOUTH || id != LocationData::TILE_SOUTH_EAST || id != LocationData::TILE_SOUTH_WEST){
-		loc->set_south_door(true);
-	}
-	if(id != LocationData::TILE_WEST || id != LocationData::TILE_SOUTH_WEST || id != LocationData::TILE_NORTH_WEST){
-		loc->set_west_door(true);
-	}
-}

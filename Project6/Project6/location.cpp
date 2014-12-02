@@ -80,6 +80,14 @@ bool Location::get_west_door(){
 	return has_west_door;
 }
 
+int Location::getCoordinateX(){
+	return x;
+}
+
+int Location::getCoordinateY(){
+	return y;
+}
+
 int Location::getFloorID(){
 	return floorID;
 }

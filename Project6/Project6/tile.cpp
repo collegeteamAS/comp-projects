@@ -101,6 +101,10 @@ char*** Tile::draw(){
 	return layout;
 }
 
+void Tile::examine(Player* p){
+	// tell player nothing to examine
+}
+
 Node* Tile::getItem(int id){
 	int xKey;
 	int yKey;

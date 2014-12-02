@@ -3,6 +3,9 @@
 	a_ponce1@u.pacific.edu
 	Steve Suh
 	h_suh@u.pacific.edu
+
+	2014-12-02
+	= organized code
 */
 
 #ifndef _GAME_H_INCLUDED_
@@ -27,6 +30,13 @@ private:
 	Player* player; // the player
 	//Player* monster; // the monster
 
+	int playerFloor;
+	// separate int that will hold player's previous floor for comparison after
+	// examine has been done on a stairTile
+
+	int numberOfFloors;
+	// how many floors we got
+
 	/* STATE machine:
 		-1- nothing
 		0 - start up state, reading in data, preparing game
@@ -49,12 +59,13 @@ private:
 	std::string activeText; // debug
 	std::string modeText; // what you should be doing right now.
 
-	// where is the player right now?
-	//int currX;
-	//int currY;
-
-	// what floor is the player on right now?
-	//int curr_floor;
+	bool arePreviousStairsUp(int x, int y, int floor);
+	/*// checks if the previous floor's stairs were up or down
+	@param x - x-coordinate of the previous stairs
+	@param y - y-coordinate of the previous stairs
+	@param floor - the index of the previous floor
+	@returns true if the stairs at (x,y) at Floor index floor were facing up, false if facing down
+	//*/
 
 	Location* createRandomRoom(int x, int y, int flor);
 	/*// creates a random room (which really isnt random since we only have one type of tile
@@ -69,7 +80,19 @@ private:
 	void deleteWorld();
 	void dropOffItem();
 
-	void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime);
+	void examine();
+	/*// activated when the player hits e key
+		this should call the examine method of the current room
+	//*/
+
+	void examineResults();
+	/*// checks status of player and adjusts game if necessary
+		cases:
+			moving player to different floor
+			(thats all for now)
+	//*/
+
+	void gameStates(int& old_state, bool& mapPrint, clock_t& startTime);
 	/*// handles other game states other than finish and pregame
 	@param old_state - the old_state, used for debugging
 	@param mapPrint - true if we want a new map, false if not
@@ -83,9 +106,10 @@ private:
 	@return true for updating the map, false if not
 	//*/
 
-	Floor* makeFloor(int id);
+	Floor* makeFloor(int id); // id is the index of this floor
 	Location* makeRoom(int id, int x, int y, int flor);
-	bool movePlayer(int xMove, int yMove);
+	bool movePlayer(int xMove, int yMove); // moves player on x and y grid
+	void movePlayerFloor();
 	void pickUpItem();
 	void preGameInit();
 
@@ -112,7 +136,7 @@ public:
 		STATE_GAME_FINSH_BAD = 6,
 
 		// STARTING FlOOR and ROOM
-		START_FLOOR = 1, // this should be the ground floor
+		START_FLOOR = 0, // this should be the ground floor
 		START_ROOM_X = 15,
 		START_ROOM_Y = 15,
 
@@ -135,9 +159,21 @@ public:
 	//*/
 
 	void printGame();
-	void printGamePartial();
+	//void printGamePartial();
 	void printHelp();
 	void readInFile(std::string fileName);
+	// @author Andre Allan Ponce
+	// reads in room file format:
+	/*
+		# <-- id 
+		+-- --+
+		|     |
+		       
+		|     |
+		+-- --+
+		(Tile DESIGN)
+	*/
+
 	void runGame();
 };
 

@@ -91,6 +91,9 @@ public:
 
 	// stairs;
 	void createStairs(int idNum, int x, int y, bool isUp);
+	void createStairs(Location* loc, int x, int y, bool isUp); 
+	// a variation using a Location Pointer
+	// this will probably be used more
 
 	int getID();
 	Location* getLoc(int x, int y);
@@ -108,6 +111,9 @@ public:
 	/*// gets and increments the stair counter
 	@returns the current Stair Counter value and post-increments it
 	//*/
+
+	StairsTile* getStairsDown();
+	StairsTile* getStairsUp();
 
 	//Coord_List* getMapPartial(int x, int y, char sym);
 	// unused
