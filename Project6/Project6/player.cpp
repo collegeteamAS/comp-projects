@@ -17,7 +17,7 @@ Player::Player() :
 	yBoard(-1),
 	inventory(0),
 	curr_floor(-1){
-	// constructors should be empty, yo
+	clearMessages();
 }
 
 // @author Andre Allan Ponce
@@ -27,7 +27,7 @@ Player::Player(char sym) :
 	yBoard(-1),
 	inventory(0),
 	curr_floor(-1){
-	// constructors should be empty, yo
+	clearMessages();
 }
 
 Player::~Player(){
