@@ -40,6 +40,7 @@ private:
 	int endGameCounter;
 	// starts at 0, increases by 1 per new room
 	// this room is where you supposed to drop the keys.
+	// not used in debug modes
 
 	bool isFinalDoorIn; // here is the end
 	int finalRoomX; // the endgame x coord
