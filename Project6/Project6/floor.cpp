@@ -199,12 +199,6 @@ void Floor::createStairs(int idNum, int x, int y, bool isUp){
 	setLoc(loc,x,y);
 }
 
-void Floor::createStairs(Location* loc, int x, int y, bool isUp){
-	if(isUp){
-		upStairs = &(*loc);
-	}
-}
-
 int Floor::getID(){
 	return id;
 }

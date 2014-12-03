@@ -78,7 +78,32 @@ private:
 	void createWorld();
 	void deletePlayer();
 	void deleteWorld();
+
+	int distanceFromEdge(int coordinate);
+	/*// calculates the distance this coordinate is from an edge 
+		this uses the START_ROOM_X (the center of the map)
+		coordinate to calculate this value
+	@param coordinate - a spot
+	@returns the distance the spot is from an edge
+	//*/
+
 	void dropOffItem();
+
+	bool edgeChanceMaker(int distance);
+	/*// decides if this is edge based on distance to edge
+	@param distance - distance from this location to edge
+	@returns true if this will be an edge, false if not
+	//*/
+
+	int edgeCheck(bool xEdge, bool yEdge, int x, int y);
+	/*// checks which edges this location is
+		LOCATION MUST BE LOCATED ON EDGE (xEdge == true || yEdge == true)
+	@param xEdge - true if x is an edge, false if not
+	@param yEdge - ture if y is an edge, false if not
+	@param x - the x-coordinate of this room
+	@param y - the y-coordinate of this room
+	@returns id of acceptable room
+	//*/
 
 	void examine();
 	/*// activated when the player hits e key
@@ -119,6 +144,21 @@ private:
 	@param id - id of the room
 	//*/
 
+	bool isThisAnEdgeNow(int chance);
+	/*// simply decides to make edge using the givenchance
+	@param chance - the chance (out of 100) of this being an edge
+	@returns true if this becomes edge, false if not
+	//*/
+
+	int tileIDRandomizer(int x, int y);
+	/*// picks a tiletype based on location (x,y)
+		This utilizes a percentage chance of certain tiles spawning,
+		dependent on the distance of this location from the edge
+	@param x - the x-coordinate of this location
+	@param y - the y-coordinate of this location
+	@returns an ID number for a tiletype
+	//*/
+
 	// int selectItem(); 
 	// allow user to select which item to drop
 	// cannot be used with the current display inventory
@@ -145,7 +185,13 @@ public:
 		CETNER_PLAYER_Y = 22,
 
 		// how many floors do we have
-		WORLD_SIZE = 1
+		// change this
+		WORLD_SIZE = 1,
+
+		// the chances for certian tiles to spawn
+		CHANCE_EDGE_ROW_ONE = 50,
+		CHANCE_EDGE_ROW_TWO = 42,
+		CHANCE_EDGE_ROW_THREE = 38
 	};
 
 	Game();

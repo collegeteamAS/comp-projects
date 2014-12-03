@@ -65,41 +65,7 @@ bool Game::arePreviousStairsUp(int x, int y, int floor){
 // @author Andre Allan Ponce
 // more randomly generating rooms
 Location* Game::createRandomRoom(int x, int y, int flor){
-	int id;
-	//id = getRandomNumber(0,locations.getSize());
-	if(x == 0){ // North Edge
-		if(y == 0){ // North West Edge
-			id = LocationData::TILE_NORTH_WEST;
-		}
-		else if(y == Floor::FLOOR_WIDTH-1){ // North East Edge
-			id = LocationData::TILE_NORTH_EAST;
-		}
-		else{
-			id = LocationData::TILE_NORTH;
-		}
-	}
-	else if(x == Floor::FLOOR_HEIGHT-1){ // South Edge
-		if(y == 0){ // South West Edge
-			id = LocationData::TILE_SOUTH_WEST;
-		}
-		else if(y == Floor::FLOOR_WIDTH-1){ // South East Edge
-			id = LocationData::TILE_SOUTH_EAST;
-		}
-		else{
-			id = LocationData::TILE_SOUTH;
-		}
-	}
-	else{
-		if(y == 0){ // West Edge
-			id = LocationData::TILE_WEST;
-		}
-		else if(y == Floor::FLOOR_WIDTH-1){ // East Edge
-			id = LocationData::TILE_EAST;
-		}
-		else{ // normal room
-			id = LocationData::TILE_BASIC;
-		}
-	}
+	
 	// id = 0; // debug
 	return makeRoom(id,x,y,flor);
 }
@@ -123,6 +89,13 @@ void Game::deleteWorld(){
 	}
 }
 
+int Game::distanceFromEdge(int coordinate){
+	if(coordinate > START_ROOM_X){
+		return (START_ROOM_X - (1+std::abs(START_ROOM_X - coordinate)));
+	}
+	return (START_ROOM_X - (std::abs(START_ROOM_X - coordinate)));
+}
+
 void Game::dropOffItem(){
 	//int selection = selectItem();
 	if(player->getInventory()->getNumKeys() > Player::INVENTORY_MIN){
@@ -136,6 +109,70 @@ void Game::dropOffItem(){
 	}
 	else{
 		activeText = MenuText::ERROR_NO_ITEMS;
+	}
+}
+
+bool Game::edgeChanceMaker(int distance){
+	switch(distance){
+	case 0:{
+		return true;
+		break;
+	}
+	case 1:{
+		return isThisAnEdgeNow(CHANCE_EDGE_ROW_ONE);
+		break;
+	}
+	case 2:{
+		return isThisAnEdgeNow(CHANCE_EDGE_ROW_TWO);
+		break;
+	}
+	case 3:{
+		return isThisAnEdgeNow(CHANCE_EDGE_ROW_THREE);
+		break;
+	}
+	default:{
+		return false; // we should never get here
+		break;
+	}
+	}
+}
+
+int Game::edgeCheck(bool xEdge, bool yEdge, int x, int y){
+	if(xEdge){ // north or south edge
+		if(yEdge){ // east or west edge
+			if(x > START_ROOM_X){ // south edge
+				if(y > START_ROOM_Y){ // south east edge
+					return LocationData::TILE_SOUTH_EAST;
+				}
+				else{ // south west edge
+					return LocationData::TILE_SOUTH_WEST;
+				}
+			}
+			else{ // north edge
+				if(y > START_ROOM_Y){ // north east edge
+					return LocationData::TILE_NORTH_EAST;
+				}
+				else{ // north west edge
+					return LocationData::TILE_NORTH_WEST;
+				}
+			}
+		}
+		else{ // not east or west edge
+			if(x > START_ROOM_X){ // south edge
+				return LocationData::TILE_SOUTH;
+			}
+			else{ // north edge
+				return LocationData::TILE_NORTH;
+			}
+		}
+	}
+	else{ // east or west edge (but no north or south edge)
+		if(y > START_ROOM_Y){ // east edge
+			return LocationData::TILE_EAST;
+		}
+		else{ // west edge
+			return LocationData::TILE_WEST;
+		}
 	}
 }
 
@@ -356,6 +393,22 @@ void Game::setupDoors(Location* loc, int id){
 	if(id != LocationData::TILE_WEST || id != LocationData::TILE_SOUTH_WEST || id != LocationData::TILE_NORTH_WEST){
 		loc->set_west_door(true);
 	}
+}
+
+bool Game::isThisAnEdgeNow(int chance){
+	if(getRandomNumber(0,100) < chance){
+		return true;
+	}
+	return false;
+}
+
+int Game::tileIDRandomizer(int x, int y){
+	int xDistance = distanceFromEdge(x);
+	int yDistance = distanceFromEdge(y);
+	if(xDistance <= 3 || yDistance <= 3){
+		return edgeCheck(edgeChanceMaker(xDistance),edgeChanceMaker(yDistance),x,y);
+	}
+	return getRandomNumber(0,locations.getSize());
 }
 
 // ==== public methods ====

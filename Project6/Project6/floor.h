@@ -91,9 +91,6 @@ public:
 
 	// stairs;
 	void createStairs(int idNum, int x, int y, bool isUp);
-	void createStairs(Location* loc, int x, int y, bool isUp); 
-	// a variation using a Location Pointer
-	// this will probably be used more
 
 	int getID();
 	Location* getLoc(int x, int y);
