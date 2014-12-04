@@ -3,6 +3,9 @@
 	a_ponce1@u.pacific.edu
 	2014-10-30
 	this holds the layouts for the tiles
+
+	2014-12-03
+	+ added the rules for tile creation
 */
 
 #ifndef _LOCATIONDATA_H_INCLUDED_
@@ -26,7 +29,6 @@ public:
 		TILE_SOUTH_EAST = 6,// 6 South East location
 		TILE_SOUTH_WEST = 7,// 7 South West location
 		TILE_NORTH_WEST = 8 // 8 North West location
-
 	};
 
 	LocationData();

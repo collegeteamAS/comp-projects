@@ -32,7 +32,6 @@
 Game::Game() : 
 	world(0),
 	player(0),
-	playerFloor(START_FLOOR),
 	numberOfFloors(0),
 	locations(0),
 	state(STATE_PRE_GAME),
@@ -62,12 +61,45 @@ bool Game::arePreviousStairsUp(int x, int y, int floor){
 	}
 }
 
+void Game::connectStairs(int previousFloor, int nextFloor, bool goingUp){
+	StairsTile* previous;
+	StairsTile* next;
+	if(goingUp){
+		previous = (*world)[previousFloor]->getStairsUp();
+		next = (*world)[nextFloor]->getStairsDown();
+	}
+	else{
+		previous = (*world)[previousFloor]->getStairsDown();
+		next = (*world)[nextFloor]->getStairsUp();
+	}
+	previous->setNextFloor(next);
+	next->setNextFloor(previous);
+}
+
 // @author Andre Allan Ponce
 // more randomly generating rooms
-Location* Game::createRandomRoom(int x, int y, int flor){
-	
-	// id = 0; // debug
-	return makeRoom(id,x,y,flor);
+void Game::createRandomRoom(int x, int y, int flor){
+	int id = tileIDRandomizer(x,y);
+	if(!hasValidDoor(id)){
+		id = 0; // if the random room is invalid, we are just gonna make a basic room
+	}
+	int chance = getRandomNumber(0,100); // out of 100
+	Floor* currentFloor = (*world)[player->getCurrentFloor()];
+	if(currentFloor->getNumberOfCreatedRooms() >= Floor::STAIRS_GENERATION_THRESHOLD && chance < currentFloor->getStairCount()){
+		if(!currentFloor->hasStairsUp()){
+			makeStairs(currentFloor,id,x,y,true);
+		}
+		else if(!currentFloor->hasStairsDown()){
+			makeStairs(currentFloor,id,x,y,false);
+		}
+	}
+	else{
+		Location* loc = makeRoom(id,x,y,flor);
+		if(chance < 10){
+			loc->addKey(); // these have 0 purpose rightnow
+		}
+		currentFloor->setLoc(loc,x,y);
+	}
 }
 
 // @author Andre Allan Ponce
@@ -99,7 +131,7 @@ int Game::distanceFromEdge(int coordinate){
 void Game::dropOffItem(){
 	//int selection = selectItem();
 	if(player->getInventory()->getNumKeys() > Player::INVENTORY_MIN){
-		Location* loc = (*world)[player->get_current_floor()-1]->getLoc(player->getBoardLocX(),player->getBoardLocY());
+		Location* loc = (*world)[player->getCurrentFloor()]->getLoc(player->getCurrentX(),player->getCurrentY());
 		if(loc->getNumOfKeys() < Player::INVENTORY_MAX){
 			loc->addItem(player->getInventory()->remove_node(Item::ID_KEY));
 		}
@@ -177,12 +209,12 @@ int Game::edgeCheck(bool xEdge, bool yEdge, int x, int y){
 }
 
 void Game::examine(){
-	(*world)[player->get_current_floor()]->getLoc(player->getBoardLocX(),player->getBoardLocY())->examine(player);
+	(*world)[player->getCurrentFloor()]->getLoc(player->getCurrentX(),player->getCurrentY())->examine(player);
 	examineResults();
 }
 
 void Game::examineResults(){
-	if(player->get_current_floor() != playerFloor){ // the player has moved floors
+	if(player->getCurrentFloor() != player->getPreviousFloor()){ // the player has moved floors
 		movePlayerFloor();
 	}
 }
@@ -196,7 +228,7 @@ void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
 		break;
 	}
 	case STATE_FINAL_DOOR:{
-		if((*world)[player->get_current_floor()-1]->getLoc(finalRoomX,finalRoomY)->getNumOfKeys() == 3){
+		if((*world)[player->getCurrentFloor()]->getLoc(finalRoomX,finalRoomY)->getNumOfKeys() == 3){
 			state = STATE_GAME_FINISH;
 		}
 		break;
@@ -213,10 +245,7 @@ void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
 // url: http://www.cplusplus.com/forum/beginner/75529/
 // key codes: http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 // true means we moved, false means no move
-bool Game::getKeyInput(WORD key){
-	int xNew = player->getBoardLocX();
-	int yNew = player->getBoardLocY();
-	bool move = false;
+bool Game::getKeyInput(WORD key, int& old_state){
 	switch(key)
     {
 	case VK_ESCAPE:{
@@ -225,31 +254,31 @@ bool Game::getKeyInput(WORD key){
 		break;
 	}
     case VK_LEFT:
-	case 0x41: // A
+	case 0x41: // A // move left
 	case VK_NUMPAD4:{ // decrement y
-		yNew--;
-		move = true;
+		old_state = state;
+		state = STATE_MOVE_LEFT;
 		break;
 	}
 	case VK_UP:
-	case 0x57: // W
+	case 0x57: // W // move up
 	case VK_NUMPAD8:{ // decrement x
-		xNew--;
-		move = true;
+		old_state = state;
+		state = STATE_MOVE_UP;
 		break;
 	}
 	case VK_RIGHT:
-	case 0x44: // D
+	case 0x44: // D // move right
 	case VK_NUMPAD6:{ // increment y
-		yNew++;
-		move = true;
+		old_state = state;
+		state = STATE_MOVE_RIGHT;
 		break;
 	}
 	case VK_DOWN:
-	case 0x53: // S
+	case 0x53: // S // move down
 	case VK_NUMPAD2:{ // increment x
-		xNew++;
-		move = true;
+		old_state = state;
+		state = STATE_MOVE_DOWN;
 		break;
 	}
 	case 0x43:{ // c key // pick up item
@@ -284,10 +313,80 @@ bool Game::getKeyInput(WORD key){
 		break;
 	}
     }
-	if(move){
-		movePlayer(xNew,yNew);
-	}
 	return true;
+}
+
+bool Game::hasValidDoor(int nextID){
+	switch(state){
+	case STATE_MOVE_LEFT:{ // we are entering a door on the right
+		switch(nextID){ 
+		case LocationData::TILE_EAST:
+		case LocationData::TILE_NORTH_EAST:
+		case LocationData::TILE_SOUTH_EAST:{
+			return false; // cannot go through an east wall
+			break;
+		}
+		default:{
+			break; // we return at the end
+		}
+		}
+		break;
+	}
+	case STATE_MOVE_UP:{ // we are entering a door from below
+		switch(nextID){
+		case LocationData::TILE_SOUTH:
+		case LocationData::TILE_SOUTH_EAST:
+		case LocationData::TILE_SOUTH_WEST:{
+			return false; // cannot go through a south wall
+			break;
+		}
+		default:{
+			break; // we return at the end
+		}
+		}
+		break;
+	}
+	case STATE_MOVE_RIGHT:{ // we are entering from the left
+		switch(nextID){
+		case LocationData::TILE_NORTH_WEST:
+		case LocationData::TILE_SOUTH_WEST:
+		case LocationData::TILE_WEST:{
+			return false; // cannot go through a west wall
+			break;
+		}
+		default:{
+			break; // we return at the end
+		}
+		}
+		break;
+	}
+	case STATE_MOVE_DOWN:{ // we are entering from the top
+		switch(nextID){
+		case LocationData::TILE_NORTH:
+		case LocationData::TILE_NORTH_EAST:
+		case LocationData::TILE_NORTH_WEST:{
+			return false; // cannot go through a north wall
+			break;
+		}
+		default:{
+			break; // we return at the end
+		}
+		}
+		break;
+	}
+	default:{
+		activeText = "this is completely wrong";
+		break; // really we shouldnot be getting here at all
+	}
+	}
+	return true; // this is an acceptable room
+}
+
+bool Game::isThisAnEdgeNow(int chance){
+	if(getRandomNumber(0,100) < chance){
+		return true;
+	}
+	return false;
 }
 
 // @author Andre Allan Ponce
@@ -299,58 +398,52 @@ Floor* Game::makeFloor(int id){
 
 Location* Game::makeRoom(int id, int x, int y, int flor){
 	Location* loc = new Tile(id,x,y,flor); 
-	loc->createNewArray(locations.retrieveRoom(id));
-	setupDoors(loc,id);
-	int chance = getRandomNumber(0,100);
-	if(!isFinalDoorIn){
-		if(chance <= endGameCounter++){
-			loc->setFinalRoom(true);
-			isFinalDoorIn = true;
-			modeText = MenuText::MAP_FIND_KEYS;
-			finalRoomX = x;
-			finalRoomY = y;
-		}
-	}
-	if(chance < 10){
-		loc->addKey();
-	}
+	setupRoom(loc,id);
 	return loc;
+}
+
+void Game::makeStairs(Floor* floor, int id, int x, int y, bool isUp){
+	setupRoom(floor->createStairs(id,x,y,isUp),id);
 }
 
 // @author Andre Allan Ponce
 // moves the player on the x and y grid. invalid moving will be fixed probably.
 bool Game::movePlayer(int xMove, int yMove){
 	if(xMove >= 0 && yMove >= 0 && xMove < Floor::FLOOR_HEIGHT && yMove < Floor::FLOOR_WIDTH){
-		player->setBoardLocX(xMove);
-		player->setBoardLocY(yMove);
-		int currentPlayerFloor = player->get_current_floor();
-		if((*world)[currentPlayerFloor]->getLoc(xMove,yMove) == 0){
-			(*world)[currentPlayerFloor]->setLoc(createRandomRoom(xMove,yMove,currentPlayerFloor),xMove,yMove);
-			//world[playerFloor]->set_room_doors(xMove,yMove,true); // debug
-			// door setting should be done in the makeroom method
+		int currentPlayerFloor = player->getCurrentFloor();
+		if((*world)[currentPlayerFloor]->getLoc(xMove,yMove) == 0){ // if we are making a new room
+			createRandomRoom(xMove,yMove,currentPlayerFloor);
+			player->setCurrentX(xMove);
+			player->setCurrentY(yMove);
+			return true;
 		}
-		return true;
+
 	}
 	activeText = MenuText::INVALID_MOVE;
 	return false;
 }
 
 void Game::movePlayerFloor(){
-	if(player->get_current_floor() == -1){ // make a new floor
+	if(player->getCurrentFloor() == -1){ // make a new floor
 		player->set_current_floor(numberOfFloors);
-		int thisFloor = numberOfFloors;
-		world->push_back(makeFloor(numberOfFloors));
+		int thisFloor = numberOfFloors; // we still need to keep track of the previous floor (playerFloor)
+		world->push_back(makeFloor(numberOfFloors)); // auto increments numberOfFloors
 		int playerX = player->getBoardLocX();
 		int playerY = player->getBoardLocY();
-		(*world)[thisFloor]->createStairs(createRandomRoom(playerX,playerY,thisFloor),playerX,playerY,!arePreviousStairsUp(playerX,playerY,playerFloor));
+		bool up = arePreviousStairsUp(playerX,playerY,playerFloor); // true if we're going up
+		(*world)[thisFloor]->createStairs(tileIDRandomizer(playerX,playerY),playerX,playerY,!up); // create the stairs for this floor
+		connectStairs(playerFloor,thisFloor,up);
+		Location* nextStairs = (*world)[thisFloor]->getLoc(playerX,playerY);
+		setupRoom(nextStairs,nextStairs->getRoomID()); // setup the stairs on the next floor
+		playerFloor = thisFloor; // finally, adjust our record of the current floor
 	}
 	else{ // move to exisiting floor
-		playerFloor = player->get_current_floor();
+		playerFloor = player->getCurrentFloor();
 	}
 }
 
 void Game::pickUpItem(){
-	Location* loc = (*world)[player->get_current_floor()]->getLoc(player->getBoardLocX(),player->getBoardLocY());
+	Location* loc = (*world)[player->getCurrentFloor()]->getLoc(player->getBoardLocX(),player->getBoardLocY());
 	if(loc->getNumOfKeys() > Player::INVENTORY_MIN){
 		if(player->getInventory()->getNumKeys() < Player::INVENTORY_MAX){
 			player->addItem(loc->getItem(Item::ID_KEY));
@@ -380,6 +473,31 @@ void Game::preGameInit(){
 	state = STATE_EXPLORE;
 }
 
+void Game::prepareMovePlayer(){
+	switch(state){
+	case STATE_MOVE_LEFT:{ // decrement y
+		movePlayer(player->getCurrentX(),player->getCurrentY()-1);
+		break;
+	}
+	case STATE_MOVE_UP:{ // decrement x
+		movePlayer(player->getCurrentX()-1,player->getCurrentY());
+		break;
+	}
+	case STATE_MOVE_RIGHT:{ // increment y
+		movePlayer(player->getCurrentX(),player->getCurrentY()+1);
+		break;
+	}
+	case STATE_MOVE_DOWN:{ // increment x
+		movePlayer(player->getCurrentX()+1,player->getCurrentY());
+		break;
+	}
+	default:{
+		// we should never be going here because this method is only run when we have grid movement
+		break;
+	}
+	}
+}
+
 void Game::setupDoors(Location* loc, int id){
 	if(id != LocationData::TILE_NORTH || id != LocationData::TILE_NORTH_EAST || id != LocationData::TILE_NORTH_WEST){
 		loc->set_north_door(true);
@@ -395,11 +513,9 @@ void Game::setupDoors(Location* loc, int id){
 	}
 }
 
-bool Game::isThisAnEdgeNow(int chance){
-	if(getRandomNumber(0,100) < chance){
-		return true;
-	}
-	return false;
+void Game::setupRoom(Location* loc, int id){
+	loc->createNewArray(locations.retrieveRoom(id));
+	setupDoors(loc,id);
 }
 
 int Game::tileIDRandomizer(int x, int y){
@@ -537,6 +653,7 @@ void Game::runGame(){
 			modeText = MenuText::MAP_EXPLORE;
 			printHelp();
 			printGame();
+			old_state = STATE_PRE_GAME;
 			break;
 		}
 		case STATE_GAME_FINISH:{
@@ -559,6 +676,16 @@ void Game::runGame(){
 			}
 			break;
 		}
+		case STATE_MOVE_UP:
+		case STATE_MOVE_RIGHT:
+		case STATE_MOVE_DOWN:
+		case STATE_MOVE_LEFT:{
+			
+			break;
+		}
+		case STATE_MOVE_FLOOR:{
+
+		}
 		default:{
 			if(updateMap){
 				//printGamePartial();
@@ -572,7 +699,7 @@ void Game::runGame(){
 			activeText = "";
 			startTime = clock();
 			//Location* thisRoom = world[player][currY];
-			updateMap = getKeyInput(irInput.Event.KeyEvent.wVirtualKeyCode);
+			updateMap = getKeyInput(irInput.Event.KeyEvent.wVirtualKeyCode,old_state);
 			gameStates(old_state,updateMap,startTime);
 			break;
 		}

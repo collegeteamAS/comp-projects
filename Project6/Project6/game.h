@@ -6,6 +6,11 @@
 
 	2014-12-02
 	= organized code
+
+	2014-12-03
+	+ added helper methods for moving the player a floor
+	= revamped room creation
+	= adjusted state machine for efficieny and better room creation
 */
 
 #ifndef _GAME_H_INCLUDED_
@@ -30,10 +35,6 @@ private:
 	Player* player; // the player
 	//Player* monster; // the monster
 
-	int playerFloor;
-	// separate int that will hold player's previous floor for comparison after
-	// examine has been done on a stairTile
-
 	int numberOfFloors;
 	// how many floors we got
 
@@ -52,7 +53,7 @@ private:
 	// this room is where you supposed to drop the keys.
 	// not used in debug modes
 
-	bool isFinalDoorIn; // here is the end
+	bool isFinalDoorIn; // here is the end 
 	int finalRoomX; // the endgame x coord
 	int finalRoomY;  // the endgame room y coord
 
@@ -67,12 +68,18 @@ private:
 	@returns true if the stairs at (x,y) at Floor index floor were facing up, false if facing down
 	//*/
 
-	Location* createRandomRoom(int x, int y, int flor);
-	/*// creates a random room (which really isnt random since we only have one type of tile
+	void connectStairs(int previousFloor, int nextFloor, bool goingUp);
+	/*// connects two stairs 
+	@param previousFloor - the index of the floor we were on
+	@param nextFloor - the index of the floor we are going to
+	@param goingUp - true if we are going upStairs, false if down
+	//*/
+
+	void createRandomRoom(int x, int y, int flor);
+	/*// creates a random room, also decides if this is stairs or not
 	@param x - the x coordinate of the room to create
 	@param y - the y coordinate of the room to create
 	@param flor - the floor of the room to create
-	@return a pointer to the new location
 	//*/
 
 	void createWorld();
@@ -124,19 +131,35 @@ private:
 	@param startTime - clocking the time we started, used for debugging
 	//*/
 
-	bool getKeyInput(unsigned short key);
+	bool getKeyInput(unsigned short key, int& old_state);
 	/*// decides what we do based on input key
 	@param key - the key we pressed
+	@param old_state - the previous state of the program (copy of current state unless change occurs)
 	refer to http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx for key codes
 	@return true for updating the map, false if not
 	//*/
 
+	bool hasValidDoor(int nextID);
+	/*// checks if this tile is valid based on the current move state
+		This is only for NEW ROOMS. Regular room-room movement relies on the door setups
+	@param nextID - the id of the next room
+	@returns true if the next room fits the door setup witht he previus tile, false if not
+	//*/
+
+	bool isThisAnEdgeNow(int chance);
+	/*// simply decides to make edge using the givenchance
+	@param chance - the chance (out of 100) of this being an edge
+	@returns true if this becomes edge, false if not
+	//*/
+
 	Floor* makeFloor(int id); // id is the index of this floor
 	Location* makeRoom(int id, int x, int y, int flor);
+	void makeStairs(Floor* floor, int id, int x, int y, bool isUp);
 	bool movePlayer(int xMove, int yMove); // moves player on x and y grid
 	void movePlayerFloor();
 	void pickUpItem();
 	void preGameInit();
+	void prepareMovePlayer();
 
 	void setupDoors(Location* loc, int id);
 	/*// sets the door bools based on the id
@@ -144,10 +167,10 @@ private:
 	@param id - id of the room
 	//*/
 
-	bool isThisAnEdgeNow(int chance);
-	/*// simply decides to make edge using the givenchance
-	@param chance - the chance (out of 100) of this being an edge
-	@returns true if this becomes edge, false if not
+	void setupRoom(Location* loc, int id);
+	/*// fills a room's layout based on id, also sets the doors up
+	@param loc - pointer to room
+	@param id - the id of this room
 	//*/
 
 	int tileIDRandomizer(int x, int y);
@@ -174,6 +197,11 @@ public:
 		STATE_FINAL_DOOR = 2,
 		STATE_GAME_FINISH = 5,
 		STATE_GAME_FINSH_BAD = 6,
+		STATE_MOVE_UP = 7,
+		STATE_MOVE_RIGHT = 8,
+		STATE_MOVE_DOWN = 9,
+		STATE_MOVE_LEFT = 10,
+		STATE_MOVE_FLOOR = 11,
 
 		// STARTING FlOOR and ROOM
 		START_FLOOR = 0, // this should be the ground floor

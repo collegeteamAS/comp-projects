@@ -3,6 +3,13 @@
 	a_ponce1@u.pacific.edu
 	Floor contains the 2D array of locations the player can visit
 	2014-10-30
+
+	2014-12-03
+	+ createStairs method
+	+ added pointers to the up and down stairs
+	+ added variable and methods that keep track and retrieve the number of rooms on this floor
+	= rewrite createStairs method to return a Location pointer to the new stairs
+	+ added method to sync doors based on coordinates
 //*/
 #ifndef _FLOOR_H_INCLUDED_
 #define _FLOOR_H_INCLUDED_
@@ -20,6 +27,8 @@ private:
 
 	char** map;
 	// A map of the tiles surrounding player
+
+	int numberOfCreatedRooms; // how many rooms do we have?
 
 	int mapHeight;
 	int mapWidth;
@@ -79,8 +88,10 @@ public:
 		// all required rooms should spawn by this point
 
 		FLOOR_HEIGHT = 30,
-		FLOOR_WIDTH = 30
+		FLOOR_WIDTH = 30,
 		
+		// this is the cutoff for creating stairs
+		STAIRS_GENERATION_THRESHOLD = 50
 	};
 
 	Floor(int idNum);
@@ -90,7 +101,7 @@ public:
 	void createMap();
 
 	// stairs;
-	void createStairs(int idNum, int x, int y, bool isUp);
+	Location* createStairs(int idNum, int x, int y, bool isUp);
 
 	int getID();
 	Location* getLoc(int x, int y);
@@ -104,6 +115,8 @@ public:
 	@return the string representation of this map
 	//*/
 
+	int getNumberOfCreatedRooms(); 
+
 	int getStairCount();
 	/*// gets and increments the stair counter
 	@returns the current Stair Counter value and post-increments it
@@ -112,11 +125,15 @@ public:
 	StairsTile* getStairsDown();
 	StairsTile* getStairsUp();
 
+	bool hasStairsDown();
+	bool hasStairsUp();
+	bool isValidRoom(int x, int y);
+
 	//Coord_List* getMapPartial(int x, int y, char sym);
 	// unused
 
 	void setID(int idNum); // we probably dont need this
-	void setLoc(Location* loc, int x, int y);
+	void setLoc(Location* loc, int x, int y); // automatically increments the number of Rooms
 
 	void set_room_doors(int x, int y, bool value);
 	/*// sets the Location's doors at x,y to value
@@ -124,6 +141,12 @@ public:
 	@param x - the x coordinate of the room to change doors
 	@param y - the y coordinate of the room to change doors
 	@param value - the value to change the location's doors
+	//*/
+
+	void syncDoors(int x, int y);
+	/*// syncs the doors around the room given at the coordinates
+	@param x - the x coordinate of the room to sync doors
+	@param y - the y coordinate of the room to sync doors
 	//*/
 };
 

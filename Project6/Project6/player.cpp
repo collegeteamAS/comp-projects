@@ -16,7 +16,8 @@ Player::Player() :
 	xBoard(-1), 
 	yBoard(-1),
 	inventory(0),
-	curr_floor(-1){
+	floorPrevious(-1),
+	floorCurrent(-1){
 	clearMessages();
 }
 
@@ -26,7 +27,18 @@ Player::Player(char sym) :
 	xBoard(-1), 
 	yBoard(-1),
 	inventory(0),
-	curr_floor(-1){
+	floorPrevious(-1),
+	floorCurrent(-1){
+	clearMessages();
+}
+
+Player::Player(char sym, int xLocation, int yLocation, int floorLocation) :
+	symbol(sym),
+	xBoard(xLocation),
+	yBoard(yLocation),
+	inventory(0),
+	floorPrevious(floorLocation),
+	floorCurrent(floorLocation){
 	clearMessages();
 }
 
@@ -56,18 +68,16 @@ void Player::deleteInventory(){
 	}
 }
 
-// @author Andre Allan Ponce
-int Player::getBoardLocX(){
+int Player::getCurrentFloor(){
+	return floorCurrent;
+}
+
+int Player::getCurrentX(){
 	return xBoard;
 }
 
-// @author Andre Allan Ponce
-int Player::getBoardLocY(){
+int Player::getCurrentY(){
 	return yBoard;
-}
-
-int Player::get_current_floor(){
-	return curr_floor;
 }
 
 LinkedList* Player::getInventory(){
@@ -91,6 +101,10 @@ std::string Player::getMessages(){
 	return message;
 }
 
+int Player::getPreviousFloor(){
+	return floorPrevious;
+}
+
 // @author Andre Allan Ponce
 char Player::getSymbol(){
 	return symbol;
@@ -100,18 +114,16 @@ Node* Player::removeItem(int id){
 	return inventory->remove_node(id);
 }
 
-// @author Andre Allan Ponce
-void Player::setBoardLocX(int x){
+void Player::setCurrentFloor(int floor){
+	floorCurrent = floor;
+}
+
+void Player::setCurrentX(int x){
 	xBoard = x;
 }
 
-// @author Andre Allan Ponce
-void Player::setBoardLocY(int y){
+void Player::setCurrentY(int y){
 	yBoard = y;
-}
-
-void Player::set_current_floor(int floor){
-	curr_floor = floor;
 }
 
 bool Player::setMessageIn(int slot, std::string line){
@@ -120,4 +132,12 @@ bool Player::setMessageIn(int slot, std::string line){
 		return true;
 	}
 	return false;
+}
+
+void Player::setPreviousFloor(int floor){
+	floorPrevious = floor;
+}
+
+void Player::updateFloor(){
+	floorPrevious = floorCurrent;
 }

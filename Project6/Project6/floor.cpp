@@ -15,6 +15,7 @@ Floor::Floor(int idNum) :
 	floor(0),
 	map(0),
 	upStairs(0),
+	numberOfCreatedRooms(0),
 	downStairs(0),
 	mapHeight(Tile::TILE_HEIGHT*(MAP_TILES_VISIBLE*2+1)),
 	mapWidth(Tile::TILE_WIDTH*(MAP_TILES_VISIBLE*2+1)),
@@ -93,7 +94,7 @@ void Floor::drawMapPartial(int x, int y, char sym, Coord_List* list){
 }
 //*/
 void Floor::drawRoom(int startX, int startY, int x, int y, char sym){
-	if(x < 0 || y < 0 || floor[x][y] == 0 || x >= FLOOR_HEIGHT || y >= FLOOR_WIDTH){
+	if(isValidRoom(x,y)){
 		drawRoomBlank(startX,startY);
 	}
 	else{
@@ -187,7 +188,7 @@ void Floor::createMap(){
 	}
 }
 
-void Floor::createStairs(int idNum, int x, int y, bool isUp){
+Location* Floor::createStairs(int idNum, int x, int y, bool isUp){
 	StairsTile* stairs = new StairsTile(idNum,x,y,id,isUp);
 	Location* loc = &(*stairs); // can we set base pointers = to derived pointers?
 	if(isUp){
@@ -197,6 +198,7 @@ void Floor::createStairs(int idNum, int x, int y, bool isUp){
 		downStairs = stairs;
 	}
 	setLoc(loc,x,y);
+	return loc;
 }
 
 int Floor::getID(){
@@ -230,6 +232,10 @@ std::string Floor::getNewMap(int x, int y, char sym){
 	return getMap();
 }
 
+int Floor::getNumberOfCreatedRooms(){
+	return numberOfCreatedRooms;
+}
+
 int Floor::getStairCount(){
 	return stairCounter++;
 }
@@ -242,12 +248,28 @@ StairsTile* Floor::getStairsUp(){
 	return upStairs;
 }
 
+bool Floor::hasStairsDown(){
+	return downStairs != 0;
+}
+
+bool Floor::hasStairsUp(){
+	return upStairs != 0;
+}
+
+bool Floor::isValidRoom(int x, int y){
+	if(x < 0 || y < 0 || x >= FLOOR_HEIGHT || y >= FLOOR_WIDTH || floor[x][y] == 0){
+		return false;
+	}
+	return true;
+}
+
 void Floor::setID(int idNum){
 	id = idNum;
 }
 
 void Floor::setLoc(Location* loc, int x, int y){
 	floor[x][y] = loc;
+	numberOfCreatedRooms++;
 }
 
 void Floor::set_room_doors(int x, int y, bool value){
@@ -255,4 +277,37 @@ void Floor::set_room_doors(int x, int y, bool value){
 	floor[x][y]->set_north_door(value);
 	floor[x][y]->set_south_door(value);
 	floor[x][y]->set_west_door(value);
+}
+
+void Floor::syncDoors(int x, int y){
+	Location* thisRoom = floor[x][y];
+	Location* checkRoom;
+	if(isValidRoom(x,y-1)){ // checks room west of this room
+		checkRoom = floor[x][y-1];
+		if(checkRoom->get_east_door() != thisRoom->get_west_door()){
+			checkRoom->set_east_door(false);
+			thisRoom->set_west_door(false);
+		}
+	}
+	if(isValidRoom(x-1,y)){ // checks room north of this room
+		checkRoom = floor[x-1][y];
+		if(checkRoom->get_south_door() != thisRoom->get_north_door()){
+			checkRoom->set_south_door(false);
+			thisRoom->set_north_door(false);
+		}
+	}
+	if(isValidRoom(x,y+1)){ // checks room east of this room
+		checkRoom = floor[x][y+1];
+		if(checkRoom->get_west_door() != thisRoom->get_east_door()){
+			checkRoom->set_west_door(false);
+			thisRoom->set_east_door(false);
+		}
+	}
+	if(isValidRoom(x+1,y)){ // checks room south of this room
+		checkRoom = floor[x+1][y];
+		if(checkRoom->get_north_door() != thisRoom->get_south_door()){
+			checkRoom->set_north_door(false);
+			thisRoom->set_south_door(false);
+		}
+	}
 }
