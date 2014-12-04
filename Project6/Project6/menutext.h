@@ -16,6 +16,7 @@ public:
 	static const string ERROR_NO_ROOM_ITEMS;
 
 	static const string FLOOR_BASEMENT_PREFIX;
+	static const string FLOOR_GROUND;
 	static const string FLOOR_NUMBER_PREFIX;
 	static const string FLOOR_NUMBER_SUFFIX;
 
@@ -23,7 +24,9 @@ public:
 	static const string GAME_WINNER;
 
 	static const string INVALID_MENU_CHOICE;
-	static const string INVALID_MOVE;
+	static const string INVALID_MOVE_EDGE;
+	static const string INVALID_MOVE_FAKE_DOOR;
+	static const string INVALID_MOVE_WALL;
 
 	static const string MAP_EDGE_BOTTOM;
 	static const string MAP_EXPLORE;
@@ -44,6 +47,7 @@ public:
 	static const string TILE_EXIT_ACTION;
 	static const string TILE_EXIT_NOT_ENOUGH_KEYS;
 	static const string TILE_KEY_ACTION;
+	static const string TILE_KEY_EXAMINE;
 	static const string TILE_NO_ACTION;
 	static const string TILE_NOTHING_TO_EXAMINE;
 	static const string TILE_STAIRS_ACTION;

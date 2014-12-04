@@ -42,7 +42,7 @@ void StairsTile::createNewArray(char*** room){
 
 void StairsTile::examine(Player* p){
 	p->setCurrentFloor(getNextFloor());
-	p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_STAIRS_MOVE);
+	p->setMessageIn(Player::MESSAGE_SLOT_ACTION,MenuText::TILE_STAIRS_MOVE);
 }
 
 int StairsTile::getNextFloor(){

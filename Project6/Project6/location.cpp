@@ -21,6 +21,7 @@ Location::Location() :
 	symbol('d'),
 	items(0),
 	endGame(false),
+	visited(false),
 	has_east_door(false),
 	has_north_door(false),
 	has_south_door(false),
@@ -38,6 +39,7 @@ Location::Location(int idNum, int xCoord, int yCoord, int floor, char sym) :
 	symbol(sym),
 	items(0),
 	endGame(false),
+	visited(false),
 	has_east_door(false),
 	has_north_door(false),
 	has_south_door(false),
@@ -120,6 +122,10 @@ void Location::setFinalRoom(bool value){
 // @author Andre Allan Ponce
 void Location::setRoomID(int idNum){
 	id = idNum;
+}
+
+void Location::visit(){
+	visited = true;
 }
 
 void Location::set_east_door(bool value){

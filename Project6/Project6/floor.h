@@ -10,6 +10,10 @@
 	+ added variable and methods that keep track and retrieve the number of rooms on this floor
 	+ added method to sync doors based on coordinates
 	= rewrite createStairs method to return a Location pointer to the new stairs
+
+	2014-12-04
+	 - removed sync doors. unsynced doors allows us to display fake door messages
+		detecting the correct doors is given trough canMove* methods in game
 //*/
 #ifndef _FLOOR_H_INCLUDED_
 #define _FLOOR_H_INCLUDED_
@@ -42,8 +46,6 @@ private:
 	// id of this floor
 	// the index of where this floor is at in game vector
 	int id;
-
-	int floorNumber; // what is this floor relative to the start (ground floor)
 
 	// Floordinates!
 	StairsTile* upStairs;
@@ -153,8 +155,9 @@ public:
 	@param value - the value to change the location's doors
 	//*/
 
+	/*
 	void syncDoors(int x, int y);
-	/*// syncs the doors around the room given at the coordinates
+	 syncs the doors around the room given at the coordinates
 	@param x - the x coordinate of the room to sync doors
 	@param y - the y coordinate of the room to sync doors
 	//*/

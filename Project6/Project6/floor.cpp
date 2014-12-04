@@ -278,7 +278,7 @@ void Floor::set_room_doors(int x, int y, bool value){
 	floor[x][y]->set_south_door(value);
 	floor[x][y]->set_west_door(value);
 }
-
+/*// useful, but we dont need anymore
 void Floor::syncDoors(int x, int y){
 	Location* thisRoom = floor[x][y];
 	Location* checkRoom;
@@ -311,3 +311,4 @@ void Floor::syncDoors(int x, int y){
 		}
 	}
 }
+//*/

@@ -57,7 +57,7 @@ public:
 
 		// message slots
 		MESSAGE_SLOT_OBJECTIVE = 0,
-		MESSAGE_SLOT_ACTION = 2,
+		MESSAGE_SLOT_ACTION = 1,
 		MESSAGE_SLOT_INFORMATION = 2,
 
 		// Player floor id 

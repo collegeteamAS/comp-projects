@@ -95,6 +95,39 @@ bool Game::canMoveFrom(int x, int y){
 	return false;
 }
 
+bool Game::canMoveTo(int x, int y){
+	switch(state){
+	case STATE_MOVE_LEFT:{ // we enter this room from the east
+		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_east_door()){ // if this is open
+			return true;
+		}
+		break;
+	}
+	case STATE_MOVE_UP:{ // we enter this room from the south
+		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_south_door()){
+			return true;
+		}
+		break;
+	}
+	case STATE_MOVE_RIGHT:{ // we enter this room from the west
+		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_west_door()){
+			return true;
+		}
+		break;
+	}
+	case STATE_MOVE_DOWN:{ // we enter this room from the north
+		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_north_door()){
+			return true;
+		}
+		break;
+	}
+	default:{ // we should not be going here
+		break;
+	}
+	}
+	return false;
+}
+
 void Game::connectStairs(int previousFloor, int nextFloor, bool goingUp){
 	StairsTile* previous;
 	StairsTile* next;
@@ -122,16 +155,16 @@ void Game::createRandomRoom(int x, int y, int flor){
 	if(currentFloor->getNumberOfCreatedRooms() >= Floor::STAIRS_GENERATION_THRESHOLD /*&& *chance < currentFloor->getStairCount()*/){
 		if(!currentFloor->hasStairsUp()){
 			makeStairs(currentFloor,id,x,y,true);
+			return;
 		}
 		else if(!currentFloor->hasStairsDown()){
 			makeStairs(currentFloor,id,x,y,false);
+			return;
 		}
 	}
-	else{
-		Location* loc = makeRoom(id,x,y,flor);
-		if(chance < 10){
-			loc->addKey(); // these have 0 purpose rightnow
-		}
+	Location* loc = makeRoom(id,x,y,flor);
+	if(chance < 10){
+		loc->addKey(); // these have 0 purpose rightnow
 	}
 }
 
@@ -170,11 +203,11 @@ void Game::dropOffItem(){
 			loc->addItem(player->getInventory()->remove_node(Item::ID_KEY));
 		}
 		else{
-			activeText = MenuText::ERROR_NO_ROOM;
+			player->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::ERROR_NO_ROOM);
 		}
 	}
 	else{
-		activeText = MenuText::ERROR_NO_ITEMS;
+		player->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::ERROR_NO_ITEMS);
 	}
 }
 
@@ -451,17 +484,27 @@ void Game::makeStairs(Floor* floor, int id, int x, int y, bool isUp){
 // moves the player on the x and y grid. invalid moving will be fixed probably.
 bool Game::movePlayer(int xMove, int yMove){
 	if(xMove >= 0 && yMove >= 0 && xMove < Floor::FLOOR_HEIGHT && yMove < Floor::FLOOR_WIDTH){
-		if(canMoveFrom(player->getCurrentX(),player->getCurrentY())){
-			int currentPlayerFloor = player->getCurrentFloor();
-			if((*world)[currentPlayerFloor]->getLoc(xMove,yMove) == 0){ // if we are making a new room
-				createRandomRoom(xMove,yMove,currentPlayerFloor);
+		if((*world)[player->getCurrentFloor()]->getLoc(xMove,yMove) == 0){
+			if(canMoveFrom(player->getCurrentX(),player->getCurrentY())){
+				createRandomRoom(xMove,yMove,player->getCurrentFloor());
+				player->setCurrentX(xMove);
+				player->setCurrentY(yMove);
+				return true;
 			}
+			player->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::INVALID_MOVE_WALL);
+			return false;
+		}
+		else if(canMoveFrom(player->getCurrentX(),player->getCurrentY()) != canMoveTo(xMove,yMove)){
+			player->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::INVALID_MOVE_FAKE_DOOR);
+			return false;
+		}
+		else if(canMoveFrom(player->getCurrentX(),player->getCurrentY()) == true && canMoveTo(xMove,yMove) == true){
 			player->setCurrentX(xMove);
 			player->setCurrentY(yMove);
 			return true;
 		}
 	}
-	player->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::INVALID_MOVE);
+	player->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::INVALID_MOVE_EDGE);
 	return false;
 }
 
@@ -477,8 +520,10 @@ void Game::movePlayerFloor(){
 		
 		world->push_back(makeFloor(thisFloor)); // auto increments numberOfFloorsgoing up
 		makeStairs((*world)[thisFloor],tileIDRandomizer(playerX,playerY),playerX,playerY,!up);
+
 		connectStairs(previousFloor,thisFloor,up);
 		player->setPreviousFloor(thisFloor);
+		(*world)[thisFloor]->getLoc(playerX,playerY)->visit();
 	}
 	else{ // move to exisiting floor
 		player->setPreviousFloor(player->getCurrentFloor());
@@ -486,12 +531,15 @@ void Game::movePlayerFloor(){
 	int floorNumber = player->getFloorNumber();
 	stringstream str;
 	if(floorNumber < 0){
-		str << MenuText::FLOOR_BASEMENT_PREFIX << abs(floorNumber);
+		str << MenuText::FLOOR_NUMBER_PREFIX << MenuText::FLOOR_BASEMENT_PREFIX << abs(floorNumber) << MenuText::FLOOR_NUMBER_SUFFIX;
+	}
+	else if(floorNumber == 0){
+		str << MenuText::FLOOR_GROUND;
 	}
 	else{
-		str << floorNumber;
+		str <<  MenuText::FLOOR_NUMBER_PREFIX << floorNumber << MenuText::FLOOR_NUMBER_SUFFIX;
 	}
-	player->setMessageIn(Player::MESSAGE_SLOT_ACTION,MenuText::FLOOR_NUMBER_PREFIX+str.str()+MenuText::FLOOR_NUMBER_SUFFIX); 
+	player->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,str.str()); 
 }
 
 void Game::movePlayerFloorNumber(bool up){
@@ -573,7 +621,7 @@ void Game::setupDoors(Location* loc, int id){
 void Game::setupRoom(Location* loc, int id){
 	loc->createNewArray(locations.retrieveRoom(id));
 	setupDoors(loc,id);
-	(*world)[loc->getFloorID()]->syncDoors(loc->getCoordinateX(),loc->getCoordinateY());
+	//(*world)[loc->getFloorID()]->syncDoors(loc->getCoordinateX(),loc->getCoordinateY());
 }
 
 int Game::tileIDRandomizer(int x, int y){
@@ -748,6 +796,7 @@ void Game::runGame(){
 			break;
 		}
 		default:{
+			gameStates(old_state,updateMap,startTime);
 			if(updateMap){
 				//printGamePartial();
 				//std::cout << "even\n";
@@ -761,7 +810,6 @@ void Game::runGame(){
 			startTime = clock();
 			//Location* thisRoom = world[player][currY];
 			updateMap = getKeyInput(irInput.Event.KeyEvent.wVirtualKeyCode,old_state);
-			gameStates(old_state,updateMap,startTime);
 			break;
 		}
 		}

@@ -18,7 +18,7 @@ private:
 	void deleteItems();
 
 protected:
-	bool visited; // really not used
+	bool visited; 
 
 	bool endGame; // is this room the endGame room? used for debugging
 
@@ -71,6 +71,7 @@ public:
 	bool isFinalRoom(); // for debug
 	virtual void setFinalRoom(bool value);
 	void setRoomID(int idNum);
+	virtual void visit();
 
 	// setting the doors
 	void set_east_door(bool value);

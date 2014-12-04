@@ -3,16 +3,6 @@
 	a_ponce1@u.pacific.edu
 	2014-10-30
 	this holds the layouts for the tiles
-
-	2014-12-03
-	+ added the rules for tile creation
-
-	##==================================================
-	## TILE CREATION:
-	## When the player moves a direction, only 6/9 tiles are valid tiles 
-	## for the next room. Thus, randomization is actually 3 less than the
-	## total number of tiles. 
-	##
 */
 
 #ifndef _LOCATIONDATA_H_INCLUDED_

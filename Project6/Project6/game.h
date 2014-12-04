@@ -70,11 +70,18 @@ private:
 	//*/
 
 	bool canMoveFrom(int x, int y);
-	/*// checks if the player can move From these coordinates
-		PRE-CONDITION: floor[x][y] != 0;
+	/*// checks if the player can move from these coordinates
 	@param x - the x coordinate to move from
 	@param y - the y coordinate to move from
 	@returns true if the player can move from here, false if not
+	//*/
+
+	bool canMoveTo(int x, int y);
+	/*// checks if the player can move to these coordinates
+		PRE-CONDITION: floor[x][y] != 0;
+	@param x - the x coordinate to move to
+	@param y - the y coordinate to move to
+	@returns true if the player to here, false if not
 	//*/
 
 	void connectStairs(int previousFloor, int nextFloor, bool goingUp);
@@ -84,6 +91,18 @@ private:
 	@param goingUp - true if we are going upStairs, false if down
 	//*/
 
+	/*//
+		##==============================================================##
+		## TILE CREATION:												##
+		## When the player moves a direction, only a certain number of	##
+		## tiles are valid tiles for the next room, since some tiles	##
+		## have blocked doors. Thus, randomization is actually 3 less	##
+		## than the total number of tiles.								##
+		## If generateRandomNumber returns a tile that is invalid,		##
+		## the tile is automatically forced into a basic, open tile		##
+		## ( all doors are open )										##
+		##==============================================================##
+	//*/
 	void createRandomRoom(int x, int y, int flor);
 	/*// creates a random room, also decides if this is stairs or not
 	@param x - the x coordinate of the room to create

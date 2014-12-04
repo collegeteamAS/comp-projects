@@ -111,7 +111,12 @@ char*** Tile::draw(){
 }
 
 void Tile::examine(Player* p){
-	p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_NOTHING_TO_EXAMINE);
+	if(hasKey){
+		p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_KEY_EXAMINE);
+	}
+	else{
+		p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_NOTHING_TO_EXAMINE);
+	}
 }
 
 Node* Tile::getItem(int id){
