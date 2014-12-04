@@ -8,8 +8,8 @@
 	+ createStairs method
 	+ added pointers to the up and down stairs
 	+ added variable and methods that keep track and retrieve the number of rooms on this floor
-	= rewrite createStairs method to return a Location pointer to the new stairs
 	+ added method to sync doors based on coordinates
+	= rewrite createStairs method to return a Location pointer to the new stairs
 //*/
 #ifndef _FLOOR_H_INCLUDED_
 #define _FLOOR_H_INCLUDED_
@@ -42,6 +42,8 @@ private:
 	// id of this floor
 	// the index of where this floor is at in game vector
 	int id;
+
+	int floorNumber; // what is this floor relative to the start (ground floor)
 
 	// Floordinates!
 	StairsTile* upStairs;
@@ -102,6 +104,14 @@ public:
 
 	// stairs;
 	Location* createStairs(int idNum, int x, int y, bool isUp);
+	/*// create the Stairs according to isUp
+		This also sets the corresponding upStairs, downStairs pointer accordingly
+	@param idNum - the id of this Location
+	@param x - the x coordinate of these stairs
+	@param y - the y coordinate of these stairs
+	@param isUp - true if these stairs face up, false if down
+	@returns Location pointer to these stairs
+	//*/
 
 	int getID();
 	Location* getLoc(int x, int y);

@@ -15,7 +15,6 @@ h_suh@u.pacific.edu
 #include <time.h>
 #include "game.h"
 
-
 int main(){
 	
 	srand(time(0)); // fallback in case random_device no work

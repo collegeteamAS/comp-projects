@@ -8,6 +8,7 @@
 #include "node.h"
 #include "item.h"
 #include "key.h"
+#include "menutext.h"
 
 Tile::Tile(int idNum, int xCoord, int yCoord, int floor, char sym) : Location(idNum,xCoord,yCoord,floor,sym), 
 	hasKey(false),
@@ -68,7 +69,12 @@ void Tile::addExistingKey(Item* key){
 // ==== public methods ====
 
 void Tile::action(Player* p){
-	// add a message to player
+	if(hasKey){
+		p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_KEY_ACTION);
+	}
+	else if(!visited){
+		p->setMessageIn(Player::MESSAGE_SLOT_ACTION,MenuText::TILE_NO_ACTION);
+	}
 }
 
 void Tile::addKey(){
@@ -102,7 +108,7 @@ char*** Tile::draw(){
 }
 
 void Tile::examine(Player* p){
-	// tell player nothing to examine
+	p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_NOTHING_TO_EXAMINE);
 }
 
 Node* Tile::getItem(int id){

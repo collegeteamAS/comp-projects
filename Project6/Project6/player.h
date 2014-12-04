@@ -8,10 +8,11 @@
 	+ added methods for clearing messages, getting messages, and setting messages
 
 	2014-12-03
-	= renamed curr_floor to floorCurrent for clairty
-	= renamed approparite current floor methods to camelCase versions for clarity
 	+ added constructor for creating Player with known board locations 
 	+ added variable and methods for storing and retreiving the player's previous floor
+	+ added variable and get method to keep track of this floor relative to ground
+	= renamed curr_floor to floorCurrent for clairty
+	= renamed approparite current floor methods to camelCase versions for clarity
 */
 #ifndef _PLAYER_H_INCLUDED_
 #define _PLAYER_H_INCLUDED_
@@ -35,6 +36,8 @@ private:
 	// the previous floor
 	int floorPrevious;
 
+	int floorNumber; // what floor the player is on relative to ground (START_FLOOR)
+
 	// players items
 	LinkedList* inventory;
 
@@ -47,8 +50,19 @@ private:
 
 public:
 	enum Constants{
+		PLAYER_SYMBOL = 'O',
+
 		INVENTORY_MAX = 3,
 		INVENTORY_MIN = 0,
+
+		// message slots
+		MESSAGE_SLOT_OBJECTIVE = 0,
+		MESSAGE_SLOT_ACTION = 2,
+		MESSAGE_SLOT_INFORMATION = 2,
+
+		// Player floor id 
+		IS_AT_END_GAME = -2,
+		IS_ON_NEW_FLOOR = -1
 	};
 
 	Player();
@@ -64,17 +78,21 @@ public:
 	int getCurrentFloor();
 	int getCurrentX();
 	int getCurrentY();
+	void goDownFloor();
+	int getFloorNumber();
 	LinkedList* getInventory();
 	std::string getMessageIn(int slot); // does NOT return newline
 	std::string getMessages(); // RETURNS newline
 	int getPreviousFloor();
 	char getSymbol();
+	void goUpFloor();
 
 	Node* removeItem(int id);
 
 	void setCurrentFloor(int floor);
 	void setCurrentX(int x);
 	void setCurrentY(int y);
+	void setFloorNumber(int floor);
 	bool setMessageIn(int slot, std::string line); // NEVER set message with newline
 	// @returns true if message set was successful, false if out of bounds
 	void setPreviousFloor(int floor);

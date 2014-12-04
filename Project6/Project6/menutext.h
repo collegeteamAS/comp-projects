@@ -15,6 +15,10 @@ public:
 	static const string ERROR_NO_ROOM;
 	static const string ERROR_NO_ROOM_ITEMS;
 
+	static const string FLOOR_BASEMENT_PREFIX;
+	static const string FLOOR_NUMBER_PREFIX;
+	static const string FLOOR_NUMBER_SUFFIX;
+
 	static const string GAME_QUIT;
 	static const string GAME_WINNER;
 
@@ -34,4 +38,15 @@ public:
 	static const string PLAYER_INVENTORY_KEY_2;
 	static const string PLAYER_INVENTORY_KEY_3;
 	static const string PLAYER_INVENTORY_SLOTS;
+	static const string PLAYER_MESSAGE_BLANK;
+	static const string PLAYER_MESSAGE_INVALID_SLOT;
+
+	static const string TILE_EXIT_ACTION;
+	static const string TILE_EXIT_NOT_ENOUGH_KEYS;
+	static const string TILE_KEY_ACTION;
+	static const string TILE_NO_ACTION;
+	static const string TILE_NOTHING_TO_EXAMINE;
+	static const string TILE_STAIRS_ACTION;
+	static const string TILE_STAIRS_MOVE;
+
 };

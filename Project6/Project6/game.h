@@ -9,6 +9,7 @@
 
 	2014-12-03
 	+ added helper methods for moving the player a floor
+	+ added even more methods for creating room more efficiently
 	= revamped room creation
 	= adjusted state machine for efficieny and better room creation
 */
@@ -68,6 +69,14 @@ private:
 	@returns true if the stairs at (x,y) at Floor index floor were facing up, false if facing down
 	//*/
 
+	bool canMoveTo(int x, int y);
+	/*// checks if the player can move to these coordinates
+		PRE-CONDITION: floor[x][y] != 0;
+	@param x - the x coordinate to move to
+	@param y - the y coordinate to move to
+	@returns true if the player can move here, false if not
+	//*/
+
 	void connectStairs(int previousFloor, int nextFloor, bool goingUp);
 	/*// connects two stairs 
 	@param previousFloor - the index of the floor we were on
@@ -112,12 +121,12 @@ private:
 	@returns id of acceptable room
 	//*/
 
-	void examine();
+	void examine(int& old_state);
 	/*// activated when the player hits e key
 		this should call the examine method of the current room
 	//*/
 
-	void examineResults();
+	void examineResults(int& old_state);
 	/*// checks status of player and adjusts game if necessary
 		cases:
 			moving player to different floor
@@ -157,6 +166,7 @@ private:
 	void makeStairs(Floor* floor, int id, int x, int y, bool isUp);
 	bool movePlayer(int xMove, int yMove); // moves player on x and y grid
 	void movePlayerFloor();
+	void movePlayerFloorNumber(bool up); // if we go up, up is true
 	void pickUpItem();
 	void preGameInit();
 	void prepareMovePlayer();
@@ -168,7 +178,7 @@ private:
 	//*/
 
 	void setupRoom(Location* loc, int id);
-	/*// fills a room's layout based on id, also sets the doors up
+	/*// fills a room's layout based on id, also sets the doors up, also syncs the doors accordingly
 	@param loc - pointer to room
 	@param id - the id of this room
 	//*/
@@ -188,7 +198,6 @@ private:
 
 public:
 	enum Constants{
-		PLAYER_SYMBOL = 'O',
 
 		// STATE MACHINE
 		STATE_WAIT = -1,

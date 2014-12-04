@@ -5,6 +5,7 @@
 
 #include "tile_stairs.h"
 #include "player.h"
+#include "menutext.h"
 
 StairsTile::StairsTile(int idNum, int xCoord, int yCoord, int floor, bool isUp) : Tile(idNum,xCoord,yCoord,floor,EMPTY_SPACE),
 	connectedStairs(0){
@@ -25,7 +26,12 @@ void StairsTile::changeStairs(bool isUp){
 // ==== public methods ====
 
 void StairsTile::action(Player* p){
-	// add message to player
+	if(!visited){
+		p->setMessageIn(Player::MESSAGE_SLOT_ACTION,MenuText::TILE_STAIRS_ACTION);
+	}
+	if(hasKey){
+		p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_KEY_ACTION);
+	}
 }
 
 void StairsTile::createNewArray(char*** room){
@@ -34,8 +40,8 @@ void StairsTile::createNewArray(char*** room){
 }
 
 void StairsTile::examine(Player* p){
-	p->set_current_floor(getNextFloor());
-	// add message to player if we cant do that
+	p->setCurrentFloor(getNextFloor());
+	p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_STAIRS_MOVE);
 }
 
 int StairsTile::getNextFloor(){

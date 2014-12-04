@@ -3,6 +3,8 @@
 #ifndef _LINKEDLIST_H_INCLUDED_
 #define _LINKEDLIST_H_INCLUDED_
 
+#include <string>
+
 class Node;
 
 class LinkedList

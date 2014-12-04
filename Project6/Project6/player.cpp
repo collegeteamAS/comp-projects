@@ -8,6 +8,7 @@
 #include "player.h"
 #include "linkedList.h"
 #include "node.h"
+#include "menutext.h"
 
 
 // @author Andre Allan Ponce
@@ -17,6 +18,7 @@ Player::Player() :
 	yBoard(-1),
 	inventory(0),
 	floorPrevious(-1),
+	floorNumber(-1),
 	floorCurrent(-1){
 	clearMessages();
 }
@@ -28,6 +30,7 @@ Player::Player(char sym) :
 	yBoard(-1),
 	inventory(0),
 	floorPrevious(-1),
+	floorNumber(-1),
 	floorCurrent(-1){
 	clearMessages();
 }
@@ -38,6 +41,7 @@ Player::Player(char sym, int xLocation, int yLocation, int floorLocation) :
 	yBoard(yLocation),
 	inventory(0),
 	floorPrevious(floorLocation),
+	floorNumber(floorLocation),
 	floorCurrent(floorLocation){
 	clearMessages();
 }
@@ -54,7 +58,7 @@ void Player::addItem(Node* item){
 
 void Player::clearMessages(){
 	for(int i = 0; i < MESSAGE_SLOTS; i++){
-		messages[i] = "";
+		messages[i] = MenuText::PLAYER_MESSAGE_BLANK;
 	}
 }
 
@@ -80,6 +84,14 @@ int Player::getCurrentY(){
 	return yBoard;
 }
 
+void Player::goDownFloor(){
+	--floorNumber;
+}
+
+int Player::getFloorNumber(){
+	return floorNumber;
+}
+
 LinkedList* Player::getInventory(){
 	return inventory;
 }
@@ -89,7 +101,7 @@ std::string Player::getMessageIn(int slot){
 		return messages[slot];
 	}
 	else{
-		return " bad mesage"; // replace with MenuText variant
+		return MenuText::PLAYER_MESSAGE_INVALID_SLOT; // replace with MenuText variant
 	}
 }
 
@@ -110,6 +122,10 @@ char Player::getSymbol(){
 	return symbol;
 }
 
+void Player::goUpFloor(){
+	++floorNumber;
+}
+
 Node* Player::removeItem(int id){
 	return inventory->remove_node(id);
 }
@@ -124,6 +140,10 @@ void Player::setCurrentX(int x){
 
 void Player::setCurrentY(int y){
 	yBoard = y;
+}
+
+void Player::setFloorNumber(int floor){
+	floorNumber = floor;
 }
 
 bool Player::setMessageIn(int slot, std::string line){
