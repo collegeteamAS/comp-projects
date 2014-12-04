@@ -69,11 +69,14 @@ void Tile::addExistingKey(Item* key){
 // ==== public methods ====
 
 void Tile::action(Player* p){
-	if(hasKey){
-		p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_KEY_ACTION);
-	}
-	else if(!visited){
-		p->setMessageIn(Player::MESSAGE_SLOT_ACTION,MenuText::TILE_NO_ACTION);
+	if(!visited){
+		if(hasKey){
+			p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_KEY_ACTION);
+		}
+		else{
+			p->setMessageIn(Player::MESSAGE_SLOT_ACTION,MenuText::TILE_NO_ACTION);
+		}
+		visited = true;
 	}
 }
 

@@ -16,6 +16,7 @@ ExitTile::ExitTile(int idNum, int xCoord, int yCoord, int floor, char sym) : Til
 void ExitTile::action(Player* p){
 	if(!visited){
 		p->setMessageIn(Player::MESSAGE_SLOT_ACTION,MenuText::TILE_EXIT_ACTION);
+		visited = true;
 	}
 	if(hasKey){
 		p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_KEY_ACTION);

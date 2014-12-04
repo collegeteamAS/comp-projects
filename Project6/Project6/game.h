@@ -69,12 +69,12 @@ private:
 	@returns true if the stairs at (x,y) at Floor index floor were facing up, false if facing down
 	//*/
 
-	bool canMoveTo(int x, int y);
-	/*// checks if the player can move to these coordinates
+	bool canMoveFrom(int x, int y);
+	/*// checks if the player can move From these coordinates
 		PRE-CONDITION: floor[x][y] != 0;
-	@param x - the x coordinate to move to
-	@param y - the y coordinate to move to
-	@returns true if the player can move here, false if not
+	@param x - the x coordinate to move from
+	@param y - the y coordinate to move from
+	@returns true if the player can move from here, false if not
 	//*/
 
 	void connectStairs(int previousFloor, int nextFloor, bool goingUp);

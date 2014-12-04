@@ -94,7 +94,7 @@ void Floor::drawMapPartial(int x, int y, char sym, Coord_List* list){
 }
 //*/
 void Floor::drawRoom(int startX, int startY, int x, int y, char sym){
-	if(isValidRoom(x,y)){
+	if(!isValidRoom(x,y)){
 		drawRoomBlank(startX,startY);
 	}
 	else{

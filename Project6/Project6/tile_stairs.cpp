@@ -28,6 +28,7 @@ void StairsTile::changeStairs(bool isUp){
 void StairsTile::action(Player* p){
 	if(!visited){
 		p->setMessageIn(Player::MESSAGE_SLOT_ACTION,MenuText::TILE_STAIRS_ACTION);
+		visited = true;
 	}
 	if(hasKey){
 		p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_KEY_ACTION);

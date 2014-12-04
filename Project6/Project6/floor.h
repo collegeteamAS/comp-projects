@@ -93,7 +93,7 @@ public:
 		FLOOR_WIDTH = 30,
 		
 		// this is the cutoff for creating stairs
-		STAIRS_GENERATION_THRESHOLD = 50
+		STAIRS_GENERATION_THRESHOLD = 3
 	};
 
 	Floor(int idNum);

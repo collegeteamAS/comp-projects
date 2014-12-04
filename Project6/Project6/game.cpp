@@ -62,28 +62,28 @@ bool Game::arePreviousStairsUp(int x, int y, int floor){
 	}
 }
 
-bool Game::canMoveTo(int x, int y){
+bool Game::canMoveFrom(int x, int y){
 	switch(state){
-	case STATE_MOVE_LEFT:{ // we enter this room from the east
-		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_east_door()){ // if this is open
+	case STATE_MOVE_LEFT:{ // we leave this room from the west
+		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_west_door()){ // if this is open
 			return true;
 		}
 		break;
 	}
-	case STATE_MOVE_UP:{ // we enter this room from the south
-		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_south_door()){
-			return true;
-		}
-		break;
-	}
-	case STATE_MOVE_RIGHT:{ // we enter this room from the west
-		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_west_door()){
-			return true;
-		}
-		break;
-	}
-	case STATE_MOVE_DOWN:{ // we enter this room from the north
+	case STATE_MOVE_UP:{ // we leave this room from the north
 		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_north_door()){
+			return true;
+		}
+		break;
+	}
+	case STATE_MOVE_RIGHT:{ // we leave this room from the east
+		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_east_door()){
+			return true;
+		}
+		break;
+	}
+	case STATE_MOVE_DOWN:{ // we leave this room from the south
+		if((*world)[player->getCurrentFloor()]->getLoc(x,y)->get_south_door()){
 			return true;
 		}
 		break;
@@ -119,7 +119,7 @@ void Game::createRandomRoom(int x, int y, int flor){
 	}
 	int chance = getRandomNumber(0,100); // out of 100
 	Floor* currentFloor = (*world)[player->getCurrentFloor()];
-	if(currentFloor->getNumberOfCreatedRooms() >= Floor::STAIRS_GENERATION_THRESHOLD && chance < currentFloor->getStairCount()){
+	if(currentFloor->getNumberOfCreatedRooms() >= Floor::STAIRS_GENERATION_THRESHOLD /*&& *chance < currentFloor->getStairCount()*/){
 		if(!currentFloor->hasStairsUp()){
 			makeStairs(currentFloor,id,x,y,true);
 		}
@@ -132,12 +132,12 @@ void Game::createRandomRoom(int x, int y, int flor){
 		if(chance < 10){
 			loc->addKey(); // these have 0 purpose rightnow
 		}
-		currentFloor->setLoc(loc,x,y);
 	}
 }
 
 // @author Andre Allan Ponce
 void Game::createWorld(){
+	world = new std::vector<Floor*>();
 	for(int i = 0; i < WORLD_SIZE; i++){
 		world->push_back(makeFloor(i));
 	}
@@ -438,6 +438,7 @@ Floor* Game::makeFloor(int id){
 
 Location* Game::makeRoom(int id, int x, int y, int flor){
 	Location* loc = new Tile(id,x,y,flor); 
+	(*world)[flor]->setLoc(loc,x,y);
 	setupRoom(loc,id);
 	return loc;
 }
@@ -450,21 +451,17 @@ void Game::makeStairs(Floor* floor, int id, int x, int y, bool isUp){
 // moves the player on the x and y grid. invalid moving will be fixed probably.
 bool Game::movePlayer(int xMove, int yMove){
 	if(xMove >= 0 && yMove >= 0 && xMove < Floor::FLOOR_HEIGHT && yMove < Floor::FLOOR_WIDTH){
-		int currentPlayerFloor = player->getCurrentFloor();
-		if((*world)[currentPlayerFloor]->getLoc(xMove,yMove) == 0){ // if we are making a new room
-			createRandomRoom(xMove,yMove,currentPlayerFloor);
+		if(canMoveFrom(player->getCurrentX(),player->getCurrentY())){
+			int currentPlayerFloor = player->getCurrentFloor();
+			if((*world)[currentPlayerFloor]->getLoc(xMove,yMove) == 0){ // if we are making a new room
+				createRandomRoom(xMove,yMove,currentPlayerFloor);
+			}
 			player->setCurrentX(xMove);
 			player->setCurrentY(yMove);
 			return true;
 		}
-		else if(canMoveTo(xMove,yMove)){
-			player->setCurrentX(xMove);
-			player->setCurrentY(yMove);
-			return true;
-		}
-		// set messgae to player saying cannot move
 	}
-	activeText = MenuText::INVALID_MOVE;
+	player->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::INVALID_MOVE);
 	return false;
 }
 
@@ -525,7 +522,6 @@ void Game::pickUpItem(){
 // prepping the first two rooms
 void Game::preGameInit(){
 	createWorld();
-	(*world)[START_FLOOR] = makeFloor(START_FLOOR);
 	(*world)[START_FLOOR]->setLoc(makeRoom(0,START_ROOM_X,START_ROOM_Y,START_FLOOR),START_ROOM_X,START_ROOM_Y);
 	(*world)[START_FLOOR]->set_room_doors(START_ROOM_X,START_ROOM_Y,true); //the first room should have all open doors
 	player = new Player(Player::PLAYER_SYMBOL,START_ROOM_X,START_ROOM_Y,START_FLOOR);
@@ -556,19 +552,20 @@ void Game::prepareMovePlayer(){
 		break;
 	}
 	}
+	(*world)[player->getCurrentFloor()]->getLoc(player->getCurrentX(),player->getCurrentY())->action(player);
 }
 
 void Game::setupDoors(Location* loc, int id){
-	if(id != LocationData::TILE_NORTH || id != LocationData::TILE_NORTH_EAST || id != LocationData::TILE_NORTH_WEST){
+	if(id != LocationData::TILE_NORTH && id != LocationData::TILE_NORTH_EAST && id != LocationData::TILE_NORTH_WEST){
 		loc->set_north_door(true);
 	}
-	if(id != LocationData::TILE_EAST || id != LocationData::TILE_NORTH_EAST || id != LocationData::TILE_SOUTH_EAST){
+	if(id != LocationData::TILE_EAST && id != LocationData::TILE_NORTH_EAST && id != LocationData::TILE_SOUTH_EAST){
 		loc->set_east_door(true);
 	}
-	if(id != LocationData::TILE_SOUTH || id != LocationData::TILE_SOUTH_EAST || id != LocationData::TILE_SOUTH_WEST){
+	if(id != LocationData::TILE_SOUTH && id != LocationData::TILE_SOUTH_EAST && id != LocationData::TILE_SOUTH_WEST){
 		loc->set_south_door(true);
 	}
-	if(id != LocationData::TILE_WEST || id != LocationData::TILE_SOUTH_WEST || id != LocationData::TILE_NORTH_WEST){
+	if(id != LocationData::TILE_WEST && id != LocationData::TILE_SOUTH_WEST && id != LocationData::TILE_NORTH_WEST){
 		loc->set_west_door(true);
 	}
 }
