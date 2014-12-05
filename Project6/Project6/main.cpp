@@ -9,7 +9,9 @@
 	NEW THINGS:
 	@author Andre Allan Ponce
 	+ Multiple Floors - The player can navigate multiple floors by finding 'Stair' rooms
-	and examining them. 
+	and examining them. There are only two stairs per floor, one going up and the other
+	going down. The chances for stairs appearing increase the more floors the player
+	explores.
 		Changed files:
 		@tile_stairs.h
 		@tile_stairs.cpp
@@ -33,7 +35,10 @@
 
 	@author Steve Suh
 	+ Points System - By dropping three keys into an unlocked room and examining them, 
-	the player can score points.
+	the player can score points. There is only one unlocked room per floor, and all keys
+	used to lock a room are deleted. Keys have a 10% chance spawning in a room, while
+	unlocked rooms have a higher chance of spawning the more rooms the user creates
+	in the floor.
 		Changed files:
 		@tile_exit.h
 		@tile_exit.cpp
