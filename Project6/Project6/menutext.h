@@ -54,7 +54,9 @@ public:
 	static const string PLAYER_INVENTORY_KEY_1;
 	static const string PLAYER_INVENTORY_KEY_2;
 	static const string PLAYER_INVENTORY_KEY_3;
+	static const string PLAYER_INVENTORY_PREFIX;
 	static const string PLAYER_INVENTORY_SLOTS;
+	static const string PLAYER_INVENTORY_SUFFIX;
 	static const string PLAYER_MESSAGE_BLANK;
 	static const string PLAYER_MESSAGE_INVALID_SLOT;
 	static const string PLAYER_SCORE_PREFIX;

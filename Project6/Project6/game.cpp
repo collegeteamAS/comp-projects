@@ -378,7 +378,10 @@ bool Game::getKeyInput(WORD key, int& old_state){
 	}
 	case 0x49: // this was steve as well // i key
 	{
-		activeText = player->getInventory()->displayInventory();
+		player->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,player->getInventory()->displayInventory());
+		stringstream str;
+		str << MenuText::PLAYER_INVENTORY_PREFIX << player->getInventory()->getNumKeys() << MenuText::PLAYER_INVENTORY_SUFFIX;
+		player->setMessageIn(Player::MESSAGE_SLOT_ACTION,str.str());
 		//return true;
 		break;
 	}

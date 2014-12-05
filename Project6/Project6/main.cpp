@@ -7,6 +7,7 @@
 
 	2014-12:
 	NEW THINGS:
+	@author Andre Allan Ponce
 	+ Multiple Floors - The player can navigate multiple floors by finding 'Stair' rooms
 	and examining them. 
 		Changed files:
@@ -19,6 +20,7 @@
 		@player.h
 		@player.cpp
 
+	@author Andre Allan Ponce
 	+ Randomly generated rooms - Each time the player enters a new room, the layout may be
 	different, dependent on location and as well as the door setup in the previous room. 
 	Certain rooms may have false doors as a result.
@@ -29,6 +31,7 @@
 		@game.h (More detailed explanation about tile randomization is here)
 		@game.cpp
 
+	@author Steve Suh
 	+ Points System - By dropping three keys into an unlocked room and examining them, 
 	the player can score points.
 		Changed files:
@@ -39,6 +42,7 @@
 		@game.h
 		@game.cpp
 
+	@author Steve Suh
 	+ Saving & loading system - a player's score is automatically saved when the game 
 	exits. At start, the player can load an exisitng player or create their own. 
 	Only the player's score and name is saved. The layout of the floors will be 

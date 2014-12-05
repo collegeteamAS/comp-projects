@@ -47,9 +47,11 @@ const string MenuText::MENU_HELP =
 	"Drop 3 keys into unlocked rooms and lock them to score points.\n"
 	"WASD - move.\n"
 	"E - examine Room\n"
+	"I - show inventory\n"
 	"Z - pick up item\n"
 	"C - drop item\n"
-	"H - show this screen.\n\n"
+	"H - show this screen.\n"
+	"ESC - Quit game (Saves your progress).\n\n"
 	"Legend:\n"
 	"'O' is your position on the map.\n"
 	"'k' is a key.\n"
@@ -88,6 +90,8 @@ const string MenuText::PLAYER_INVENTORY_EMPTY = ":_   _:_   _:_   _:";
 const string MenuText::PLAYER_INVENTORY_KEY_1 = ":_ K _:_   _:_   _:";
 const string MenuText::PLAYER_INVENTORY_KEY_2 = ":_ K _:_ K _:_   _:";
 const string MenuText::PLAYER_INVENTORY_KEY_3 = ":_ K _:_ K _:_ K _:";
+const string MenuText::PLAYER_INVENTORY_PREFIX = "You have ";
+const string MenuText::PLAYER_INVENTORY_SUFFIX = " keys.";
 const string MenuText::PLAYER_INVENTORY_SLOTS = "   1     2     3   ";
 const string MenuText::PLAYER_MESSAGE_BLANK = "";
 const string MenuText::PLAYER_MESSAGE_INVALID_SLOT = "No slot for this message";

@@ -9,6 +9,7 @@
 #include "item.h"
 #include "key.h"
 #include "menutext.h"
+#include "linkedList.h"
 
 Tile::Tile(int idNum, int xCoord, int yCoord, int floor, char sym) : Location(idNum,xCoord,yCoord,floor,sym), 
 	hasKey(false),
@@ -64,6 +65,15 @@ void Tile::addExistingKey(Item* key){
 	}
 	numKeys++;
 	roomLayout[xKey][yKey] = key->getSymbol();
+}
+
+void Tile::removeItems(){
+	hasKey = false;
+	roomLayout[KEY_X_0][KEY_Y_0] = EMPTY_SPACE;
+	roomLayout[KEY_X_1][KEY_Y_1] = EMPTY_SPACE;
+	roomLayout[KEY_X_2][KEY_Y_2] = EMPTY_SPACE;
+	delete items;
+	items = new LinkedList();
 }
 
 // ==== public methods ====

@@ -1,6 +1,6 @@
 /*//
-	Andre Allan Ponce
-	a_ponce1@u.pacific.edu
+	Steve Suh
+	h_suh@u.pacific.edu
 
 	2014-12-01
 	+ creation of the exit tile

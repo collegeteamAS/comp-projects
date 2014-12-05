@@ -1,6 +1,6 @@
 /*//
-	Andre Allan Ponce
-	a_ponce1@u.pacific.edu
+	Steve Suh
+	h_suh@u.pacific.edu
 //*/
 
 #include <sstream>
@@ -43,6 +43,7 @@ void ExitTile::examine(Player* p){
 		locked = true;
 		roomLayout[END_GAME_X][END_GAME_Y] = END_GAME_CHAR_LOCK;
 		symbol = END_GAME_CHAR_LOCK;
+		removeItems();
 	}
 	else{
 		p->setMessageIn(Player::MESSAGE_SLOT_INFORMATION,MenuText::TILE_EXIT_NOT_ENOUGH_KEYS);

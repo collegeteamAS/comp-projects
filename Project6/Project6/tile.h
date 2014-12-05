@@ -24,6 +24,8 @@ protected:
 	@param key - the key to add to this room
 	//*/
 
+	void removeItems();
+
 public:
 	enum Contsants{
 		EMPTY_SPACE = ' ',
