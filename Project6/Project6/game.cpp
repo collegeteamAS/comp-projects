@@ -25,6 +25,7 @@
 #include "floor.h"
 #include "tile.h"
 #include "tile_stairs.h"
+#include "tile_exit.h"
 #include "player.h"
 #include "item.h"
 #include "menutext.h"
@@ -36,14 +37,13 @@ Game::Game() :
 	numberOfFloors(0),
 	locations(0),
 	state(STATE_PRE_GAME),
-	endGameCounter(0),
 	isFinalDoorIn(false),
 	activeText(""){
 	// nothing here yet
 }
 
 Game::~Game(){
-	deletePlayer();
+	//deletePlayer();
 	deleteWorld();
 }
 
@@ -162,8 +162,15 @@ void Game::createRandomRoom(int x, int y, int flor){
 			return;
 		}
 	}
-	Location* loc = makeRoom(id,x,y,flor);
-	if(chance < 10){
+	Location* loc;
+	if(!currentFloor->isScoreRoomHere() && chance < currentFloor->getScoreCounter()){
+		loc = makeRoomScore(id,x,y,flor);
+		currentFloor->setScoreRoomHere(true);
+	}
+	else{
+		loc =  makeRoom(id,x,y,flor);
+	}
+	if(chance < Floor::KEY_ADD_THRESHOLD){
 		loc->addKey(); // these have 0 purpose rightnow
 	}
 }
@@ -302,7 +309,7 @@ void Game::gameStates(int& old_state, bool& mapPrint, clock_t& startTime){
 	case STATE_FINAL_DOOR:{
 		player->setMessageIn(Player::MESSAGE_SLOT_OBJECTIVE,MenuText::MAP_FIND_KEYS);
 		if((*world)[player->getCurrentFloor()]->getLoc(finalRoomX,finalRoomY)->getNumOfKeys() == 3){
-			state = STATE_GAME_FINISH;
+			//state = STATE_GAME_FINISH;
 		}
 		break;
 	}
@@ -395,7 +402,11 @@ bool Game::hasValidDoor(int nextID){
 		switch(nextID){ 
 		case LocationData::TILE_EAST:
 		case LocationData::TILE_NORTH_EAST:
-		case LocationData::TILE_SOUTH_EAST:{
+		case LocationData::TILE_SOUTH_EAST:
+		case LocationData::TILE_EAST_WEST:
+		case LocationData::TILE_EAST_WEST_SOUTH:
+		case LocationData::TILE_EAST_NORTH_SOUTH:
+		case LocationData::TILE_EAST_NORTH_WEST:{
 			return false; // cannot go through an east wall
 			break;
 		}
@@ -409,7 +420,11 @@ bool Game::hasValidDoor(int nextID){
 		switch(nextID){
 		case LocationData::TILE_SOUTH:
 		case LocationData::TILE_SOUTH_EAST:
-		case LocationData::TILE_SOUTH_WEST:{
+		case LocationData::TILE_SOUTH_WEST:
+		case LocationData::TILE_NORTH_SOUTH:
+		case LocationData::TILE_EAST_WEST_SOUTH:
+		case LocationData::TILE_EAST_NORTH_SOUTH:
+		case LocationData::TILE_NORTH_WEST_SOUTH:{
 			return false; // cannot go through a south wall
 			break;
 		}
@@ -423,7 +438,11 @@ bool Game::hasValidDoor(int nextID){
 		switch(nextID){
 		case LocationData::TILE_NORTH_WEST:
 		case LocationData::TILE_SOUTH_WEST:
-		case LocationData::TILE_WEST:{
+		case LocationData::TILE_WEST:
+		case LocationData::TILE_EAST_WEST:
+		case LocationData::TILE_EAST_WEST_SOUTH:
+		case LocationData::TILE_EAST_NORTH_WEST:
+		case LocationData::TILE_NORTH_WEST_SOUTH:{
 			return false; // cannot go through a west wall
 			break;
 		}
@@ -437,7 +456,11 @@ bool Game::hasValidDoor(int nextID){
 		switch(nextID){
 		case LocationData::TILE_NORTH:
 		case LocationData::TILE_NORTH_EAST:
-		case LocationData::TILE_NORTH_WEST:{
+		case LocationData::TILE_NORTH_WEST:
+		case LocationData::TILE_NORTH_SOUTH:
+		case LocationData::TILE_EAST_NORTH_SOUTH:
+		case LocationData::TILE_EAST_NORTH_WEST:
+		case LocationData::TILE_NORTH_WEST_SOUTH:{
 			return false; // cannot go through a north wall
 			break;
 		}
@@ -471,6 +494,13 @@ Floor* Game::makeFloor(int id){
 
 Location* Game::makeRoom(int id, int x, int y, int flor){
 	Location* loc = new Tile(id,x,y,flor); 
+	(*world)[flor]->setLoc(loc,x,y);
+	setupRoom(loc,id);
+	return loc;
+}
+
+Location* Game::makeRoomScore(int id, int x, int y, int flor){
+	Location* loc = new ExitTile(id,x,y,flor);
 	(*world)[flor]->setLoc(loc,x,y);
 	setupRoom(loc,id);
 	return loc;
@@ -572,7 +602,12 @@ void Game::preGameInit(){
 	createWorld();
 	(*world)[START_FLOOR]->setLoc(makeRoom(0,START_ROOM_X,START_ROOM_Y,START_FLOOR),START_ROOM_X,START_ROOM_Y);
 	(*world)[START_FLOOR]->set_room_doors(START_ROOM_X,START_ROOM_Y,true); //the first room should have all open doors
-	player = new Player(Player::PLAYER_SYMBOL,START_ROOM_X,START_ROOM_Y,START_FLOOR);
+	//player = new Player(Player::PLAYER_SYMBOL,START_ROOM_X,START_ROOM_Y,START_FLOOR);
+	player->setCurrentFloor(START_FLOOR);
+	player->setPreviousFloor(START_FLOOR);
+	player->setCurrentX(START_ROOM_X);
+	player->setCurrentY(START_ROOM_Y);
+	player->setSymbol(Player::PLAYER_SYMBOL);
 	player->createInventory();
 	state = STATE_EXPLORE;
 }
@@ -604,16 +639,16 @@ void Game::prepareMovePlayer(){
 }
 
 void Game::setupDoors(Location* loc, int id){
-	if(id != LocationData::TILE_NORTH && id != LocationData::TILE_NORTH_EAST && id != LocationData::TILE_NORTH_WEST){
+	if(id != LocationData::TILE_NORTH && id != LocationData::TILE_NORTH_EAST && id != LocationData::TILE_NORTH_WEST && id != LocationData::TILE_EAST_NORTH_SOUTH && id != LocationData::TILE_EAST_NORTH_WEST && id != LocationData::TILE_NORTH_SOUTH && id != LocationData::TILE_NORTH_WEST_SOUTH){
 		loc->set_north_door(true);
 	}
-	if(id != LocationData::TILE_EAST && id != LocationData::TILE_NORTH_EAST && id != LocationData::TILE_SOUTH_EAST){
+	if(id != LocationData::TILE_EAST && id != LocationData::TILE_NORTH_EAST && id != LocationData::TILE_SOUTH_EAST && id != LocationData::TILE_EAST_NORTH_SOUTH && id != LocationData::TILE_EAST_NORTH_WEST && id != LocationData::TILE_EAST_WEST && id != LocationData::TILE_EAST_WEST_SOUTH){
 		loc->set_east_door(true);
 	}
-	if(id != LocationData::TILE_SOUTH && id != LocationData::TILE_SOUTH_EAST && id != LocationData::TILE_SOUTH_WEST){
+	if(id != LocationData::TILE_SOUTH && id != LocationData::TILE_SOUTH_EAST && id != LocationData::TILE_SOUTH_WEST && id != LocationData::TILE_EAST_NORTH_SOUTH && id != LocationData::TILE_EAST_WEST_SOUTH && id != LocationData::TILE_NORTH_SOUTH && id != LocationData::TILE_NORTH_WEST_SOUTH){
 		loc->set_south_door(true);
 	}
-	if(id != LocationData::TILE_WEST && id != LocationData::TILE_SOUTH_WEST && id != LocationData::TILE_NORTH_WEST){
+	if(id != LocationData::TILE_WEST && id != LocationData::TILE_SOUTH_WEST && id != LocationData::TILE_NORTH_WEST && id != LocationData::TILE_EAST_NORTH_WEST && id != LocationData::TILE_EAST_WEST && id != LocationData::TILE_EAST_WEST_SOUTH && id != LocationData::TILE_NORTH_WEST_SOUTH){
 		loc->set_west_door(true);
 	}
 }
@@ -699,6 +734,7 @@ void Game::printGamePartial(){ // not working at the moment
 //*/
 void Game::printHelp(){
 	system("CLS");
+	std::cout << MenuText::MENU_HELP_CURRENT_PLAYER << (*player) << "\n";
 	std::cout << MenuText::MENU_HELP;
 	system("pause");
 }
@@ -733,6 +769,28 @@ void Game::readInFile(std::string fileName){
 		delete [] tempRoom;
 	}
 	inFile.close();
+}
+
+std::vector<Player*>* Game::readInSaveFile(std::string fileName){
+	std::ifstream inFile;
+	inFile.open(fileName.c_str());
+	if(!inFile.good()){
+		throw MenuText::ERROR_FILE_NAME;
+	}
+	int numberOfPlayers;
+	inFile >> numberOfPlayers;
+	std::vector<Player*>* players = new std::vector<Player*>(numberOfPlayers);
+	inFile.ignore(10, '\n');
+	int index = 0;
+	while(!inFile.eof()){
+		(*players)[index] = new Player();
+		inFile >> (*(*players)[index]);
+		(*players)[index]->setIndex(index);
+		inFile.ignore(10, '\n');
+		index++;
+	}
+	inFile.close();
+	return players;
 }
 
 // @author Andre Allan Ponce
@@ -814,6 +872,27 @@ void Game::runGame(){
 		}
 		}
 	}
+}
+
+void Game::savePlayersFile(std::vector<Player*>* players, std::string fileName){
+	std::ofstream outFile;
+	outFile.open(fileName.c_str());
+	if(!outFile.good()){
+		throw MenuText::ERROR_FILE_NAME;
+	}
+	int end = players->size();
+	outFile << end << "\n";
+	for(int i = 0; i < end; i++){
+		outFile << (*(*players)[i]);
+		if(i < end-1){
+			outFile << "\n";
+		}
+	}
+	outFile.close();
+}
+
+void Game::setPlayer(Player& p){
+	player = &p;
 }
 
 /*// unused, check game.h for reason

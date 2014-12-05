@@ -63,6 +63,9 @@
     <ClCompile Include="tile_stairs.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="mine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game.h">
@@ -110,8 +113,12 @@
     <ClInclude Include="tile_stairs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="mine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="tiles" />
+    <None Include="players" />
   </ItemGroup>
 </Project>

@@ -12,6 +12,9 @@
 	+ added even more methods for creating room more efficiently
 	= revamped room creation
 	= adjusted state machine for efficieny and better room creation
+
+	2014-12-04
+	+ added methods for saving and reading in save files
 */
 
 #ifndef _GAME_H_INCLUDED_
@@ -48,11 +51,6 @@ private:
 		6 - game quit
 	*/
 	int state;
-
-	int endGameCounter;
-	// starts at 0, increases by 1 per new room
-	// this room is where you supposed to drop the keys.
-	// not used in debug modes
 
 	bool isFinalDoorIn; // here is the end 
 	int finalRoomX; // the endgame x coord
@@ -182,6 +180,7 @@ private:
 
 	Floor* makeFloor(int id); // id is the index of this floor
 	Location* makeRoom(int id, int x, int y, int flor);
+	Location* makeRoomScore(int id, int x, int y, int flor);
 	void makeStairs(Floor* floor, int id, int x, int y, bool isUp);
 	bool movePlayer(int xMove, int yMove); // moves player on x and y grid
 	void movePlayerFloor();
@@ -276,7 +275,11 @@ public:
 		(Tile DESIGN)
 	*/
 
+	std::vector<Player*>* readInSaveFile(std::string fileName);
 	void runGame();
+
+	void savePlayersFile(std::vector<Player*>* players, std::string fileName);
+	void setPlayer(Player& p);
 };
 
 #endif

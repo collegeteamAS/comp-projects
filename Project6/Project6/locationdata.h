@@ -17,15 +17,21 @@ private:
 
 public:
 	enum Constants{
-		TILE_BASIC = 0,		// also known as debug
-		TILE_NORTH = 1,		// 1 North edge location
-		TILE_EAST = 2,		// 2 East edge location
-		TILE_SOUTH = 3,		// 3 South Edge Location
-		TILE_WEST = 4,		// 4 West edge location
-		TILE_NORTH_EAST = 5,// 5 North East location
-		TILE_SOUTH_EAST = 6,// 6 South East location
-		TILE_SOUTH_WEST = 7,// 7 South West location
-		TILE_NORTH_WEST = 8 // 8 North West location
+		TILE_BASIC = 0,				// also known as debug
+		TILE_NORTH = 1,				// 1 North edge location
+		TILE_EAST = 2,				// 2 East edge location
+		TILE_SOUTH = 3,				// 3 South Edge Location
+		TILE_WEST = 4,				// 4 West edge location
+		TILE_NORTH_EAST = 5,		// 5 North East location
+		TILE_SOUTH_EAST = 6,		// 6 South East location
+		TILE_SOUTH_WEST = 7,		// 7 South West location
+		TILE_NORTH_WEST = 8,		// 8 North West location
+		TILE_NORTH_SOUTH = 9,		// 9 North-South wall
+		TILE_EAST_WEST = 10,		// 10 East-west wall
+		TILE_EAST_WEST_SOUTH = 11,	// 11 East-west-south walls
+		TILE_EAST_NORTH_SOUTH = 12, // 12 east-north-south walls
+		TILE_EAST_NORTH_WEST = 13,	// 13 east-north-west walls
+		TILE_NORTH_WEST_SOUTH = 14	// 14 north-west-south walls
 	};
 
 	LocationData();

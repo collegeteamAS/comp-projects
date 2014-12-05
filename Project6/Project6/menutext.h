@@ -15,6 +15,9 @@ public:
 	static const string ERROR_NO_ROOM;
 	static const string ERROR_NO_ROOM_ITEMS;
 
+	static const string FILENAME_PLAYERS;
+	static const string FILENAME_TILES;
+
 	static const string FLOOR_BASEMENT_PREFIX;
 	static const string FLOOR_GROUND;
 	static const string FLOOR_NUMBER_PREFIX;
@@ -32,9 +35,20 @@ public:
 	static const string MAP_EXPLORE;
 	static const string MAP_FIND_KEYS;
 
+	static const string MENU_CHOOSE_PLAYER_NAME;
+	static const string MENU_CREATE_NEW_PLAYER;
 	static const string MENU_HELP;
+	static const string MENU_HELP_CURRENT_PLAYER;
 	static const string MENU_ITEM_DISPLAY_INVENTORY;
 	static const string MENU_ITEM_SELECT;
+	static const string MENU_PLAYER_PICK;
+	static const string MENU_PLAYER_PICK_BAR;
+	static const string MENU_PLAYER_PICK_CHOICE_MID;
+	static const string MENU_PLAYER_PICK_CHOICE_PREFIX;
+	static const string MENU_PLAYER_PICK_CHOICE_SUFFIX;
+
+	static const string MESSAGE_LOAD_SUCCESSFUL;
+	static const string MESSAGE_LOADING_SAVE;
 
 	static const string PLAYER_INVENTORY_EMPTY;
 	static const string PLAYER_INVENTORY_KEY_1;
@@ -43,9 +57,15 @@ public:
 	static const string PLAYER_INVENTORY_SLOTS;
 	static const string PLAYER_MESSAGE_BLANK;
 	static const string PLAYER_MESSAGE_INVALID_SLOT;
+	static const string PLAYER_SCORE_PREFIX;
+	static const string PLAYER_SCORE_SUFFIX;
 
 	static const string TILE_EXIT_ACTION;
+	static const string TILE_EXIT_EXAMINE_LOCK;
+	static const string TILE_EXIT_LOCKING;
 	static const string TILE_EXIT_NOT_ENOUGH_KEYS;
+	static const string TILE_EXIT_SCORE_PREFIX;
+	static const string TILE_EXIT_SCORE_SUFFIX;
 	static const string TILE_KEY_ACTION;
 	static const string TILE_KEY_EXAMINE;
 	static const string TILE_NO_ACTION;

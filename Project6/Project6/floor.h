@@ -43,6 +43,18 @@ private:
 	// the first floor may have a differing stair counter increment
 	// since it will not have a stair room at the start.
 
+	int scoreCounter;
+	// starts at 0, increases by 1 per new room
+	// this room is where you supposed to drop the keys.
+	// not used in debug modes
+
+	int mineCounter;
+	// starts at 10, increases by 5 for every 10 tiles, max 50
+
+	int mineCounterTally;
+
+	bool scoreRoom; // true if it is here
+
 	// id of this floor
 	// the index of where this floor is at in game vector
 	int id;
@@ -95,7 +107,8 @@ public:
 		FLOOR_WIDTH = 30,
 		
 		// this is the cutoff for creating stairs
-		STAIRS_GENERATION_THRESHOLD = 3
+		STAIRS_GENERATION_THRESHOLD = 3,
+		KEY_ADD_THRESHOLD = 10
 	};
 
 	Floor(int idNum);
@@ -119,6 +132,8 @@ public:
 	Location* getLoc(int x, int y);
 	std::string getMap();
 
+	int getMineCount(); // auto increments minecounter
+
 	std::string getNewMap(int x, int y, char sym);
 	/*// generations and returns a new map string
 	@param x - the x coordinate of the player
@@ -128,6 +143,8 @@ public:
 	//*/
 
 	int getNumberOfCreatedRooms(); 
+
+	int getScoreCounter(); // auto increments the score counter
 
 	int getStairCount();
 	/*// gets and increments the stair counter
@@ -139,6 +156,7 @@ public:
 
 	bool hasStairsDown();
 	bool hasStairsUp();
+	bool isScoreRoomHere();
 	bool isValidRoom(int x, int y);
 
 	//Coord_List* getMapPartial(int x, int y, char sym);
@@ -154,6 +172,8 @@ public:
 	@param y - the y coordinate of the room to change doors
 	@param value - the value to change the location's doors
 	//*/
+
+	void setScoreRoomHere(bool value);
 
 	/*
 	void syncDoors(int x, int y);

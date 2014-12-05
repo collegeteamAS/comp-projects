@@ -73,6 +73,7 @@
     <ClCompile Include="linkedList.cpp" />
     <ClCompile Include="location.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mine.cpp" />
     <ClCompile Include="node.cpp" />
     <ClCompile Include="menutext.cpp" />
     <ClCompile Include="player.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="key.h" />
     <ClInclude Include="linkedList.h" />
     <ClInclude Include="location.h" />
+    <ClInclude Include="mine.h" />
     <ClInclude Include="node.h" />
     <ClInclude Include="menutext.h" />
     <ClInclude Include="player.h" />
@@ -99,6 +101,7 @@
     <ClInclude Include="tile_stairs.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="players" />
     <None Include="tiles" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

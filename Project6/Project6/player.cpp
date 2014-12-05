@@ -4,7 +4,10 @@
 	Player class
 */
 
+#include <iostream>
 #include <string>
+#include <stdlib.h>
+#include <sstream>
 #include "player.h"
 #include "linkedList.h"
 #include "node.h"
@@ -16,6 +19,9 @@ Player::Player() :
 	symbol('d'), // d stands for debug
 	xBoard(-1), 
 	yBoard(-1),
+	name(""),
+	score(0),
+	index(-1),
 	inventory(0),
 	floorPrevious(-1),
 	floorNumber(-1),
@@ -28,6 +34,9 @@ Player::Player(char sym) :
 	symbol(sym), 
 	xBoard(-1), 
 	yBoard(-1),
+	name(""),
+	score(0),
+	index(-1),
 	inventory(0),
 	floorPrevious(-1),
 	floorNumber(-1),
@@ -39,6 +48,9 @@ Player::Player(char sym, int xLocation, int yLocation, int floorLocation) :
 	symbol(sym),
 	xBoard(xLocation),
 	yBoard(yLocation),
+	name(""),
+	score(0),
+	index(-1),
 	inventory(0),
 	floorPrevious(floorLocation),
 	floorNumber(floorLocation),
@@ -54,6 +66,10 @@ Player::~Player(){
 
 void Player::addItem(Node* item){
 	inventory->add_node(item);
+}
+
+void Player::addToScore(int s){
+	score += s;
 }
 
 void Player::clearMessages(){
@@ -92,6 +108,10 @@ int Player::getFloorNumber(){
 	return floorNumber;
 }
 
+int Player::getIndex(){
+	return index;
+}
+
 LinkedList* Player::getInventory(){
 	return inventory;
 }
@@ -107,14 +127,25 @@ std::string Player::getMessageIn(int slot){
 
 std::string Player::getMessages(){
 	std::string message = "";
+	stringstream str;
+	str << MenuText::PLAYER_SCORE_PREFIX << getScore() << MenuText::PLAYER_SCORE_SUFFIX;
+	setMessageIn(MESSAGE_SLOT_SCORE,str.str());
 	for(int i = 0; i < MESSAGE_SLOTS; i++){
 		message = message + messages[i] + "\n";
 	}
 	return message;
 }
 
+std::string Player::getName(){
+	return name;
+}
+
 int Player::getPreviousFloor(){
 	return floorPrevious;
+}
+
+int Player::getScore(){
+	return score;
 }
 
 // @author Andre Allan Ponce
@@ -124,6 +155,20 @@ char Player::getSymbol(){
 
 void Player::goUpFloor(){
 	++floorNumber;
+}
+
+std::istream& operator>>(std::istream& in, Player& p){
+	in >> p.name >> p.score;
+	return in;
+}
+
+std::ostream& operator<<(std::ostream& out, Player& p){
+	out << p.name << " " << p.score;
+	return out;
+}
+
+void Player::removeFromScore(int s){
+	score -= s;
 }
 
 Node* Player::removeItem(int id){
@@ -146,6 +191,10 @@ void Player::setFloorNumber(int floor){
 	floorNumber = floor;
 }
 
+void Player::setIndex(int i){
+	index = i;
+}
+
 bool Player::setMessageIn(int slot, std::string line){
 	if(slot < MESSAGE_SLOTS && slot >= 0){
 		messages[slot] = line;
@@ -154,8 +203,20 @@ bool Player::setMessageIn(int slot, std::string line){
 	return false;
 }
 
+void Player::setName(std::string n){
+	name = n;
+}
+
 void Player::setPreviousFloor(int floor){
 	floorPrevious = floor;
+}
+
+void Player::setScore(int s){
+	score = s;
+}
+
+void Player::setSymbol(char sym){
+	symbol = sym;
 }
 
 void Player::updateFloor(){

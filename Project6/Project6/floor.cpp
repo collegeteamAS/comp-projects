@@ -15,6 +15,10 @@ Floor::Floor(int idNum) :
 	floor(0),
 	map(0),
 	upStairs(0),
+	scoreCounter(0),
+	mineCounter(10),
+	mineCounterTally(0),
+	scoreRoom(false),
 	numberOfCreatedRooms(0),
 	downStairs(0),
 	mapHeight(Tile::TILE_HEIGHT*(MAP_TILES_VISIBLE*2+1)),
@@ -220,6 +224,17 @@ std::string Floor::getMap(){
 	}
 	return mapStr;
 }
+
+int Floor::getMineCount(){
+	if(mineCounterTally == 10){
+		mineCounterTally = 0;
+		if(mineCounter < 50){
+			mineCounter += 5;
+		}
+	}
+	mineCounterTally++;
+	return mineCounter;
+}
 /*//
 Coord_List* Floor::getMapPartial(int x, int y, char sym){
 	Coord_List* list = new Coord_List();
@@ -234,6 +249,10 @@ std::string Floor::getNewMap(int x, int y, char sym){
 
 int Floor::getNumberOfCreatedRooms(){
 	return numberOfCreatedRooms;
+}
+
+int Floor::getScoreCounter(){
+	return scoreCounter++;
 }
 
 int Floor::getStairCount(){
@@ -254,6 +273,10 @@ bool Floor::hasStairsDown(){
 
 bool Floor::hasStairsUp(){
 	return upStairs != 0;
+}
+
+bool Floor::isScoreRoomHere(){
+	return scoreRoom;
 }
 
 bool Floor::isValidRoom(int x, int y){
@@ -277,6 +300,10 @@ void Floor::set_room_doors(int x, int y, bool value){
 	floor[x][y]->set_north_door(value);
 	floor[x][y]->set_south_door(value);
 	floor[x][y]->set_west_door(value);
+}
+
+void Floor::setScoreRoomHere(bool value){
+	scoreRoom = value;
 }
 /*// useful, but we dont need anymore
 void Floor::syncDoors(int x, int y){
