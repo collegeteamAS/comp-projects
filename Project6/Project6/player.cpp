@@ -24,7 +24,7 @@ Player::Player() :
 	index(-1),
 	inventory(0),
 	floorPrevious(-1),
-	floorNumber(-1),
+	floorNumber(0),
 	floorCurrent(-1){
 	clearMessages();
 }
@@ -39,7 +39,7 @@ Player::Player(char sym) :
 	index(-1),
 	inventory(0),
 	floorPrevious(-1),
-	floorNumber(-1),
+	floorNumber(0),
 	floorCurrent(-1){
 	clearMessages();
 }

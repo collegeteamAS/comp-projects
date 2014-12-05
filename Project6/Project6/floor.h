@@ -107,7 +107,7 @@ public:
 		FLOOR_WIDTH = 30,
 		
 		// this is the cutoff for creating stairs
-		STAIRS_GENERATION_THRESHOLD = 3,
+		STAIRS_GENERATION_THRESHOLD = 5,
 		KEY_ADD_THRESHOLD = 10
 	};
 

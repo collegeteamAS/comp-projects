@@ -152,7 +152,7 @@ void Game::createRandomRoom(int x, int y, int flor){
 	}
 	int chance = getRandomNumber(0,100); // out of 100
 	Floor* currentFloor = (*world)[player->getCurrentFloor()];
-	if(currentFloor->getNumberOfCreatedRooms() >= Floor::STAIRS_GENERATION_THRESHOLD /*&& *chance < currentFloor->getStairCount()*/){
+	if(currentFloor->getNumberOfCreatedRooms() >= Floor::STAIRS_GENERATION_THRESHOLD && chance < currentFloor->getStairCount()){
 		if(!currentFloor->hasStairsUp()){
 			makeStairs(currentFloor,id,x,y,true);
 			return;

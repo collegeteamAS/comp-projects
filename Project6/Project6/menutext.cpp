@@ -55,12 +55,17 @@ const string MenuText::MENU_HELP =
 	"'k' is a key.\n"
 	"'/' is a stair that leads up. Examine to take the stairs.\n"
 	"'\\' is a stair that leads down. Examine to take the stairs.\n"
-	"'U' is an unlocked room. Examine the room when 3 keys are in it to lock the room!\n\n"
+	"'U' is an unlocked room. Examine the room when 3 keys are in it\n"
+	"to lock the room! There is only one unlocked room per floor.\n\n"
 	"What's new:\n"
-	"+ Added stairs: Now you can move up and down the floors when you examine stair rooms.\n"
-	"+ Randomly generated rooms: Now rooms may have different door layouts, resulting in some sneaky, twisted pathways.\n"
-	"+ Dropping keys into an unlocked room and examining the room can score you points.\n"
-	"+ Your score and name is saved when the game exists, but the layout is not.\n";
+	"+ Added stairs: Now you can move up and down the floors when you\n"
+	"examine stair rooms.\n"
+	"+ Randomly generated rooms: Now rooms may have different door\n"
+	"layouts, resulting in some sneaky, twisted pathways.\n"
+	"+ Dropping keys into an unlocked room and examining the room can\n"
+	"score you points.\n"
+	"+ Your score and name is saved when the game exists, but the \n"
+	"layout is not.\n";
 const string MenuText::MENU_HELP_CURRENT_PLAYER = "Current player: ";
 const string MenuText::MENU_ITEM_DISPLAY_INVENTORY = "Your inventory: ";
 const string MenuText::MENU_ITEM_SELECT = PLAYER_INVENTORY_SLOTS + "\n"+
